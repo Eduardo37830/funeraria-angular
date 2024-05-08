@@ -1,0 +1,42 @@
+<fieldset class="container mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
+    <legend class="text-lg font-bold">Creación de Planes</legend>
+    <div class="mt-8">
+      <form [formGroup]="fGroup">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="flex flex-col">
+            <label for="nombre" class="font-semibold">Nombre</label>
+            <input formControlName="nombre" id="nombre" type="text" class="input-field mt-1">
+            <div *ngIf="obtenerFgDatos['nombre'].errors && (obtenerFgDatos['nombre'].dirty || obtenerFgDatos['nombre'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="detalles" class="font-semibold">Detalles</label>
+            <input formControlName="detalles" id="detalles" type="text" class="input-field mt-1">
+            <div *ngIf="obtenerFgDatos['detalles'].errors && (obtenerFgDatos['detalles'].dirty || obtenerFgDatos['detalles'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="mensualidad" class="font-semibold">Mensualidad</label>
+            <input formControlName="mensualidad" id="mensualidad" type="number" class="input-field mt-1">
+            <div *ngIf="obtenerFgDatos['mensualidad'].errors && (obtenerFgDatos['mensualidad'].dirty || obtenerFgDatos['mensualidad'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="cantidadBeneficiarios" class="font-semibold">Cantidad de Beneficiarios</label>
+            <input formControlName="cantidadBeneficiarios" id="cantidadBeneficiarios" type="number" class="input-field mt-1">
+            <div *ngIf="obtenerFgDatos['cantidadBeneficiarios'].errors && (obtenerFgDatos['cantidadBeneficiarios'].dirty || obtenerFgDatos['cantidadBeneficiarios'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8">
+          <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="GuardarRegistro()">Guardar</button>
+          <a routerLink="/parametros/plan-listar" class="btn bg-red-500 text-white">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </fieldset>
+  

@@ -9,12 +9,16 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/inicio',
-        pathMatch: 'full'
+        pathMatch: 'full',
+        redirectTo: '/inicio'
     },
     {
         path: 'seguridad',
         loadChildren: () => import('./modulos/seguridad/seguridad.module').then(m => m.SeguridadModule)
+    },
+    {
+        path: 'parametros',
+        loadChildren: () => import('./modulos/parametros/parametros.module').then(m => m.ParametrosModule)
     },
     {
         path: '**',

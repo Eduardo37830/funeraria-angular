@@ -3,20 +3,82 @@ import { RouterModule, Routes } from '@angular/router';
 import { IdentificarUsuarioComponent } from './identificar-usuario/identificar-usuario.component';
 import { CambioClaveComponent } from './cambio-clave/cambio-clave.component';
 import { RecuperarClaveComponent } from './recuperar-clave/recuperar-clave.component';
+import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
+import { IdentificacionTwofaComponent } from './identificacion-twofa/identificacion-twofa.component';
+import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
+import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
+import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
+import { validarSesionActivaGuard } from '../../guardianes/validar-sesion-activa.guard';
+import { EliminarUsuarioComponent } from './usuario/eliminar-usuario/eliminar-usuario.component';
 
 const routes: Routes = [
   {
-    path: 'identificar-usuario',
-    component: IdentificarUsuarioComponent
+    path: "identificar-usuario",
+    component: IdentificarUsuarioComponent,
   },
   {
-    path: 'cambiar-clave',
-    component: CambioClaveComponent
+    path: "cambiar-clave",
+    component: CambioClaveComponent,
+    canActivate: [validarSesionActivaGuard]
+  }, {
+    path: "recuperar-clave",
+    component: RecuperarClaveComponent,
   },
   {
-    path: 'recuperar-clave',
-    component: RecuperarClaveComponent
+    path: "cerrar-sesion",
+    component: CerrarSesionComponent,
+    canActivate: [validarSesionActivaGuard]
+  },
+  {
+    path: "2fa",
+    component: IdentificacionTwofaComponent,
+  },
+  {
+    //path: "registro-publico",
+    //component: ResgistroPublicoUsuariosComponent,
+  },
+  {
+    //path: "validar-hash-usuario-publico/:hash",
+    //component: ValidarHashUsuarioPublicoComponent
+  },
+  {
+    path: "usuario-crear",
+    component: CrearUsuarioComponent,
+  },
+  {
+    path: "usuario-listar",
+    component: ListarUsuarioComponent,
+  },
+  {
+    path: "usuario-editar/:id",
+    component: EditarUsuarioComponent,
+    canActivate: [validarSesionActivaGuard]
+  },
+  {
+    path: "usuario-eliminar/:id",
+    component: EliminarUsuarioComponent,
+    canActivate: [validarSesionActivaGuard]
   }
+  /*{
+    path: "rol-crear",
+    component: CrearRolComponent,
+    canActivate: [validarSesionActivaGuard]
+  },
+  {
+    path: "rol-listar",
+    component: ListarRolComponent,
+    canActivate: [validarSesionActivaGuard]
+  },
+  {
+    path: "rol-editar/:id",
+    component: EditarRolComponent,
+    canActivate: [validarSesionActivaGuard]
+  },
+  {
+    path: "rol-eliminar/:id",
+    component: EliminarRolComponent,
+    canActivate: [validarSesionActivaGuard]
+  }*/
 ];
 
 @NgModule({
