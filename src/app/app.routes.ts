@@ -17,8 +17,20 @@ export const routes: Routes = [
         loadChildren: () => import('./modulos/seguridad/seguridad.module').then(m => m.SeguridadModule)
     },
     {
-        path: 'parametros',
+        path:'parametros',
         loadChildren: () => import('./modulos/parametros/parametros.module').then(m => m.ParametrosModule)
+    },
+    {
+        path: 'reportes',
+        loadChildren: () => import('./modulos/reportes/reportes.module').then(m => m.ReportesModule)
+    },
+    {
+        path:'planes',
+        loadChildren: () => import('./modulos/planes/planes.module').then(m => m.PlanesModule)
+    },
+    {
+        path:'servicios',
+        loadChildren: () => import('./modulos/servicios/servicios.module').then(m => m.ServiciosModule)
     },
     {
         path: '**',

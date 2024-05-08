@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-identificar-usuario',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './identificar-usuario.component.css'
 })
 export class IdentificarUsuarioComponent {
-
+  fGrup: FormGroup = new FormGroup({});
 }
