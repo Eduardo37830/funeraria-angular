@@ -4,6 +4,7 @@ import { IdentificarUsuarioComponent } from './identificar-usuario/identificar-u
 import { CambioClaveComponent } from './cambio-clave/cambio-clave.component';
 import { RecuperarClaveComponent } from './recuperar-clave/recuperar-clave.component';
 import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
+import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path:'cerrar-sesion',
     component: CerrarSesionComponent
+  },
+  {
+    path: 'registrar-usuario',
+    component: RegistroUsuarioComponent
   }
 ];
 
