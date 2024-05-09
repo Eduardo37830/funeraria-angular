@@ -45,7 +45,6 @@ export class EliminarPlanComponent {
         this.detalles = data.detalles!;
         this.mensualidad = data.mensualidad!;
         this.cantidadBeneficiarios = data.cantidadBeneficiarios!;
-        alert('Registro encontrado');
       },
       error: (error: any) => {
         alert('Registro no encontrado');

@@ -1,39 +1,44 @@
-<div class="my-4">
-  <a routerLink="/parametros/plan-agregar" class="btn">Agregar Registro</a>
+<div class="flex justify-center">
+  <div class="overflow-x-auto">
+    <div class="my-4">
+      <a routerLink="/parametros/plan-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">Agregar Plan</a>
+    </div>
+    <table class="w-full sm:max-w-screen-md border-collapse border border-gray-300 text-xs sm:text-sm">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Nombre</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Detalles</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Mensualidad</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Cantidad de Beneficiarios</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
+          <td class="px-4 py-2 border border-gray-300">{{ r.nombre }}</td>
+          <td class="px-4 py-2 border border-gray-300">{{ r.detalles }}</td>
+          <td class="px-4 py-2 border border-gray-300">{{ r.mensualidad }}</td>
+          <td class="px-4 py-2 border border-gray-300">{{ r.cantidadBeneficiarios }}</td>
+          <td class="px-4 py-2 border border-gray-300">
+            <a routerLink="/parametros/plan-editar/{{ r.id }}" class="btn btn-secondary realistic-button">Editar</a>
+            <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="btn btn-danger realistic-button">Eliminar</a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5" class="px-4 py-2 bg-gray-200 border border-gray-300">
+            <pagination-controls
+              (pageChange)="pag = $event; ListarRegistros()"
+              previousLabel="Anterior"
+              nextLabel="Siguiente"
+              screenReaderPaginationLabel="Navegación"
+              screenReaderPageLabel="Página"
+              screenReaderCurrentLabel="Página actual"
+            ></pagination-controls>
+          </td>
+        </tr>
+      </tbody>
+    </table>    
+  </div>
 </div>
-
 <table class="w-full border-collapse border border-gray-300">
-  <thead>
-    <tr>
-      <th class="px-4 py-2 bg-gray-200 border border-gray-300">Nombre</th>
-      <th class="px-4 py-2 bg-gray-200 border border-gray-300">Detalles</th>
-      <th class="px-4 py-2 bg-gray-200 border border-gray-300">Mensualidad</th>
-      <th class="px-4 py-2 bg-gray-200 border border-gray-300">Cantidad de Beneficiarios</th>
-      <th class="px-4 py-2 bg-gray-200 border border-gray-300">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let r of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
-      <td class="px-4 py-2 border border-gray-300">{{ r.nombre }}</td>
-      <td class="px-4 py-2 border border-gray-300">{{ r.detalles }}</td>
-      <td class="px-4 py-2 border border-gray-300">{{ r.mensualidad }}</td>
-      <td class="px-4 py-2 border border-gray-300">{{ r.cantidadBeneficiarios }}</td>
-      <td class="px-4 py-2 border border-gray-300">
-        <a routerLink="/parametros/plan-editar/{{ r.id }}" class="btn orange">Editar Registro</a>
-        <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="btn red">Eliminar Registro</a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5" class="px-4 py-2 bg-gray-200 border border-gray-300">
-        <pagination-controls
-          (pageChange)="pag = $event; ListarRegistros()"
-          previousLabel="Anterior"
-          nextLabel="Siguiente"
-          screenReaderPaginationLabel="Navegación"
-          screenReaderPageLabel="Página"
-          screenReaderCurrentLabel="Página actual"
-        ></pagination-controls>
-      </td>
-    </tr>
-  </tbody>
-</table>
+ 
