@@ -13,7 +13,7 @@ export const routes: Routes = [
         redirectTo: '/inicio'
     },
     {
-        path: 'seguridad',
+        path:'seguridad',
         loadChildren: () => import('./modulos/seguridad/seguridad.module').then(m => m.SeguridadModule)
     },
     {

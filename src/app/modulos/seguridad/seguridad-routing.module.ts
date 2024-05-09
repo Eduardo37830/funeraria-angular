@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IdentificarUsuarioComponent } from './identificar-usuario/identificar-usuario.component';
+import { IdentificacionUsuarioComponent } from './identificacion-usuario/identificacion-usuario.component';
 import { CambioClaveComponent } from './cambio-clave/cambio-clave.component';
+import { validarSesionActivaGuard } from '../../guardianes/validar-sesion-activa.guard';
 import { RecuperarClaveComponent } from './recuperar-clave/recuperar-clave.component';
 import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
 import { IdentificacionTwofaComponent } from './identificacion-twofa/identificacion-twofa.component';
 import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
 import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
-import { validarSesionActivaGuard } from '../../guardianes/validar-sesion-activa.guard';
 import { EliminarUsuarioComponent } from './usuario/eliminar-usuario/eliminar-usuario.component';
 
 const routes: Routes = [
   {
-    path: "identificar-usuario",
-    component: IdentificarUsuarioComponent,
+    path: "identificacion-usuario",
+    component: IdentificacionUsuarioComponent
   },
   {
     path: "cambiar-clave",
@@ -33,6 +33,7 @@ const routes: Routes = [
     path: "2fa",
     component: IdentificacionTwofaComponent,
   },
+  /*
   {
     //path: "registro-publico",
     //component: ResgistroPublicoUsuariosComponent,

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ConfiguracionPaginacion } from '../../../../config/configuracion.paginacion';
 import { ConfiguracionRutasBackend } from '../../../../config/configuracion.rutas.backend';

@@ -4,7 +4,7 @@ import { EncabezadoComponent } from "./publico/pagina-maestra/encabezado/encabez
 import { PiePaginaComponent } from "./publico/pagina-maestra/pie-pagina/pie-pagina.component";
 import { initFlowbite } from 'flowbite';
 import { HttpClientModule } from '@angular/common/http';
-import { SeguridadModule } from './modulos/seguridad/seguridad.module';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuLateralComponent } from './publico/pagina-maestra/menu-lateral/menu-lateral.component';
 
@@ -15,13 +15,12 @@ import { MenuLateralComponent } from './publico/pagina-maestra/menu-lateral/menu
     styleUrl: './app.component.css',
     imports: [
       RouterOutlet,
-      PiePaginaComponent, 
-      HttpClientModule,
-      SeguridadModule,
-      ReactiveFormsModule,
-      EncabezadoComponent,
-      MenuLateralComponent
-  ],
+    PiePaginaComponent, 
+    HttpClientModule,
+    ReactiveFormsModule,
+    EncabezadoComponent,
+    MenuLateralComponent,
+  ]
 })
 export class AppComponent implements OnInit {
   title = 'web-app';
