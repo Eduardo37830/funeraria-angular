@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ConfiguracionRutasBackend } from '../config/configuracion.rutas.backend';
 import { UsuarioModel } from '../modelos/usuario.model';
+import { UsuarioValidadoModel } from '../modelos/usuario.validado.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SeguridadService {
   urlSeguridad = ConfiguracionRutasBackend.urlSeguridad;
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient ) {
+    this.validacionSesion();
+  }
 
   /**
    * Identificar usuario
@@ -57,9 +60,46 @@ export class SeguridadService {
    * @param codigo 
    * @returns 
    */
-    ValidarCodigo2FA(idUsuario: string, codigo: string): Observable<object> {
-      return this.http.post<object>(`${this.urlSeguridad}verificar-2fa`, {
+    ValidarCodigo2FA(idUsuario: string, codigo: string): Observable<UsuarioValidadoModel> {
+      return this.http.post<UsuarioValidadoModel>(`${this.urlSeguridad}verificar-2fa`, {
         usuarioId: idUsuario, 
         codigo2fa: codigo });
+    }
+
+    /**
+     * Almacenar datos del usuario validado
+     * @param datos 
+     */
+    AlmacenarDatosUsuarioValidado(datos: UsuarioValidadoModel): boolean {
+      let datosLS = localStorage.getItem('datos-sesion');
+      if (datosLS) {
+        return false;
+      } else {
+        let cadena = JSON.stringify(datos);
+        localStorage.setItem('datos-usuario-validado', cadena);
+        return true;
+      }
+    }
+
+    datosUsuarioValidado = new BehaviorSubject<UsuarioValidadoModel>(new UsuarioValidadoModel());
+
+    /**
+     * Administración de la sesión de usuario
+     * @returns 
+     */
+    ObtenerDatosSesion(): Observable<UsuarioValidadoModel> {
+      return this.datosUsuarioValidado.asObservable();
+    }
+
+    validacionSesion() {
+      let ls = localStorage.getItem('datos-sesion');
+      if (ls) {
+        let objUsuario = JSON.parse(ls);
+        this.ActualizarComportamientoUsuario(objUsuario);
+      }
+    }
+
+    ActualizarComportamientoUsuario(datos: UsuarioValidadoModel) {
+      return this.datosUsuarioValidado.next(datos);
     }
 }

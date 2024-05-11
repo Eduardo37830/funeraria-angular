@@ -6,7 +6,6 @@ import { initFlowbite } from 'flowbite';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgModel, ReactiveFormsModule } from '@angular/forms';
-import { MenuLateralComponent } from './publico/pagina-maestra/menu-lateral/menu-lateral.component';
 
 @Component({
     selector: 'app-root',
@@ -19,7 +18,6 @@ import { MenuLateralComponent } from './publico/pagina-maestra/menu-lateral/menu
     HttpClientModule,
     ReactiveFormsModule,
     EncabezadoComponent,
-    MenuLateralComponent,
   ]
 })
 export class AppComponent implements OnInit {

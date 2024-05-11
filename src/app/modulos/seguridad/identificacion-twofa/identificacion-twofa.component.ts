@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { SeguridadService } from '../../../servicios/seguridad.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { UsuarioValidadoModel } from '../../../modelos/usuario.validado.model';
 
 @Component({
   selector: 'app-identificacion-twofa',
@@ -10,6 +12,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './identificacion-twofa.component.html',
   styleUrl: './identificacion-twofa.component.css'
@@ -21,7 +24,9 @@ export class IdentificacionTwofaComponent {
 
   constructor(
     private servicioSeguridad: SeguridadService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
+
   ) { }
 
   ngOnInit() {
@@ -29,6 +34,8 @@ export class IdentificacionTwofaComponent {
     if (datos != null) {
       this.usuarioId = datos._id!;
       this.ConstruirFormulario();
+    } else {
+      this.router.navigate(['/seguridad/identificacion-usuario']);
     }
   }
 
@@ -44,8 +51,10 @@ export class IdentificacionTwofaComponent {
     } else {
     let codigo2fa = this.obtenerFormGroup['codigo'].value;
     this.servicioSeguridad.ValidarCodigo2FA(this.usuarioId, codigo2fa).subscribe({
-      next: (data:object) => {
+      next: (data:UsuarioValidadoModel) => {
         console.log(data);
+        this.servicioSeguridad.AlmacenarDatosUsuarioValidado(data);
+        this.router.navigate([""]);
       },
       error: (error) => {
         console.log(error);
