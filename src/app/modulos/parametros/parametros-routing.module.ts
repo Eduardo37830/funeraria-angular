@@ -8,6 +8,11 @@ import { ListarClienteComponent } from './cliente/listar-cliente/listar-cliente.
 import { CrearClienteComponent } from './cliente/crear-cliente/crear-cliente.component';
 import { EliminarClienteComponent } from './cliente/eliminar-cliente/eliminar-cliente.component';
 import { EditarClienteComponent } from './cliente/editar-cliente/editar-cliente.component';
+import { ListarSedeComponent } from './sede/listar-sede/listar-sede.component';
+import { ListarSalaComponent } from './sala/listar-sala/listar-sala.component';
+import { CrearSalaComponent } from './sala/crear-sala/crear-sala.component';
+import { EliminarSalaComponent } from './sala/eliminar-sala/eliminar-sala.component';
+import { EditarSalaComponent } from './sala/editar-sala/editar-sala.component';
 
 const routes: Routes = [
   {
@@ -41,6 +46,30 @@ const routes: Routes = [
   {
     path: "cliente-editar/:id",
     component: EditarClienteComponent
+  },
+  {
+    path: "sede-listar",
+    component: ListarSedeComponent
+  },
+  {
+    path: "sedes/:id/salas",
+    component: ListarSalaComponent,
+  },
+  {
+    path: "sedes/:id/sala-agregar",
+    component: CrearSalaComponent
+  },
+  {
+    path: "sala-agregar",
+    component: CrearSalaComponent
+  },
+  {
+    path: "sala-eliminar/:id",
+    component: EliminarSalaComponent
+  },
+  {
+    path: "sala-editar/:id",
+    component: EditarSalaComponent
   }
 ];
 

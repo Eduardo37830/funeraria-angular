@@ -15,7 +15,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ]
 })
 export class ParametrosModule { }
