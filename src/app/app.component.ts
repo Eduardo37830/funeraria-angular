@@ -5,7 +5,7 @@ import { PiePaginaComponent } from "./publico/pagina-maestra/pie-pagina/pie-pagi
 import { initFlowbite } from 'flowbite';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModel, ReactiveFormsModule } from '@angular/forms';
 import { MenuLateralComponent } from './publico/pagina-maestra/menu-lateral/menu-lateral.component';
 
 @Component({

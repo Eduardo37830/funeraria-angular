@@ -20,8 +20,12 @@
           <td class="px-4 py-2 border border-gray-300">{{ r.mensualidad }}</td>
           <td class="px-4 py-2 border border-gray-300">{{ r.cantidadBeneficiarios }}</td>
           <td class="px-4 py-2 border border-gray-300">
-            <a routerLink="/parametros/plan-editar/{{ r.id }}" class="btn btn-secondary realistic-button">Editar</a>
-            <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="btn btn-danger realistic-button">Eliminar</a>
+            <a routerLink="/parametros/plan-editar/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition duration-300 ease-in-out">
+              Editar
+            </a>
+            <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition duration-300 ease-in-out">
+              Eliminar
+            </a>
           </td>
         </tr>
         <tr>

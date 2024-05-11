@@ -1,0 +1,59 @@
+<fieldset class="container mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
+    <legend class="text-lg font-bold">Datos de la Sala</legend>
+    <div class="mt-8">
+      <form [formGroup]="fGroup">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="flex flex-col">
+            <label for="nombre" class="font-semibold">Nombre</label>
+            <input formControlName="nombre" id="nombre" type="text" class="input-field mt-1">
+            <div *ngIf="obtenerFgDatos['nombre'].errors && (obtenerFgDatos['nombre'].dirty || obtenerFgDatos['nombre'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="tipo" class="font-semibold">Tipo</label>
+            <input formControlName="tipo" id="tipo" type="text" class="input-field mt-1">
+            <div *ngIf="obtenerFgDatos['tipo'].errors && (obtenerFgDatos['tipo'].dirty || obtenerFgDatos['tipo'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="capacidad" class="font-semibold">Capacidad</label>
+            <input formControlName="capacidad" id="capacidad" type="number" class="input-field mt-1">
+            <div *ngIf="obtenerFgDatos['capacidad'].errors && (obtenerFgDatos['capacidad'].dirty || obtenerFgDatos['capacidad'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="horaEntradaCuerpo" class="font-semibold">Hora Entrada</label>
+            <input formControlName="horaEntradaCuerpo" id="horaEntradaCuerpo" type="datetime-local" class="input-field mt-1" step="1800">
+            <div *ngIf="obtenerFgDatos['horaEntradaCuerpo'].errors && (obtenerFgDatos['horaEntradaCuerpo'].dirty || obtenerFgDatos['horaEntradaCuerpo'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>          
+          <div class="flex flex-col">
+            <label for="horaSalidaCuerpo" class="font-semibold">Hora Salida</label>
+            <input formControlName="horaSalidaCuerpo" id="horaSalidaCuerpo" type="datetime-local" class="input-field mt-1">
+            <div *ngIf="obtenerFgDatos['horaSalidaCuerpo'].errors && (obtenerFgDatos['horaSalidaCuerpo'].dirty || obtenerFgDatos['horaSalidaCuerpo'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <!-- Agregar campo oculto SedeID -->
+          <input formControlName="sedeId" id="sedeId" type="hidden">
+          <div class="flex flex-col">
+            <label class="font-semibold">Disponible</label>
+            <label for="disponible" class="font-semibold">Disponible</label>
+            <input formControlName="disponible" id="disponible" type="checkbox" class="input-field mt-1" title="Disponible">
+            <div *ngIf="obtenerFgDatos['disponible'].errors && (obtenerFgDatos['disponible'].dirty || obtenerFgDatos['disponible'].touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8">
+          <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="GuardarRegistro()">Guardar</button>
+          <a routerLink="/parametros/sala-listar" class="btn bg-red-500 text-white">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </fieldset>
+  
