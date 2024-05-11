@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { SeguridadService } from '../../../servicios/seguridad.service';
+import { ClienteModel } from '../../../modelos/cliente.model';
+import {MD5} from 'crypto-js';
 
 @Component({
   selector: 'app-identificacion-usuario',
@@ -18,7 +21,9 @@ import { RouterModule } from '@angular/router';
 export class IdentificacionUsuarioComponent {
   fGroup: FormGroup = new FormGroup({});
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private servicioSeguridad: SeguridadService,
+    private router: Router
   ) { 
     
   }
@@ -39,7 +44,19 @@ export class IdentificacionUsuarioComponent {
       alert('Debe ingresar los campos requeridos');
       return;
     } else {
-      alert('Ingresando al sistema');
+      let usuario = this.obtenerFormGroup['usuario'].value;
+      let clave = this.obtenerFormGroup['clave'].value;
+      let claveCifrada = MD5(clave).toString();
+      this.servicioSeguridad.IndentificarUsuario(usuario, claveCifrada).subscribe({
+        next: (data: ClienteModel) => {
+          console.log(data);
+          this.router.navigate(['/seguridad/2fa']);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+        
     }
   }
 
