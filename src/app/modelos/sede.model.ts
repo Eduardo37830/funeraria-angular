@@ -4,5 +4,5 @@ export class SedeModel {
     id?: number;
     nombre?: string;
     direccion?: string;
-    salas?: SalaModel[];
+    ciudadId?: number;
 }

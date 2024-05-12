@@ -5,6 +5,6 @@ export class SalaModel {
     capacidad?: number;
     horaEntradaCuerpo?: Date;
     horaSalidaCuerpo?: Date;
-    disponibilidad?: boolean;
+    disponible?: boolean;
     sedeId?: number;
 }

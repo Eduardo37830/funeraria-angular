@@ -22,6 +22,8 @@ import { CrearCiudadComponent } from './ciudad/crear-ciudad/crear-ciudad.compone
 import { EditarCiudadComponent } from './ciudad/editar-ciudad/editar-ciudad.component';
 import { EliminarCiudadComponent } from './ciudad/eliminar-ciudad/eliminar-ciudad.component';
 import { CrearSedeComponent } from './sede/crear-sede/crear-sede.component';
+import { EditarSedeComponent } from './sede/editar-sede/editar-sede.component';
+import { EliminarSedeComponent } from './sede/eliminar-sede/eliminar-sede.component';
 
 const routes: Routes = [
   {
@@ -81,15 +83,15 @@ const routes: Routes = [
     component: CrearCiudadComponent,
   },
   {
-    path: "ciudad-listar",
+    path: "departamentos/:id/ciudad-listar",
     component: ListarCiudadComponent
   },
   {
-    path: "ciudad-eliminar/:id",
+    path: "departamentos/:ids/ciudad-eliminar/:id",
     component: EliminarCiudadComponent
   },
   {
-    path: "ciudad-editar/:id",
+    path: "departamentos/:ids/ciudad-editar/:id",
     component: EditarCiudadComponent
   },
   {
@@ -101,8 +103,12 @@ const routes: Routes = [
     component: CrearSedeComponent,
   },
   {
-    path: "sede-listar",
-    component: ListarSedeComponent
+    path: "ciudads/:ids/sede-eliminar/:id",
+    component: EliminarSedeComponent,
+  },
+  {
+    path: "ciudads/:ids/sede-editar/:id",
+    component: EditarSedeComponent,
   },
   {
     path: "sedes/:id/salas",
@@ -113,11 +119,11 @@ const routes: Routes = [
     component: CrearSalaComponent
   },
   {
-    path: "sala-eliminar/:id",
+    path: "sedes/:ids/sala-eliminar/:id",
     component: EliminarSalaComponent
   },
   {
-    path: "sala-editar/:id",
+    path: "sedes/:ids/sala-editar/:id",
     component: EditarSalaComponent
   }
 ];

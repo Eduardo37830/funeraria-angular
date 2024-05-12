@@ -1,5 +1,5 @@
 <fieldset class="container mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
-    <legend class="text-lg font-bold">Datos de la Sala</legend>
+    <legend class="text-lg font-bold">Datos de la Ciudad</legend>
     <div class="mt-8">
       <form [formGroup]="fGroup">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -10,13 +10,12 @@
               <strong>Este campo es obligatorio</strong>
             </div>
           </div>
-          <!-- Agregar campo oculto DepartamentoID -->
-          <input formControlName="departamentoId" id="sedeId" type="hidden">
+          <input formControlName="departamentoId" id="departamentoId" type="hidden">
           
         </div>
         <div class="mt-8">
           <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="GuardarRegistro()">Guardar</button>
-          <a routerLink="/parametros/sala-listar" class="btn bg-red-500 text-white">Cancelar</a>
+          <a routerLink="/parametros/departamentos/{{ departamentoId }}/ciudads" class="btn bg-red-500 text-white">Cancelar</a>
         </div>
       </form>
     </div>

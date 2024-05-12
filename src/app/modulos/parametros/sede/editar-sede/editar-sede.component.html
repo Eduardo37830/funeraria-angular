@@ -1,1 +1,27 @@
-<p>editar-sede works!</p>
+<fieldset class="container mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
+    <legend class="text-lg font-bold">Edición de Sede</legend>
+    <div class="mt-8">
+        <form [formGroup]="fGroup">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <label for="nombre" class="font-semibold">Nombre</label>
+                    <input formControlName="nombre" id="nombre" type="text" class="input-field mt-1">
+                    <div *ngIf="fGroup.controls['nombre'].errors && (fGroup.controls['nombre'].dirty || fGroup.controls['nombre'].touched)" class="text-red-500 mt-1">
+                        <strong>Este campo es obligatorio</strong>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="direccion" class="font-semibold">Dreccion</label>
+                    <input formControlName="direccion" id="direccion" type="text" class="input-field mt-1">
+                    <div *ngIf="fGroup.controls['direccion'].errors && (fGroup.controls['direccion'].dirty || fGroup.controls['direccion'].touched)" class="text-red-500 mt-1">
+                        <strong>Este campo es obligatorio</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8">
+                <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="EditarRegistro()">Editar</button>
+                <a routerLink="/parametros/ciudads/{{ ciudadId }}/sede" class="btn bg-red-500 text-white">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</fieldset>

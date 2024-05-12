@@ -26,14 +26,14 @@
           </div>
           <div class="flex flex-col">
             <label for="horaEntradaCuerpo" class="font-semibold">Hora Entrada</label>
-            <input formControlName="horaEntradaCuerpo" id="horaEntradaCuerpo" type="datetime" class="input-field mt-1" step="1800">
+            <input formControlName="horaEntradaCuerpo" id="horaEntradaCuerpo" type="datetime-local" class="input-field mt-1" step="1800">
             <div *ngIf="obtenerFgDatos['horaEntradaCuerpo'].errors && (obtenerFgDatos['horaEntradaCuerpo'].dirty || obtenerFgDatos['horaEntradaCuerpo'].touched)" class="text-red-500 mt-1">
               <strong>Este campo es obligatorio</strong>
             </div>
           </div>          
           <div class="flex flex-col">
             <label for="horaSalidaCuerpo" class="font-semibold">Hora Salida</label>
-            <input formControlName="horaSalidaCuerpo" id="horaSalidaCuerpo" type="datetime" class="input-field mt-1">
+            <input formControlName="horaSalidaCuerpo" id="horaSalidaCuerpo" type="datetime-local" class="input-field mt-1">
             <div *ngIf="obtenerFgDatos['horaSalidaCuerpo'].errors && (obtenerFgDatos['horaSalidaCuerpo'].dirty || obtenerFgDatos['horaSalidaCuerpo'].touched)" class="text-red-500 mt-1">
               <strong>Este campo es obligatorio</strong>
             </div>
@@ -52,7 +52,7 @@
         </div>
         <div class="mt-8">
           <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="GuardarRegistro()">Guardar</button>
-          <a routerLink="/parametros/sala-listar" class="btn bg-red-500 text-white">Cancelar</a>
+          <a routerLink="/parametros/sedes/{{ sedeId }}/salas" class="btn bg-red-500 text-white">Cancelar</a>
         </div>
       </form>
     </div>

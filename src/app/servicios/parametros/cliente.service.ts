@@ -5,6 +5,7 @@ import { ClienteModel } from '../../modelos/cliente.model';
 import { Observable } from 'rxjs';
 import { ConfiguracionPaginacion } from '../../config/configuracion.paginacion';
 import { PaginadorClienteModel } from '../../modelos/paginador.cliente.model';
+import { ArchivoModel } from '../../modelos/archivo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,9 @@ export class ClienteService {
 
   EliminarRegistro(id: number): Observable<any> {
     return this.http.delete<any>(`${this.urlBase}cliente/${id}`);
+  }
+
+  CargarArchivo(formData: FormData): Observable<ArchivoModel> {
+    return this.http.post<ArchivoModel>(`${this.urlBase}cargar-archivo-cliente`, formData);
   }
 }

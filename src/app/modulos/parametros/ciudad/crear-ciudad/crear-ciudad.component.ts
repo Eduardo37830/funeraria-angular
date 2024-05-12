@@ -19,7 +19,7 @@ import { CiudadModel } from '../../../../modelos/ciudad.model';
   styleUrl: './crear-ciudad.component.css'
 })
 export class CrearCiudadComponent {
-  DepartamentoId: number | null = null;
+  departamentoId: number | null = null;
   fGroup: FormGroup = new FormGroup({});
 
   constructor(
@@ -30,14 +30,14 @@ export class CrearCiudadComponent {
   ) {}
 
   ngOnInit(): void {
-    this.DepartamentoId = Number(this.route.snapshot.paramMap.get('id'));
+    this.departamentoId = Number(this.route.snapshot.paramMap.get('id'));
     this.ConstruirFormularioDatos();
   }
 
   ConstruirFormularioDatos(): void {
     this.fGroup = this.fb.group({
       nombre: ['', [Validators.required]],
-      departamentoId: [this.DepartamentoId, [Validators.required]]
+      departamentoId: [this.departamentoId, [Validators.required]]
     });
   }
 
@@ -49,7 +49,7 @@ export class CrearCiudadComponent {
       this.servicio.AgregarRegistro(modelo).subscribe({
         next: (data: CiudadModel) => {
           alert('Registro guardado correctamente');
-          this.router.navigate(['/parametros/departamentos', this.DepartamentoId, 'ciudads']);
+          this.router.navigate(['/parametros/departamentos', this.departamentoId, 'ciudads']);
         },
         error: (error: any) => {
           alert('Error al guardar el registro');
