@@ -23,7 +23,7 @@ export class SedeService {
    * @returns lista de registros
    */
   listarRegistros(): Observable<SedeModel[]> {
-    return this.http.get<SedeModel[]>(`${this.urlBase}sedes/1/salas?filter={"limit":${ConfiguracionPaginacion.registroPorPagina}}`);
+    return this.http.get<SedeModel[]>(`${this.urlBase}sede?filter={"limit":${ConfiguracionPaginacion.registroPorPagina}}`);
   }
 
   /**

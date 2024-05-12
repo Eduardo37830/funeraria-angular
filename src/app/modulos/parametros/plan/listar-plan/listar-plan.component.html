@@ -9,24 +9,26 @@
           <th class="px-4 py-2 bg-gray-200 border border-gray-300">Nombre</th>
           <th class="px-4 py-2 bg-gray-200 border border-gray-300">Detalles</th>
           <th class="px-4 py-2 bg-gray-200 border border-gray-300">Mensualidad</th>
-          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Cantidad de Beneficiarios</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Numero Beneficiarios</th>
           <th class="px-4 py-2 bg-gray-200 border border-gray-300"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let r of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
-          <td class="px-4 py-2 border border-gray-300">{{ r.nombre }}</td>
-          <td class="px-4 py-2 border border-gray-300">{{ r.detalles }}</td>
-          <td class="px-4 py-2 border border-gray-300">{{ r.mensualidad }}</td>
-          <td class="px-4 py-2 border border-gray-300">{{ r.cantidadBeneficiarios }}</td>
+          <td class="px-4 py-2 border border-gray-300 text-center">{{ r.nombre }}</td>
+          <td class="px-4 py-2 border border-gray-300 text-center">{{ r.detalles }}</td>
+          <td class="px-4 py-2 border border-gray-300 text-center">{{ r.mensualidad }}</td>
+          <td class="px-4 py-2 border border-gray-300 text-center">{{ r.cantidadBeneficiarios }}</td>
           <td class="px-4 py-2 border border-gray-300">
-            <a routerLink="/parametros/plan-editar/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition duration-300 ease-in-out">
-              Editar
-            </a>
-            <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition duration-300 ease-in-out">
-              Eliminar
-            </a>
-          </td>
+            <div class="flex">
+              <a routerLink="/parametros/plan-editar/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full mr-2">
+                Editar
+              </a>
+              <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-full">
+                Eliminar
+              </a>
+            </div>
+          </td>          
         </tr>
         <tr>
           <td colspan="5" class="px-4 py-2 bg-gray-200 border border-gray-300">
@@ -44,5 +46,4 @@
     </table>    
   </div>
 </div>
-<table class="w-full border-collapse border border-gray-300">
  

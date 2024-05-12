@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SedeModel } from '../../../../modelos/sede.model';
 import { ConfiguracionPaginacion } from '../../../../config/configuracion.paginacion';
@@ -24,39 +24,54 @@ import { SalaModel } from '../../../../modelos/sala.model';
   styleUrl: './listar-sede.component.css'
 })
 export class ListarSedeComponent {
+  ciudadId: number | null = null;
   sedes: SedeModel[] = [];
   salas: SalaModel[] = [];
   sedeSeleccionada: number | null = null;
+  listaRegistros: SedeModel[] = [];
+  pag = 1;
+  total = 0;
+  registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;      
   BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private servicioSedes: SedeService,
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
-    this.listarSedes();
+    this.ListarRegistros();
+    this.ciudadId = Number(this.route.snapshot.paramMap.get('id'));
+    this.obtenerSedesPorCiudad();
   }
 
-  listarSedes(): void {
-    // Llama a tu endpoint para obtener la lista de sedes desde tu API
-    this.http.get<SedeModel[]>('http://localhost:3001/sede')
-      .subscribe(
-        sedes => {
-          this.sedes = sedes;
-        },
-        error => {
-          console.error('Error al obtener las sedes:', error);
-        }
-      );
+  /**
+   * Listar registros
+   */
+  ListarRegistros() {
+    this.servicioSedes.listarRegistrosPaginados(this.pag).subscribe({
+      next: (datos) => {
+          this.listaRegistros = datos.registros;
+          this.total = datos.totalRegistros;
+      },
+      error: (error) => {
+        alert('Error leyendo la información de la base de datos');
+      }
+    });
   }
 
-  getSalasPorSede(sedeId: number): void {
-    this.http.get<SalaModel[]>(`${this.BASE_URL}/sedes/${sedeId}/salas`)
-      .subscribe(
-        salas => {
-          this.salas = salas;
-        },
-        error => {
-          console.error('Error al obtener las salas:', error);
-        }
-      );
+  obtenerSedesPorCiudad(): void {
+    if (this.ciudadId !== null) {
+      this.http.get<SedeModel[]>(`${this.BASE_URL}ciudads/${this.ciudadId}/sedes`)
+        .subscribe(
+          (sedes) => {
+            this.sedes = sedes;
+          },
+          (error) => {
+            console.error('Error al obtener las Sedes:', error);
+          }
+        );
+    }
   }
 }

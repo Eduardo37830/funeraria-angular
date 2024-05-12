@@ -2,11 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { ConfiguracionRutasBackend } from '../../../../config/configuracion.rutas.backend';
-import { ConfiguracionPaginacion } from '../../../../config/configuracion.paginacion';
 import { SalaModel } from '../../../../modelos/sala.model';
 import { SalaService } from '../../../../servicios/parametros/sala.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-crear-sala',
@@ -21,6 +18,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './crear-sala.component.css'
 })
 export class CrearSalaComponent {
+  
   sedeId: number | null = null;
   fGroup: FormGroup = new FormGroup({});
 
@@ -43,8 +41,8 @@ export class CrearSalaComponent {
       capacidad: ['', [Validators.required]],
       horaEntradaCuerpo: ['', [Validators.required]],
       horaSalidaCuerpo: ['', [Validators.required]],
-      disponible: [true, [Validators.required]],
-      sedeId: [this.sedeId, [Validators.required]]
+      disponible: ['', [Validators.required]],
+      sedeId: [this.sedeId, [Validators.required]],
     });
   }
 
@@ -53,8 +51,10 @@ export class CrearSalaComponent {
       alert('Debe diligenciar todo el formulario');
     } else {
       let modelo = this.obtenerRegistro();
+      console.log(modelo);
       this.servicio.AgregarRegistro(modelo).subscribe({
         next: (data: SalaModel) => {
+          console.log(data);
           alert('Registro guardado correctamente');
           this.router.navigate(['/parametros/sedes', this.sedeId, 'salas']);
         },
@@ -72,7 +72,7 @@ export class CrearSalaComponent {
     model.capacidad = this.obtenerFgDatos['capacidad'].value;
     model.horaEntradaCuerpo = this.obtenerFgDatos['horaEntradaCuerpo'].value;
     model.horaSalidaCuerpo = this.obtenerFgDatos['horaSalidaCuerpo'].value;
-    model.disponibilidad = true;
+    model.disponibilidad = this.obtenerFgDatos['disponible'].value;
     model.sedeId = this.sedeId!;
     return model;
   }

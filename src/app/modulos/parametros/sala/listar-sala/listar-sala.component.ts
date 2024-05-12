@@ -7,7 +7,6 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { SedeModel } from '../../../../modelos/sede.model';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
