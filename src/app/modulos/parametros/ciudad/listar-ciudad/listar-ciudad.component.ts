@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SedeModel } from '../../../../modelos/sede.model';
 import { HttpClient } from '@angular/common/http';
-import { debounceTime, distinctUntilChanged, Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-listar-ciudad',

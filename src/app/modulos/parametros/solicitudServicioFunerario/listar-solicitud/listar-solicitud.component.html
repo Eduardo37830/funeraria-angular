@@ -1,0 +1,36 @@
+
+
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Chart.js Cliente con mas solicitudes de servicioFunerario en un rango de fechas </title>
+      <script src="path/to/chartjs/dist/chart.umd.js"></script>
+  </head>
+  <body>
+      <div *ngIf="clienteConMasSolicitudes" class="container mx-auto mt-8">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <h2 class="text-lg font-bold mb-4">Cliente con más solicitudes</h2>
+          <div class="flex flex-col">
+            <div class="mb-4">
+              <span class="font-semibold">Cliente ID:</span>
+              <span>{{ clienteConMasSolicitudes.cliente_id }}</span>
+            </div>
+            <div class="mb-4">
+              <span class="font-semibold">Nombre:</span>
+              <span>{{ clienteConMasSolicitudes.nombre_cliente }}</span>
+            </div>
+            <div>
+              <span class="font-semibold">Cantidad de servicios:</span>
+              <span>{{ clienteConMasSolicitudes.cantidad_servicios }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="container custom-container">
+        <canvas id="canvas"></canvas>
+      </div>
+  </body>
+  </html>
+  

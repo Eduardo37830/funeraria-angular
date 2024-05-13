@@ -18,7 +18,7 @@ import { NgModel, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     EncabezadoComponent,
-  ]
+  ],
 })
 export class AppComponent implements OnInit {
   title = 'web-app';

@@ -33,7 +33,7 @@ export class ClienteService {
   listarRegistrosPaginados(pag: number): Observable<PaginadorClienteModel> {
     let limit = ConfiguracionPaginacion.registroPorPagina;
     let skip = (pag - 1) * limit;
-    return this.http.get<PaginadorClienteModel>(`${this.urlBase}cliente-paginado?filter={"limit": ${limit}, "skip": ${skip}, "order": "id DESC"}`);
+    return this.http.get<PaginadorClienteModel>(`${this.urlBase}cliente-paginado?filter={"limit": ${limit}, "skip": ${skip}, "order": "id ASC"}`);
   }  
 
   AgregarRegistro(registro: ClienteModel): Observable<ClienteModel> {

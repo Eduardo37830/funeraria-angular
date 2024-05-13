@@ -32,7 +32,7 @@ export class DepartamentoService {
   listarRegistrosPaginados(pag: number): Observable<PaginadorDepartamentoModel> {
     let limit = ConfiguracionPaginacion.registroPorPagina;
     let skip = (pag - 1) * limit;
-    return this.http.get<PaginadorDepartamentoModel>(`${this.urlBase}departamento-paginado?filter={"limit": ${limit}, "skip": ${skip}, "order": "id DESC"}`);
+    return this.http.get<PaginadorDepartamentoModel>(`${this.urlBase}departamento-paginado?filter={"limit": ${limit}, "skip": ${skip}, "order": "id ASC"}`);
   }  
 
   AgregarRegistro(registro: DepartamentoModel): Observable<DepartamentoModel> {

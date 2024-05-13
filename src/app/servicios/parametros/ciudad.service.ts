@@ -32,7 +32,7 @@ export class CiudadService {
   listarRegistrosPaginados(pag: number): Observable<PaginadorCiudadModel> {
     let limit = ConfiguracionPaginacion.registroPorPagina;
     let skip = (pag - 1) * limit;
-    return this.http.get<PaginadorCiudadModel>(`${this.urlBase}ciudad-paginado?filter={"limit": ${limit}, "skip": ${skip}, "order": "id DESC"}`);
+    return this.http.get<PaginadorCiudadModel>(`${this.urlBase}ciudad-paginado?filter={"limit": ${limit}, "skip": ${skip}, "order": "id ASC"}`);
   }  
 
   AgregarRegistro(registro: CiudadModel): Observable<CiudadModel> {
