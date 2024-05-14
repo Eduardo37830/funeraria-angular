@@ -5,8 +5,8 @@ import { PiePaginaComponent } from "./publico/pagina-maestra/pie-pagina/pie-pagi
 import { initFlowbite } from 'flowbite';
 import { HttpClientModule } from '@angular/common/http';
 
-import { NgModel, ReactiveFormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { NativeDateModule } from '@angular/material/core';
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -14,11 +14,12 @@ import { NgModel, ReactiveFormsModule } from '@angular/forms';
     styleUrl: './app.component.css',
     imports: [
       RouterOutlet,
-    PiePaginaComponent, 
-    HttpClientModule,
-    ReactiveFormsModule,
-    EncabezadoComponent,
-  ],
+      PiePaginaComponent, 
+      HttpClientModule,
+      ReactiveFormsModule,
+      EncabezadoComponent,
+      NativeDateModule
+    ],
 })
 export class AppComponent implements OnInit {
   title = 'web-app';

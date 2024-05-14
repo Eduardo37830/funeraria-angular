@@ -25,6 +25,7 @@ import { CrearSedeComponent } from './sede/crear-sede/crear-sede.component';
 import { EditarSedeComponent } from './sede/editar-sede/editar-sede.component';
 import { EliminarSedeComponent } from './sede/eliminar-sede/eliminar-sede.component';
 import { ListarSolicitudComponent } from './solicitudServicioFunerario/listar-solicitud/listar-solicitud.component';
+import { InicioComponent } from './admin/inicio/inicio.component';
 
 const routes: Routes = [
   {
@@ -131,6 +132,10 @@ const routes: Routes = [
     path: "solicitud-listar",
     component: ListarSolicitudComponent
   
+  },
+  {
+    path: "admin-inicio",
+    component: InicioComponent
   }
 ];
 

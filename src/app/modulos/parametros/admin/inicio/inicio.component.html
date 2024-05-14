@@ -1,0 +1,58 @@
+<body class="bg-gray-100">
+    <div class="container mx-auto">
+      <header class="bg-gray-800 text-white py-4">
+        <h1 class="text-3xl font-bold text-center">Panel de Administrador - Funeraria Digital</h1>
+        <nav class="mt-4 flex justify-center">
+          <ul class="flex">
+            <li><a href="/parametros/solicitud-listar" class="nav-link">Estadísticas</a></li>
+            <li><a href="/parametros/plan-listar" class="nav-link">Gestión de Planes</a></li>
+            <li><a href="#servicios" class="nav-link">Gestión de Servicios</a></li>
+            <li><a href="/parametros/cliente-listar" class="nav-link">Gestión de Clientes</a></li>
+            <li><a href="#calendario" class="nav-link">Calendario de Servicios</a></li>
+            <li><a href="#empleados" class="nav-link">Gestión de Empleados</a></li>
+            <li><a href="#facturacion" class="nav-link">Facturación</a></li>
+            <li><a href="#configuracion" class="nav-link">Configuración</a></li>
+            <li><a href="#ayuda" class="nav-link">Ayuda</a></li>
+          </ul>
+        </nav>
+      </header>
+  
+      <main class="p-4">
+        <!-- Sección de Estadísticas -->
+        <section id="estadisticas" class="mb-8">
+          <h2 class="text-2xl font-bold">Estadísticas</h2>
+          <!-- Gráficos y paneles de estadísticas -->
+            <div id="graficos-estadisticas" class="mt-4 p-4 bg-white rounded shadow">
+                <!-- Gráficos dinámicos de estadísticas -->
+                <div class="container">
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+        </section>
+  
+        <!-- Sección de Gestión de Servicios -->
+        <section id="servicios" class="mb-8">
+          <h2 class="text-2xl font-bold">Gestión de Servicios</h2>
+          <!-- Formulario para agregar/editar servicios -->
+          <!-- Lista de servicios existentes con opciones de edición -->
+        </section>
+  
+        <!-- Otras secciones similares para Gestión de Clientes, Calendario, Empleados, Facturación, Configuración, Ayuda, etc. -->
+  
+      </main>
+      <div id="graficos-estadisticas" class="mt-4 p-4 bg-white rounded shadow">
+        <!-- Gráficos dinámicos de estadísticas -->
+        <div class="container">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+  
+      <footer class="bg-gray-800 text-white py-4 text-center">
+        <p>&copy; 2024 Funeraria Digital. Todos los derechos reservados.</p>
+      </footer>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@^3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@^2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@^1"></script>
+    </div>
+  </body>
+  
