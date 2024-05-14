@@ -10,7 +10,10 @@ import { UsuarioValidadoModel } from '../modelos/usuario.validado.model';
 })
 export class SeguridadService {
   urlSeguridad = ConfiguracionRutasBackend.urlSeguridad;
-  constructor(private http: HttpClient ) {
+
+  private datosUsuarioValidado = new BehaviorSubject<UsuarioValidadoModel | null>(null);
+
+  constructor(private http: HttpClient) {
     this.validacionSesion();
   }
 
@@ -23,7 +26,8 @@ export class SeguridadService {
   IndentificarUsuario(usuario: string, clave: string): Observable<UsuarioModel> {
     return this.http.post<UsuarioModel>(`${this.urlSeguridad}identificar-usuario`, {
       correo: usuario, 
-      clave: clave });
+      clave: clave 
+    });
   }
 
   /**
@@ -60,46 +64,74 @@ export class SeguridadService {
    * @param codigo 
    * @returns 
    */
-    ValidarCodigo2FA(idUsuario: string, codigo: string): Observable<UsuarioValidadoModel> {
-      return this.http.post<UsuarioValidadoModel>(`${this.urlSeguridad}verificar-2fa`, {
-        usuarioId: idUsuario, 
-        codigo2fa: codigo });
-    }
+  ValidarCodigo2FA(idUsuario: string, codigo: string): Observable<UsuarioValidadoModel> {
+    return this.http.post<UsuarioValidadoModel>(`${this.urlSeguridad}verificar-2fa`, {
+      usuarioId: idUsuario, 
+      codigo2fa: codigo 
+    });
+  }
 
-    /**
-     * Almacenar datos del usuario validado
-     * @param datos 
-     */
-    AlmacenarDatosUsuarioValidado(datos: UsuarioValidadoModel): boolean {
-      let datosLS = localStorage.getItem('datos-sesion');
-      if (datosLS) {
-        return false;
-      } else {
-        let cadena = JSON.stringify(datos);
-        localStorage.setItem('datos-usuario-validado', cadena);
-        return true;
-      }
+  /**
+   * Almacenar datos del usuario validado
+   * @param datos 
+   */
+  AlmacenarDatosUsuarioValidado(datos: UsuarioValidadoModel): boolean {
+    let datosLS = localStorage.getItem('datos-usuario-validado');
+    if (datosLS) {
+      return false;
+    } else {
+      let cadena = JSON.stringify(datos);
+      localStorage.setItem('datos-usuario-validado', cadena);
+      this.ActualizarComportamientoUsuario(datos); // Actualiza el BehaviorSubject
+      return true;
     }
+  }
 
-    datosUsuarioValidado = new BehaviorSubject<UsuarioValidadoModel>(new UsuarioValidadoModel());
+  /**
+   * Administración de la sesión de usuario
+   * @returns 
+   */
+  ObtenerDatosSesion(): Observable<UsuarioValidadoModel | null> {
+    return this.datosUsuarioValidado.asObservable();
+  }
 
-    /**
-     * Administración de la sesión de usuario
-     * @returns 
-     */
-    ObtenerDatosSesion(): Observable<UsuarioValidadoModel> {
-      return this.datosUsuarioValidado.asObservable();
+  private validacionSesion() {
+    let ls = localStorage.getItem('datos-usuario-validado');
+    if (ls) {
+      let objUsuario: UsuarioValidadoModel = JSON.parse(ls);
+      this.ActualizarComportamientoUsuario(objUsuario);
     }
+  }
 
-    validacionSesion() {
-      let ls = localStorage.getItem('datos-sesion');
-      if (ls) {
-        let objUsuario = JSON.parse(ls);
-        this.ActualizarComportamientoUsuario(objUsuario);
-      }
-    }
+  private ActualizarComportamientoUsuario(datos: UsuarioValidadoModel) {
+    this.datosUsuarioValidado.next(datos);
+  }
 
-    ActualizarComportamientoUsuario(datos: UsuarioValidadoModel) {
-      return this.datosUsuarioValidado.next(datos);
+  /**
+   * Remover datos del usuario validado
+   */
+  RemoverDatosUsuarioValidado() {
+    let datosUsuario = localStorage.getItem("datos-usuario");
+    let datosSesion = localStorage.getItem("datos-sesion");
+    if (datosUsuario) {
+      localStorage.removeItem("datos-usuario");
     }
+    if (datosSesion) {
+      localStorage.removeItem("datos-sesion");
+    }
+    localStorage.removeItem("menu-lateral");
+    this.ActualizarComportamientoUsuario(new UsuarioValidadoModel());
+  }
+
+
+  /**
+   * Recuperar clave por usuario
+   * @param usuario 
+   * @returns 
+   */
+  RecuperarClavePorUsuario(usuario: string): Observable<UsuarioModel> {
+    return this.http.post<UsuarioModel>(`${this.urlSeguridad}recuperar-clave`, {
+      correo: usuario
+    });
+  }
 }
