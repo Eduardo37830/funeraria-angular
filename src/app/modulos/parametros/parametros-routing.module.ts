@@ -26,6 +26,7 @@ import { EditarSedeComponent } from './sede/editar-sede/editar-sede.component';
 import { EliminarSedeComponent } from './sede/eliminar-sede/eliminar-sede.component';
 import { ListarSolicitudComponent } from './solicitudServicioFunerario/listar-solicitud/listar-solicitud.component';
 import { InicioComponent } from './admin/inicio/inicio.component';
+import { RegistrosPorFechasComponent } from './graficas/registros-por-fechas/registros-por-fechas.component';
 
 const routes: Routes = [
   {
@@ -136,6 +137,10 @@ const routes: Routes = [
   {
     path: "admin-inicio",
     component: InicioComponent
+  },
+  {
+    path: "registros-por-fechas",
+    component: RegistrosPorFechasComponent
   }
 ];
 

@@ -1,37 +1,32 @@
-
-
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Chart.js Cliente con mas solicitudes de servicioFunerario en un rango de fechas </title>
-      <script src="path/to/chartjs/dist/chart.umd.js"></script>
-  </head>
-  <body>
-      <div *ngIf="clienteConMasSolicitudes" class="container mx-auto mt-8">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <h2 class="text-lg font-bold mb-4">Cliente con más solicitudes</h2>
-          <div class="flex flex-col">
-            <div class="mb-4">
-              <span class="font-semibold">Cliente ID:</span>
-              <span>{{ clienteConMasSolicitudes.cliente_id }}</span>
-            </div>
-            <div class="mb-4">
-              <span class="font-semibold">Nombre:</span>
-              <span>{{ clienteConMasSolicitudes.nombre_cliente }}</span>
-            </div>
-            <div>
-              <span class="font-semibold">Cantidad de servicios:</span>
-              <span>{{ clienteConMasSolicitudes.cantidad_servicios }}</span>
-            </div>
-          </div>
+<div *ngIf="clienteConMasSolicitudes" class="container mx-auto mt-8 p-4 max-w-1280">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class="bg-white shadow-lg rounded-lg p-8 mb-8">
+      <h2 class="text-xl font-semibold mb-4">Cliente con más solicitudes</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div>
+          <span class="font-semibold text-gray-600">Cliente ID: </span>
+          <span class="text-gray-800">{{ clienteConMasSolicitudes.cliente_id }}</span>
+        </div>
+        <div>
+          <span class="font-semibold text-gray-600">Nombre: </span>
+          <span class="text-gray-800">{{ clienteConMasSolicitudes.nombre_cliente }}</span>
+        </div>
+        <div>
+          <span class="font-semibold text-gray-600">Cantidad de servicios: </span>
+          <span class="text-gray-800">{{ clienteConMasSolicitudes.cantidad_servicios }}</span>
         </div>
       </div>
-      <div class="container custom-container">
-        <h2>Gráfica de Solicitudes por Clientes</h2>
-        <canvas id="canvas"></canvas>
     </div>
-  </body>
-  </html>
-  
+</div>
+
+<main class="p-4">
+  <!-- Sección de Estadísticas -->
+  <section id="estadisticas" class="mb-8">
+    <div class="container mx-auto p-4 max-w-1280">
+      <h2 class="text-2xl font-semibold mb-4">Gráfica de Solicitudes por Clientes</h2>
+      <div class="bg-white shadow-lg rounded-lg p-8">
+        <canvas id="canvas" class="w-full"></canvas>
+      </div>
+    </div>
+  </section>
+</main>

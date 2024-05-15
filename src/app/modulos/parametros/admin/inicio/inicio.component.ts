@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Chart } from 'chart.js';
 import 'chartjs-adapter-luxon';
+import { ConfiguracionRutasBackend } from '../../../../config/configuracion.rutas.backend';
 
 @Component({
   selector: 'app-inicio',
@@ -10,7 +11,7 @@ import 'chartjs-adapter-luxon';
 })
 export class InicioComponent implements OnInit {
 
-  BASE_URL: string = 'http://localhost:3001/';
+  BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
   chart: any;
   clientes: any[] = [];
 
@@ -36,7 +37,7 @@ export class InicioComponent implements OnInit {
   
       // Crear arreglos separados para los meses y sus respectivas frecuencias
       const sortedMonths = Object.keys(counts).map(month => parseInt(month)).sort((a, b) => a - b);
-      const labels = sortedMonths.map(month => this.getMes(month));
+      const labels = sortedMonths.map(month => this.obtenerMes(month));
       const dataCounts = sortedMonths.map(month => counts[month]);
   
       // Eliminar gráfico anterior si existe
@@ -82,11 +83,9 @@ export class InicioComponent implements OnInit {
       });
     });
   }
-  
-  
 
   // Función para obtener el nombre del mes a partir de su número
-  getMes(month: number): string {
+  obtenerMes(month: number): string {
     const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     return meses[month - 1];
   }
