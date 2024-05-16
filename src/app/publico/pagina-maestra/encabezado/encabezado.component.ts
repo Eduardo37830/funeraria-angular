@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { MenuLateralComponent } from "../menu-lateral/menu-lateral.component";
 import { SeguridadService } from '../../../servicios/seguridad.service';
 import { UsuarioValidadoModel } from '../../../modelos/usuario.validado.model';
@@ -25,6 +25,7 @@ export class EncabezadoComponent implements OnInit {
 
   constructor(
     private servicioSeguridad: SeguridadService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +37,11 @@ export class EncabezadoComponent implements OnInit {
       next: (data: UsuarioValidadoModel | null) => {
         if (data && data.token) {
           this.SesionActiva = true;
+          // Verificar si el usuario es un administrador
+          if (data.user && data.user.rolId === '6619aa9177e8f21a1c6f600c') {
+            // Redirigir al administrador a la página deseada
+            this.router.navigate(['/parametros/admin-inicio']);
+          }
         } else {
           this.SesionActiva = false;
         }
