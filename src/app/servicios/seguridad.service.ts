@@ -134,4 +134,8 @@ export class SeguridadService {
       correo: usuario
     });
   }
+
+  RegistrarUsuarioPublico(datos: any): Observable<UsuarioModel> {
+    return this.http.post<UsuarioModel>(`${this.urlSeguridad}usuario-publico`, datos);
+  }
 }

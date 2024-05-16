@@ -3,12 +3,15 @@ module.exports = {
   content: [
     "./src/**/*.{html,js}",
     "./node_modules/flowbite/**/*.js"
-],
+  ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customGreen: '#025B00',
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin')
-]
+  ]
 }
-

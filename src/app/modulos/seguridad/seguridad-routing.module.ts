@@ -10,6 +10,7 @@ import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.com
 import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.component';
 import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
 import { EliminarUsuarioComponent } from './usuario/eliminar-usuario/eliminar-usuario.component';
+import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 
 const routes: Routes = [
   {
@@ -33,11 +34,12 @@ const routes: Routes = [
     path: "2fa",
     component: IdentificacionTwofaComponent,
   },
-  /*
+  
   {
-    //path: "registro-publico",
-    //component: ResgistroPublicoUsuariosComponent,
+    path: "registro-usuario",
+    component: RegistroUsuarioComponent,
   },
+  /*
   {
     //path: "validar-hash-usuario-publico/:hash",
     //component: ValidarHashUsuarioPublicoComponent
