@@ -1,0 +1,35 @@
+.bg-green-700 {
+  background-color: #006400;
+}
+
+.bg-green-800 {
+  background-color: #004d00;
+}
+
+.text-customGreen {
+  color: #006400;
+}
+
+.block {
+  display: block;
+}
+
+.text-white {
+  color: white;
+}
+
+.hover\:bg-gray-100:hover {
+  background-color: #f3f4f6;
+}
+
+.md\:hover\:bg-transparent:hover {
+  background-color: transparent;
+}
+
+.md\:text-customGreen {
+  color: #006400;
+}
+
+.md\:p-0 {
+  padding: 0;
+}

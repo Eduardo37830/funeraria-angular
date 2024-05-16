@@ -112,12 +112,12 @@ export class SeguridadService {
    */
   RemoverDatosUsuarioValidado() {
     let datosUsuario = localStorage.getItem("datos-usuario");
-    let datosSesion = localStorage.getItem("datos-sesion");
+    let datosSesion = localStorage.getItem("datos-usuario-validado");
     if (datosUsuario) {
       localStorage.removeItem("datos-usuario");
     }
     if (datosSesion) {
-      localStorage.removeItem("datos-sesion");
+      localStorage.removeItem("datos-usuario-validado");
     }
     localStorage.removeItem("menu-lateral");
     this.ActualizarComportamientoUsuario(new UsuarioValidadoModel());
