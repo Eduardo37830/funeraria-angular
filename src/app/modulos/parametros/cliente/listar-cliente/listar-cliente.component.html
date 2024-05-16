@@ -1,55 +1,59 @@
 
   <div class="flex justify-center">
-  <div class="overflow-x-auto">
+  <div class="overflow-x-auto max-w-4xl">
     <div class="my-4">
         <a routerLink="/parametros/cliente-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full shadow-md">Agregar Cliente</a>
       </div>
-    <table class="w-full sm:max-w-screen-md border-collapse border border-gray-300 text-xs sm:text-sm">
-      <thead>
-        <tr>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Primer Nombre</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Segundo Nombre</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Primer Apellido</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Segundo Apellido</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Correo</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Celular</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Ciudad de Residencia</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Dirección</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Fecha de Registro</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300">Activo</th>
-          <th class="px-2 py-1 bg-gray-200 border border-gray-300"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cliente of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.primerNombre }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.segundoNombre }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.primerApellido }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.segundoApellido }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.correo }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.celular }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.ciudadResidencia }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.direccion }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.fechaRegistro }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.activo ? 'Sí' : 'No' }}</td>
-          <td class="px-2 py-1 border border-gray-300 text-center">
-            <a routerLink="/parametros/cliente-editar/{{ cliente.id }}" class="btn btn-secondary realistic-button sm:py-1 sm:px-2">Editar</a>
-            <a routerLink="/parametros/cliente-eliminar/{{ cliente.id }}" class="btn btn-danger realistic-button sm:py-1 sm:px-2">Eliminar</a>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="11" class="px-2 py-1 bg-gray-200 border border-gray-300">
-            <pagination-controls
-              (pageChange)="pag = $event; ListarRegistros()"
-              previousLabel="Anterior"
-              nextLabel="Siguiente"
-              screenReaderPaginationLabel="Navegación"
-              screenReaderPageLabel="Página"
-              screenReaderCurrentLabel="Página actual"
-            ></pagination-controls>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="max-w-full"> 
+        <table class="w-full sm:max-w-screen-md md:w-full border-collapse border border-gray-300 text-xs sm:text-sm">
+          <thead>
+            <tr>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Primer Nombre</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Segundo Nombre</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Primer Apellido</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Segundo Apellido</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Correo</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Celular</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Ciudad de Residencia</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Dirección</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Fecha de Registro</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300">Activo</th>
+              <th class="px-2 py-1 bg-gray-200 border border-gray-300"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cliente of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.primerNombre }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.segundoNombre }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.primerApellido }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.segundoApellido }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.correo }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.celular }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.ciudadResidencia }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.direccion }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.fechaRegistro }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">{{ cliente.activo ? 'Sí' : 'No' }}</td>
+              <td class="px-2 py-1 border border-gray-300 text-center">
+                <div class="flex">
+                  <a routerLink="/parametros/cliente-editar/{{ cliente.id }}" class="btn btn-secondary realistic-button sm:py-1 sm:px-2">Editar</a>
+                  <a routerLink="/parametros/cliente-eliminar/{{ cliente.id }}" class="btn btn-danger realistic-button sm:py-1 sm:px-2">Eliminar</a>
+                </div>
+                </td>
+            </tr>
+            <tr class="text-center">
+              <td colspan="11" class="px-2 py-1 bg-gray-200 border border-gray-300">
+                <pagination-controls
+                  (pageChange)="pag = $event; ListarRegistros()"
+                  previousLabel="Anterior"
+                  nextLabel="Siguiente"
+                  screenReaderPaginationLabel="Navegación"
+                  screenReaderPageLabel="Página"
+                  screenReaderCurrentLabel="Página actual"
+                ></pagination-controls>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
   </div>
   

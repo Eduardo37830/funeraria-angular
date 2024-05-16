@@ -1,0 +1,66 @@
+<div class="min-h-screen bg-gray-100">
+    <!-- Barra de navegación -->
+    <nav class="bg-white border-b border-gray-200 px-4 py-2.5">
+        <div class="container flex flex-wrap items-center justify-between mx-auto">
+            <a href="#" class="flex items-center">
+            <span class="self-center text-xl font-semibold whitespace-nowrap">Admin Dashboard</span>
+            </a>
+            <div class="flex md:order-2">
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-3 md:mr-0">Logout</button>
+            </div>
+        </div>
+    </nav>
+  
+    <!-- Contenedor Principal -->
+    <div class="container mx-auto p-6">
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <!-- Primer Reporte: Registros por Fechas -->
+            <div class="bg-white p-4 rounded-lg shadow-lg">
+                <h2 class="text-lg font-semibold mb-4">Registros por Fechas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="startDate" class="block text-sm font-medium text-gray-700">Fecha de inicio:</label>
+                        <input type="date" id="startDate" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" [(ngModel)]="fechaInicio">
+                    </div>
+                    <div>
+                        <label for="endDate" class="block text-sm font-medium text-gray-700">Fecha de fin:</label>
+                        <input type="date" id="endDate" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" [(ngModel)]="fechaFin">
+                    </div>
+                </div>
+                <div class="text-center mb-4">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="obtenerRegistros()">Obtener Registros</button>
+                </div>
+                <div>
+                    <canvas id="canvasRegistros" class="w-full"></canvas>
+                </div>
+            </div>
+        
+            <!-- Segundo Reporte: Clientes con más Servicios -->
+            <div class="bg-white p-4 rounded-lg shadow-lg">
+                <h2 class="text-lg font-semibold mb-4">Solicitudes servicios funerarios</h2>
+                <div *ngIf="clienteConMasSolicitudes" class="container mx-auto mt-8 p-4 max-w-1280">
+                    <h2 class="text-xl font-semibold mb-4">Cliente con más solicitudes</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                        <span class="font-semibold text-gray-600">Cliente ID: </span>
+                        <span class="text-gray-800">{{ clienteConMasSolicitudes.cliente_id }}</span>
+                        </div>
+                        <div>
+                        <span class="font-semibold text-gray-600">Nombre: </span>
+                        <span class="text-gray-800">{{ clienteConMasSolicitudes.nombre_cliente }}</span>
+                        </div>
+                        <div>
+                        <span class="font-semibold text-gray-600">Cantidad de servicios: </span>
+                        <span class="text-gray-800">{{ clienteConMasSolicitudes.cantidad_servicios }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-4">Solicitudes servicios funerarios</h2>
+                    <canvas id="canvasServicios" class="w-full"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  

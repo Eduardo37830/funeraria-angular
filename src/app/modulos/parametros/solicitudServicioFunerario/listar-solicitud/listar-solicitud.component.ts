@@ -5,8 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { solicitudModel } from '../../../../modelos/solicitudServicioFunerario.model';
-import { solicitudModel1 } from '../../../../modelos/solicitud.model';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart } from 'chart.js/auto';
 import { NativeDateModule } from '@angular/material/core';
@@ -91,7 +89,7 @@ export class ListarSolicitudComponent {
         data: {
           labels: clientes,
           datasets: [{
-            label: 'Cantidad de servicios',
+            label: 'Cantidad de servicios por Cliente',
             data: servicios,
             backgroundColor: 'rgba(75, 192, 192, 0.3)',
             borderColor: 'rgba(75, 192, 192, 1)',
@@ -117,11 +115,11 @@ export class ListarSolicitudComponent {
           },
           plugins: {
             legend: {
-              display: false,
+              display: true,
             }
           },
           responsive: true,
-          maintainAspectRatio: true,
+          maintainAspectRatio: true, 
           aspectRatio: 3,
         },
       });
