@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ConductorService } from '../../../../servicios/parametros/conductor.service';
 import { ConductorModel } from '../../../../modelos/conductor.model';
+import { ConfiguracionRutasBackend } from '../../../../config/configuracion.rutas.backend';
+import { ArchivoModel } from '../../../../modelos/archivo.model';
 
 @Component({
   selector: 'app-editar-conductor',
@@ -18,9 +20,14 @@ import { ConductorModel } from '../../../../modelos/conductor.model';
   styleUrl: './editar-conductor.component.css'
 })
 export class EditarConductorComponent {
+  nombreAchivoCargado: string = '';
   fGroup: FormGroup = new FormGroup({});
-  sedeId: number = 0;
+  CargarArchivoFG: FormGroup = new FormGroup({});
+  archivoCargado: boolean = false;
+  BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
   recordId: number = 0;
+  sedeId: number = 0;
+  servicioFunerarioId: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +43,7 @@ export class EditarConductorComponent {
 
   ngOnInit(): void {
     this.ContruirFormularioDatos();
+    this.ConstruirFormularioArchivo();
     this.BuscarRegistro();
   }
 
@@ -50,9 +58,13 @@ export class EditarConductorComponent {
         this.obtenerFgDatos['correo'].setValue(data.correo);
         this.obtenerFgDatos['celular'].setValue(data.celular);
         this.obtenerFgDatos['foto'].setValue(data.foto);
+        this.nombreAchivoCargado = data.foto!;
+        this.archivoCargado = true;
         this.obtenerFgDatos['ciudadResidencia'].setValue(data.ciudadResidencia);
         this.obtenerFgDatos['direccion'].setValue(data.direccion);
         this.obtenerFgDatos['responsabilidades'].setValue(data.responsabilidades);
+        this.obtenerFgDatos['disponibilidad'].setValue(data.disponibilidad);
+        this.obtenerFgDatos['sedeId'].setValue(data.sedeId);
       },
       error: (error: any) => {
         alert('Registro no encontrado');
@@ -75,7 +87,6 @@ export class EditarConductorComponent {
       responsabilidades: ['', [Validators.required]],
       disponibilidad: ['', [Validators.required]],
       sedeId: [this.sedeId, [Validators.required]],
-      servicioFunerarioId: [null, [Validators.required]]
     });
   }
 
@@ -111,12 +122,47 @@ export class EditarConductorComponent {
     model.responsabilidades = this.obtenerFgDatos['responsabilidades'].value;
     model.disponibilidad = this.obtenerFgDatos['disponibilidad'].value;
     model.sedeId = this.obtenerFgDatos['sedeId'].value;
-    model.servicioFunerarioId = this.obtenerFgDatos['servicioFunerarioId'].value;
     return model;
   }
 
   get obtenerFgDatos() {
     return this.fGroup.controls;
+  }
+
+   /** Carga de Archivo */
+
+   ConstruirFormularioArchivo(): void {
+    this.CargarArchivoFG = this.fb.group({
+      archivo: ['', []]
+    });
+  }
+
+  get obtenerFgArchivo() {
+    return this.CargarArchivoFG.controls;
+  }
+
+  CargarArchivo() {
+    const formData = new FormData();
+    formData.append('file', this.CargarArchivoFG.controls['archivo'].value);
+    console.log(formData);
+    this.servicio.CargarArchivo(formData).subscribe({
+      next: (data: ArchivoModel) => {
+        this.nombreAchivoCargado = data.file;
+        this.obtenerFgDatos['foto'].setValue(this.nombreAchivoCargado);
+        this.archivoCargado = true; 
+        alert('Archivo cargado correctamente');
+      },
+      error: (error: any) => {
+        alert('Error al cargar el archivo');
+      }
+    });
+  }
+
+  CuandoSeleccionaArchivo(event: any) {
+    if (event.target.files.length > 0) {
+      const f = event.target.files[0];
+      this.obtenerFgArchivo['archivo'].setValue(f);
+    }
   }
 }
 

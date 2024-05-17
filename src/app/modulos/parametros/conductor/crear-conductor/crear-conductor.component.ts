@@ -45,7 +45,7 @@ export class CrearConductorComponent {
       ciudadResidencia: ['', [Validators.required]],
       direccion: ['', [Validators.required]],
       responsabilidades: ['', [Validators.required]],
-      disponibilidad: ['', [Validators.required]],
+      disponibilidad: [true, [Validators.required]],
       sedeId: [this.sedeId, [Validators.required]]
     });
   }

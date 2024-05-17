@@ -6,6 +6,14 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <div class="flex flex-col">
+                <form class="w-full max-w-lg" [formGroup]="CargarArchivoFG">
+                    <div class="showImage">
+                        <img *ngIf="archivoCargado" src="{{BASE_URL}}/ObtenerArchivo/1/{{nombreAchivoCargado}}" 
+                            class="image" alt="Cliente Image">
+                    </div>
+                </form>
+            </div>
+            <div class="flex flex-col">
                 <label class="font-semibold">Primer Nombre:</label>
                 <p>{{ primerNombre }}</p>
             </div>

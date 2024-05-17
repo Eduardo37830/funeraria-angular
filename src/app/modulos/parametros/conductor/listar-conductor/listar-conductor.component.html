@@ -29,10 +29,10 @@
             <td class="px-6 py-3 border border-gray-300">{{ empleado.direccion }}</td>
             <td class="px-6 py-3 border border-gray-300 text-center">
               <div class="flex justify-center space-x-2">
-                <a routerLink="/parametros/sedes/{{ empleado.sedeId }}/conductor-editar/{{ empleado.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+                <a routerLink="/parametros/sedes/{{ sedeId }}/conductor-editar/{{ empleado.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
                   Editar
                 </a>
-                <a routerLink="/parametros/sedes/{{ empleado.sedeId }}/conductor-eliminar/{{ empleado.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+                <a routerLink="/parametros/sedes/{{ sedeId }}/conductor-eliminar/{{ empleado.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
                   Eliminar
                 </a>
               </div>

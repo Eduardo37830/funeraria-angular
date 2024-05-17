@@ -94,7 +94,7 @@ const routes: Routes = [
     component: CrearConductorComponent
   },
   {
-    path: "sedes/ids:/conductor-eliminar/:id",
+    path: "sedes/:ids/conductor-eliminar/:id",
     component: EliminarConductorComponent
   },
   {

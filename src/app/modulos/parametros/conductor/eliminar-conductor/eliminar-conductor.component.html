@@ -1,1 +1,65 @@
-<p>eliminar-conductor works!</p>
+<fieldset class="container mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
+    <legend class="text-lg font-bold">Eliminación de Conductor</legend>
+    <div class="mt-8">
+      <div>
+        <p class="font-semibold">¿Confirma la eliminación de estos datos?</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="flex flex-col">
+            <form class="w-full max-w-lg" [formGroup]="CargarArchivoFG">
+                <div class="showImage">
+                    <img *ngIf="archivoCargado" src="{{BASE_URL}}/ObtenerArchivo/2/{{nombreAchivoCargado}}" 
+                        class="image" alt="Conductor Image">
+                </div>
+            </form>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Primer Nombre:</label>
+          <p>{{ primerNombre }}</p>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Segundo Nombre:</label>
+          <p>{{ segundoNombre }}</p>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Primer Apellido:</label>
+          <p>{{ primerApellido }}</p>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Segundo Apellido:</label>
+          <p>{{ segundoApellido }}</p>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Correo:</label>
+          <p>{{ correo }}</p>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Celular:</label>
+          <p>{{ celular }}</p>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Ciudad de Residencia:</label>
+          <p>{{ ciudadResidencia }}</p>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Dirección:</label>
+          <p>{{ direccion }}</p>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Fecha de Registro:</label>
+          <p>{{ responsabilidades }}</p>
+        </div>
+        <div class="flex flex-col">
+          <label class="font-semibold">Activo:</label>
+          <p>{{ disponibilidad ? 'Sí' : 'No' }}</p>
+        </div>
+      </div>
+      <div class="mt-8">
+        <div class="flex">
+          <a routerLink="/parametros/sedes/{{ sedeId }}/conductor-listar" class="btn bg-red-500 text-white mr-4">Cancelar</a>
+          <button (click)="EliminarRegistro()" class="btn bg-blue-500 text-white" type="button">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  
