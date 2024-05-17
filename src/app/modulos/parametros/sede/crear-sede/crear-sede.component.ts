@@ -49,7 +49,7 @@ export class CrearSedeComponent {
       this.servicio.AgregarRegistro(modelo).subscribe({
         next: (data: SedeModel) => {
           alert('Registro guardado correctamente');
-          this.router.navigate(['/parametros/ciudads', this.ciudadId, 'sedes']);
+          this.router.navigate(['/parametros/ciudads', this.ciudadId, 'sede-listar']);
         },
         error: (error: any) => {
           alert('Error al guardar el registro');

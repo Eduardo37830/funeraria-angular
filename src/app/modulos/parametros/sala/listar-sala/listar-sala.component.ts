@@ -24,7 +24,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ListarSalaComponent {
   sedeId: number | null = null;
-  salas: SalaModel[] = [];
   listaRegistros: SalaModel[] = [];
   pag = 1;
   total = 0;
@@ -63,7 +62,7 @@ export class ListarSalaComponent {
       this.http.get<SalaModel[]>(`${this.BASE_URL}/sedes/${this.sedeId}/salas`)
         .subscribe(
           (salas) => {
-            this.salas = salas;
+            this.listaRegistros = salas;
           },
           (error) => {
             console.error('Error al obtener las salas:', error);

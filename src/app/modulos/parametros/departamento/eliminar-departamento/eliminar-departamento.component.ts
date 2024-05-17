@@ -52,7 +52,7 @@ export class EliminarDepartamentoComponent {
     this.servicio.EliminarRegistro(this.recordId).subscribe({
       next: (data: DepartamentoModel) => {
         alert('Registro eliminado correctamente');
-        this.router.navigate(['/parametros/plan-listar']);
+        this.router.navigate(['/parametros/departamento-listar']);
       },
       error: (error: any) => {
         alert('Error al eliminar el registro');

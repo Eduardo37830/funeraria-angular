@@ -53,7 +53,7 @@ export class EliminarCiudadComponent {
     this.servicio.EliminarRegistro(this.recordId).subscribe({
       next: (data: CiudadModel) => {
         alert('Registro eliminado correctamente');
-        this.router.navigate(['/parametros/departamentos', this.departamentoId, 'ciudads']);
+        this.router.navigate(['/parametros/departamentos', this.departamentoId, 'ciudad-listar']);
       },
       error: (error: any) => {
         alert('Error al eliminar el registro');

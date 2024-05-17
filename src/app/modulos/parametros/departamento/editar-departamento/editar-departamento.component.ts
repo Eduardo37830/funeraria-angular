@@ -63,7 +63,7 @@ export class EditarDepartamentoComponent {
       this.servicio.EditarRegistro(modelo).subscribe({
         next: (data: DepartamentoModel) => {
           alert('Registro guardado correctamente');
-          this.router.navigate(['/parametros/plan-listar']);
+          this.router.navigate(['/parametros/departamento-listar']);
         },
         error: (error: any) => {
           alert('Error al editar el registro');

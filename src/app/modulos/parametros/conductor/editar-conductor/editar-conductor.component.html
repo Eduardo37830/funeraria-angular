@@ -1,0 +1,68 @@
+<fieldset class="container mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
+    <legend class="text-lg font-bold">Edición de Conductor</legend>
+    <div class="mt-8">
+        <form [formGroup]="fGroup">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <label for="primerNombre" class="font-semibold">Primer Nombre</label>
+                    <input formControlName="primerNombre" id="primerNombre" type="text" class="input-field mt-1">
+                    <div *ngIf="fGroup.controls['primerNombre'].errors && (fGroup.controls['primerNombre'].dirty || fGroup.controls['primerNombre'].touched)" class="text-red-500 mt-1">
+                        <strong>Este campo es obligatorio</strong>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="segundoNombre" class="font-semibold">Segundo Nombre</label>
+                    <input formControlName="segundoNombre" id="segundoNombre" type="text" class="input-field mt-1">
+                    <!-- Validación -->
+                </div>
+                <div class="flex flex-col">
+                    <label for="primerApellido" class="font-semibold">Primer Apellido</label>
+                    <input formControlName="primerApellido" id="primerApellido" type="text" class="input-field mt-1">
+                    <!-- Validación -->
+                </div>
+                <div class="flex flex-col">
+                    <label for="segundoApellido" class="font-semibold">Segundo Apellido</label>
+                    <input formControlName="segundoApellido" id="segundoApellido" type="text" class="input-field mt-1">
+                    <!-- Validación -->
+                </div>
+                <div class="flex flex-col">
+                    <label for="correo" class="font-semibold">Correo</label>
+                    <input formControlName="correo" id="correo" type="email" class="input-field mt-1">
+                    <!-- Validación -->
+                </div>
+                <div class="flex flex-col">
+                    <label for="celular" class="font-semibold">Celular</label>
+                    <input formControlName="celular" id="celular" type="text" class="input-field mt-1">
+                    <!-- Validación -->
+                </div>
+                <div class="flex flex-col">
+                    <label for="foto" class="font-semibold">Foto</label>
+                    <input formControlName="foto" id="foto" type="file" class="input-field mt-1">
+                    <!-- Validación -->
+                </div>
+                <div class="flex flex-col">
+                    <label for="ciudadResidencia" class="font-semibold">Ciudad de Residencia</label>
+                    <input formControlName="ciudadResidencia" id="ciudadResidencia" type="text" class="input-field mt-1">
+                    <!-- Validación -->
+                </div>
+                <div class="flex flex-col">
+                    <label for="direccion" class="font-semibold">Dirección</label>
+                    <input formControlName="direccion" id="direccion" type="text" class="input-field mt-1">
+                    <!-- Validación -->
+                </div>
+                <div class="flex flex-col">
+                    <label for="responsabilidades" class="font-semibold">Responsabilidades</label>
+                    <textarea formControlName="responsabilidades" id="responsabilidades" class="input-field mt-1"></textarea>
+                </div>
+                <div class="flex flex-col">
+                    <label for="disponibilidad" class="font-semibold">Disponibilidad</label>
+                    <input formControlName="disponibilidad" id="disponibilidad" type="text" class="input-field mt-1">
+                </div>
+            </div>
+            <div class="mt-8">
+                <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="EditarRegistro()">Editar</button>
+                <a routerLink="/parametros/sedes/{{ sedeId }}/conductor-listar" class="btn bg-red-500 text-white">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</fieldset>

@@ -74,11 +74,10 @@ export class EditarSalaComponent {
       alert('Debe diligenciar todo el formulario');
     } else {
       let modelo = this.obtenerRegistro();
-      console.log(modelo);
       this.servicio.EditarRegistro(modelo).subscribe({
         next: (data: SalaModel) => {
           alert('Registro guardado correctamente');
-          this.router.navigate(['/parametros/sedes', this.sedeId, 'salas']);
+          this.router.navigate(['/parametros/sedes', this.sedeId, 'sala-listar']);
         },
         error: (error: any) => {
           alert('Error al editar el registro');
@@ -93,20 +92,16 @@ export class EditarSalaComponent {
     model.nombre = this.obtenerFgDatos['nombre'].value;
     model.tipo = this.obtenerFgDatos['tipo'].value;
     model.capacidad = parseInt(this.obtenerFgDatos['capacidad'].value);
-    model.horaEntradaCuerpo = this.obtenerFgDatos['fechaEntradaCuerpo'].value;
-    model.horaSalidaCuerpo = this.obtenerFgDatos['fechaSalidaCuerpo'].value;
+    model.horaEntradaCuerpo = this.obtenerFgDatos['horaEntradaCuerpo'].value;
+    model.horaSalidaCuerpo = this.obtenerFgDatos['horaSalidaCuerpo'].value;
     model.disponible = this.obtenerFgDatos['disponible'].value;
     model.sedeId = parseInt(this.obtenerFgDatos['sedeId'].value);
     return model;
   }
+  
 
   get obtenerFgDatos() {
     return this.fGroup.controls;
-  }
-
-  formatDate(date: string): string {
-    const formattedDate = new Date(date).toISOString().slice(0, 16);
-    return formattedDate;
   }
 }
 

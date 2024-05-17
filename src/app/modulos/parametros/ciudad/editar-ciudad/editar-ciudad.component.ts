@@ -67,7 +67,7 @@ export class EditarCiudadComponent {
       this.servicio.EditarRegistro(modelo).subscribe({
         next: (data: CiudadModel) => {
           alert('Registro guardado correctamente');
-          this.router.navigate(['/parametros/departamentos', this.departamentoId, 'ciudads']);
+          this.router.navigate(['/parametros/departamentos', this.departamentoId, 'ciudad-listar']);
         },
         error: (error: any) => {
           alert('Error al editar el registro');

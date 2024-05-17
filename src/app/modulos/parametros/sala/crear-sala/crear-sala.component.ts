@@ -41,7 +41,7 @@ export class CrearSalaComponent {
       capacidad: ['', [Validators.required]],
       horaEntradaCuerpo: ['', [Validators.required]],
       horaSalidaCuerpo: ['', [Validators.required]],
-      disponible: ['', [Validators.required]],
+      disponible: [true, [Validators.required]],
       sedeId: [this.sedeId, [Validators.required]],
     });
   }
@@ -56,7 +56,7 @@ export class CrearSalaComponent {
         next: (data: SalaModel) => {
           console.log(data);
           alert('Registro guardado correctamente');
-          this.router.navigate(['/parametros/sedes', this.sedeId, 'salas']);
+          this.router.navigate(['/parametros/sedes', this.sedeId, 'sala-listar']);
         },
         error: (error: any) => {
           alert('Error al guardar el registro');
@@ -69,11 +69,11 @@ export class CrearSalaComponent {
     let model = new SalaModel();
     model.nombre = this.obtenerFgDatos['nombre'].value;
     model.tipo = this.obtenerFgDatos['tipo'].value;
-    model.capacidad = this.obtenerFgDatos['capacidad'].value;
+    model.capacidad = parseInt(this.obtenerFgDatos['capacidad'].value);
     model.horaEntradaCuerpo = this.obtenerFgDatos['horaEntradaCuerpo'].value;
     model.horaSalidaCuerpo = this.obtenerFgDatos['horaSalidaCuerpo'].value;
     model.disponible = this.obtenerFgDatos['disponible'].value;
-    model.sedeId = this.sedeId!;
+    model.sedeId = parseInt(this.obtenerFgDatos['sedeId'].value);
     return model;
   }
 

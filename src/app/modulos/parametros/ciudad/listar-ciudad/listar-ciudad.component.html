@@ -4,9 +4,8 @@
 
   <!-- Botón para gestionar ciudades y sedes -->
   <div class="text-center mb-6">
-    <a routerLink="/parametros/ciudades" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">
-      Gestionar Ciudades y Sedes
-    </a>
+    <a routerLink="/parametros/departamentos/{{ departamentoId }}/ciudad-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">
+      Agregar Ciudad</a>
   </div>
 
   <!-- Tabla de sedes -->
@@ -14,7 +13,6 @@
     <thead>
       <tr class="bg-gray-200">
         <th class="px-4 py-2 border border-gray-300">Nombre</th>
-        <th class="px-4 py-2 border border-gray-300">Dirección</th>
         <th class="px-4 py-2 border border-gray-300">Sedes</th>
         <th class="px-4 py-2 border border-gray-300">Acciones</th>
       </tr>
@@ -26,13 +24,10 @@
 
         <!-- Botones de acción -->
         <td class="px-4 py-2 border border-gray-300 text-center">
-          <a routerLink="/parametros/ciudads/{{ ciudad.id }}/sede" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-full">
+          <a routerLink="/parametros/ciudads/{{ ciudad.id }}/sede-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-full">
             Ver Sedes
           </a>
         </td>
-        <div class="my-4 text-center">
-          <a routerLink="/parametros/departamentos/{{ ciudad.departamentoId }}/ciudad-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">Agregar Ciudad</a>
-        </div>
         <td class="px-4 py-2 border border-gray-300 text-center">
           <a routerLink="/parametros/departamentos/{{ ciudad.departamentoId }}/ciudad-editar/{{ ciudad.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full mr-2">
             Editar

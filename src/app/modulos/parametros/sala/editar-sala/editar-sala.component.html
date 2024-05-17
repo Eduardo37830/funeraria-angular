@@ -46,11 +46,10 @@
               <strong>Este campo es obligatorio</strong>
             </div>
           </div>
-          <input formControlName="sedeId" id="sedeId" type="hidden">
         </div>
         <div class="mt-8">
             <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="EditarRegistro()">Editar</button>
-          <a routerLink="/parametros/sedes/{{ sedeId }}/salas" class="btn bg-red-500 text-white">Cancelar</a>
+          <a routerLink="/parametros/sedes/{{ sedeId }}/sala-listar" class="btn bg-red-500 text-white">Cancelar</a>
         </div>
       </form>
     </div>

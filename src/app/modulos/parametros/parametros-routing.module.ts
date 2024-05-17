@@ -27,6 +27,14 @@ import { EliminarSedeComponent } from './sede/eliminar-sede/eliminar-sede.compon
 import { ListarSolicitudComponent } from './solicitudServicioFunerario/listar-solicitud/listar-solicitud.component';
 import { InicioComponent } from './admin/inicio/inicio.component';
 import { RegistrosPorFechasComponent } from './graficas/registros-por-fechas/registros-por-fechas.component';
+import { ListarBeneficiarioComponent } from './beneficiario/listar-beneficiario/listar-beneficiario.component';
+import { CrearBeneficiarioComponent } from './beneficiario/crear-beneficiario/crear-beneficiario.component';
+import { EliminarBeneficiarioComponent } from './beneficiario/eliminar-beneficiario/eliminar-beneficiario.component';
+import { EditarBeneficiarioComponent } from './beneficiario/editar-beneficiario/editar-beneficiario.component';
+import { ListarConductorComponent } from './conductor/listar-conductor/listar-conductor.component';
+import { CrearConductorComponent } from './conductor/crear-conductor/crear-conductor.component';
+import { EliminarConductorComponent } from './conductor/eliminar-conductor/eliminar-conductor.component';
+import { EditarConductorComponent } from './conductor/editar-conductor/editar-conductor.component';
 
 const routes: Routes = [
   {
@@ -62,6 +70,38 @@ const routes: Routes = [
     component: EditarClienteComponent
   },
   {
+    path: "cliente/:id/beneficiario-listar",
+    component: ListarBeneficiarioComponent
+  },
+  {
+    path: "cliente/:id/beneficiario-agregar",
+    component: CrearBeneficiarioComponent
+  },
+  {
+    path: "cliente/:ids/beneficiario-eliminar/:id",
+    component: EliminarBeneficiarioComponent
+  },
+  {
+    path: "cliente/:ids/beneficiario-editar/:id",
+    component: EditarBeneficiarioComponent
+  },
+  {
+    path: "sedes/:id/conductor-listar",
+    component: ListarConductorComponent
+  },
+  {
+    path: "sedes/:id/conductor-agregar",
+    component: CrearConductorComponent
+  },
+  {
+    path: "sedes/ids:/conductor-eliminar/:id",
+    component: EliminarConductorComponent
+  },
+  {
+    path: "sedes/:ids/conductor-editar/:id",
+    component: EditarConductorComponent
+  },
+  {
     path: "departamento-listar",
     component: ListarDepartamentoComponent
   },
@@ -78,16 +118,12 @@ const routes: Routes = [
     component: EditarDepartamentoComponent
   },
   {
-    path: "departamentos/:id/ciudads",
+    path: "departamentos/:id/ciudad-listar",
     component: ListarCiudadComponent,
   },
   {
     path: "departamentos/:id/ciudad-agregar",
     component: CrearCiudadComponent,
-  },
-  {
-    path: "departamentos/:id/ciudad-listar",
-    component: ListarCiudadComponent
   },
   {
     path: "departamentos/:ids/ciudad-eliminar/:id",
@@ -98,7 +134,7 @@ const routes: Routes = [
     component: EditarCiudadComponent
   },
   {
-    path: "ciudads/:id/sede",
+    path: "ciudads/:id/sede-listar",
     component: ListarSedeComponent,
   },
   {
@@ -114,7 +150,7 @@ const routes: Routes = [
     component: EditarSedeComponent,
   },
   {
-    path: "sedes/:id/salas",
+    path: "sedes/:id/sala-listar",
     component: ListarSalaComponent,
   },
   {

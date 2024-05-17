@@ -61,7 +61,7 @@ export class EliminarSalaComponent {
     this.servicio.EliminarRegistro(this.recordId).subscribe({
       next: (data: SalaModel) => {
         alert('Registro eliminado correctamente');
-        this.router.navigate(['/parametros/sedes', this.sedeId, 'salas']);
+        this.router.navigate(['/parametros/sedes', this.sedeId, 'sala-listar']);
       },
       error: (error: any) => {
         alert('Error al eliminar el registro');

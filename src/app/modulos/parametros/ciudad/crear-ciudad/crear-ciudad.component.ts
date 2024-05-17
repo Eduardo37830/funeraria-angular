@@ -49,7 +49,7 @@ export class CrearCiudadComponent {
       this.servicio.AgregarRegistro(modelo).subscribe({
         next: (data: CiudadModel) => {
           alert('Registro guardado correctamente');
-          this.router.navigate(['/parametros/departamentos', this.departamentoId, 'ciudads']);
+          this.router.navigate(['/parametros/departamentos', this.departamentoId, 'ciudad-listar']);
         },
         error: (error: any) => {
           alert('Error al guardar el registro');

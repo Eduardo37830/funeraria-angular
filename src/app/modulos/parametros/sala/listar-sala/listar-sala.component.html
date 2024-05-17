@@ -1,4 +1,12 @@
 <div class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg border border-gray-200">
+  <h2 class="text-3xl font-bold text-center mb-6">Gestion de Salas</h2>
+  
+    <!-- Botón para gestionar ciudades y sedes -->
+    <div class="text-center mb-6">
+      <a routerLink="/parametros/sedes/{{ sedeId }}/sala-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">
+        Agregar Sala
+      </a>
+    </div>
   <!-- Tabla de salas -->
   <div class="flex justify-center">
     <table class="w-full border-collapse border border-gray-300 text-sm">
@@ -9,22 +17,21 @@
           <th class="px-4 py-2 border border-gray-300">Capacidad</th>
           <th class="px-4 py-2 border border-gray-300">Hora Entrada</th>
           <th class="px-4 py-2 border border-gray-300">Hora Salida</th>
+          <th class="px-4 py-2 border border-gray-300">Disponible</th>
           <th class="px-4 py-2 border border-gray-300">Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let sala of salas | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-100">
+        <tr *ngFor="let sala of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-100">
           <td class="px-4 py-2 border border-gray-300">{{ sala.nombre }}</td>
           <td class="px-4 py-2 border border-gray-300">{{ sala.tipo }}</td>
           <td class="px-4 py-2 border border-gray-300">{{ sala.capacidad }}</td>
           <td class="px-4 py-2 border border-gray-300">{{ sala.horaEntradaCuerpo }}</td>
           <td class="px-4 py-2 border border-gray-300">{{ sala.horaSalidaCuerpo }}</td>
+          <td class="px-4 py-2 border border-gray-300">{{ sala.disponible ? 'Disponible' : 'No Disponible' }}</td>
           <td>
             <!-- Botón para agregar un nueva sala -->
             <div class="flex space-x-2">
-              <a routerLink="/parametros/sedes/{{sala.sedeId}}/sala-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1  px-2 rounded-full shadow-lg transition duration-300 ease-in-out">
-                Agregar Sala
-              </a>
               <a routerLink="/parametros/sedes/{{ sala.sedeId }}/sala-editar/{{ sala.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded-lg shadow-lg transition duration-300 ease-in-out">
                 Editar
               </a>
