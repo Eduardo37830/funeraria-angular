@@ -21,7 +21,7 @@ export class CiudadService {
    * @returns lista de registros
    */
   listarRegistros(): Observable<CiudadModel[]> {
-    return this.http.get<CiudadModel[]>(`${this.urlBase}Ciudad?filter={"limit":${ConfiguracionPaginacion.registroPorPagina}}`);
+    return this.http.get<CiudadModel[]>(`${this.urlBase}Ciudad`);
   }
 
   /**

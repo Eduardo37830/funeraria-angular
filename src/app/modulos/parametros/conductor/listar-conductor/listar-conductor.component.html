@@ -10,19 +10,19 @@
     </div>
   
     <!-- Tabla de empleados -->
-    <div class="overflow-x-auto">
-      <table class="min-w-full border-collapse border border-gray-300 text-sm">
+    <div class="flex justify-center">
+      <table class="w-full border-collapse border border-gray-300 text-sm">
         <thead>
-          <tr class="bg-gray-100">
-            <th class="px-6 py-3 border border-gray-300 text-center font-semibold">Nombre</th>
-            <th class="px-6 py-3 border border-gray-300 text-center font-semibold">Correo</th>
-            <th class="px-6 py-3 border border-gray-300 text-center font-semibold">Celular</th>
-            <th class="px-6 py-3 border border-gray-300 text-center font-semibold">Dirección</th>
-            <th class="px-6 py-3 border border-gray-300 text-center font-semibold">Acciones</th>
+          <tr class="bg-gray-200 text-left">
+            <th class="px-4 py-2 border border-gray-300">Nombre</th>
+            <th class="px-4 py-2 border border-gray-300">Correo</th>
+            <th class="px-4 py-2 border border-gray-300">Celular</th>
+            <th class="px-4 py-2 border border-gray-300">Dirección</th>
+            <th class="px-4 py-2 border border-gray-300">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let empleado of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-100 transition duration-150 ease-in-out">
+          <tr *ngFor="let empleado of conductores | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-100">
             <td class="px-6 py-3 border border-gray-300">{{ empleado.primerNombre }} {{ empleado.primerApellido }}</td>
             <td class="px-6 py-3 border border-gray-300">{{ empleado.correo }}</td>
             <td class="px-6 py-3 border border-gray-300">{{ empleado.celular }}</td>
@@ -39,7 +39,7 @@
             </td>
           </tr>
           <tr>
-            <td colspan="5" class="px-6 py-3 bg-gray-100 border border-gray-300">
+            <td colspan="7" class="px-4 py-4 bg-gray-200 border border-gray-300 text-center">
               <pagination-controls
                 (pageChange)="pag = $event; ListarRegistros()"
                 previousLabel="Anterior"
@@ -47,6 +47,7 @@
                 screenReaderPaginationLabel="Navegación"
                 screenReaderPageLabel="Página"
                 screenReaderCurrentLabel="Página actual"
+                class="inline-block py-2 px-4 bg-white rounded-lg shadow-md text-blue-600 cursor-pointer hover:bg-blue-100"
               ></pagination-controls>
             </td>
           </tr>

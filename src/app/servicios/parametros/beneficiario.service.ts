@@ -22,7 +22,7 @@ export class BeneficiarioService {
    * @returns lista de registros
    */
   listarRegistros(): Observable<BeneficiarioModel[]> {
-    return this.http.get<BeneficiarioModel[]>(`${this.urlBase}beneficiario?filter={"limit":${ConfiguracionPaginacion.registroPorPagina}}`);
+    return this.http.get<BeneficiarioModel[]>(`${this.urlBase}beneficiario`);
   }
 
   /**

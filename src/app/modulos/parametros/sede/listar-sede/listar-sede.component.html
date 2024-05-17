@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let sede of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-100 transition duration-150 ease-in-out">
+        <tr *ngFor="let sede of sedes | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-100 transition duration-150 ease-in-out">
           <td class="px-6 py-3 border border-gray-300">{{ sede.nombre }}</td>
           <td class="px-6 py-3 border border-gray-300">{{ sede.direccion }}</td>
           <td class="px-6 py-3 border border-gray-300 text-center">

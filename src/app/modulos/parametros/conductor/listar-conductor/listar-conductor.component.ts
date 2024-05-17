@@ -26,13 +26,14 @@ import { SedeModel } from '../../../../modelos/sede.model';
 export class ListarConductorComponent {
   sedeId: number | null = null;
   listaRegistros: ConductorModel[] = [];
+  conductores: ConductorModel[] = [];
   pag = 1;
   total = 0;
   registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;      
   BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
 
   constructor(
-    private servicioSedes: ConductorService,
+    private servicio: ConductorService,
     private route: ActivatedRoute,
     private http: HttpClient
   ) { }
@@ -40,14 +41,14 @@ export class ListarConductorComponent {
   ngOnInit(): void {
     this.ListarRegistros();
     this.sedeId = Number(this.route.snapshot.paramMap.get('id'));
-    this.obtenerSedesPorCiudad();
+    this.obtenerConductoresPorSede();
   }
 
   /**
    * Listar registros
    */
   ListarRegistros() {
-    this.servicioSedes.listarRegistrosPaginados(this.pag).subscribe({
+    this.servicio.listarRegistrosPaginados(this.pag).subscribe({
       next: (datos) => {
           this.listaRegistros = datos.registros;
           this.total = datos.totalRegistros;
@@ -58,15 +59,15 @@ export class ListarConductorComponent {
     });
   }
 
-  obtenerSedesPorCiudad(): void {
+  obtenerConductoresPorSede(): void {
     if (this.sedeId !== null) {
-      this.http.get<SedeModel[]>(`${this.BASE_URL}ciudads/${this.sedeId}/sedes`)
+      this.http.get<ConductorModel[]>(`${this.BASE_URL}sedes/${this.sedeId}/conductors`)
         .subscribe(
-          (sedes) => {
-            this.listaRegistros = sedes;
+          (conductores) => {
+            this.conductores = conductores;
           },
           (error) => {
-            console.error('Error al obtener las Sedes:', error);
+            console.error('Error al obtener los conductores:', error);
           }
         );
     }

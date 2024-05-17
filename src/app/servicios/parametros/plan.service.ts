@@ -21,7 +21,7 @@ export class PlanService {
    * @returns lista de registros
    */
   listarRegistros(): Observable<PlanModel[]> {
-    return this.http.get<PlanModel[]>(`${this.urlBase}plan?filter={"limit":${ConfiguracionPaginacion.registroPorPagina}}`);
+    return this.http.get<PlanModel[]>(`${this.urlBase}plan`);
   }
 
   /**

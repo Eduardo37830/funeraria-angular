@@ -1,1 +1,98 @@
-<p>editar-beneficiario works!</p>
+<fieldset class="container mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
+    <legend class="text-lg font-bold">Edición de Cliente</legend>
+    <div class="flex justify-center items-center">
+        <form class="w-full max-w-lg" [formGroup]="CargarArchivoFG">
+            <!-- Contenedor de la imagen -->
+            <div class="mb-6 flex justify-center">
+                <div class="showImage">
+                    <img *ngIf="!archivoCargado" src="/src/assets/" alt="Cliente Image" class="imageCliente">
+                    <img *ngIf="archivoCargado" src="{{BASE_URL}}/ObtenerArchivo/1/{{nombreAchivoCargado}}" 
+                    class="image" alt="Cliente Image">
+                </div>
+            </div>
+    
+            <!-- Campo de selección de archivo -->
+            <div class="mb-6">
+                <label for="image" class="block text-gray-700 font-bold mb-2">Seleccionar Archivo</label>
+                <div class="flex items-center">
+                    <input (change)="CuandoSeleccionaArchivo($event)" name="image" type="file" id="image" 
+                    class="appearance-none border rounded py-2 px-3 mr-4">
+                    <label for="image" class="cursor-pointer text-blue-500 hover:text-blue-700">Buscar</label>
+                </div>
+                <p class="text-gray-600 text-xs mt-1">Solo se aceptan archivos de imagen</p>
+            </div>
+    
+            <!-- Botón de subir archivo -->
+            <div class="flex justify-center">
+                <input type="button" class="btn bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                value="Subir Archivo" (click)="CargarArchivo()">
+            </div>
+        </form>
+    </div>
+    
+    <div class="mt-8">
+        <form [formGroup]="fGroup">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <label for="primerNombre" class="font-semibold">Primer Nombre</label>
+                    <input formControlName="primerNombre" id="primerNombre" type="text" class="input-field mt-1">
+                    <div *ngIf="obtenerFgDatos['primerNombre'].errors && (obtenerFgDatos['primerNombre'].dirty || obtenerFgDatos['primerNombre'].touched)" class="text-red-500 mt-1">
+                        <strong>Este campo es obligatorio</strong>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="segundoNombre" class="font-semibold">Segundo Nombre</label>
+                    <input formControlName="segundoNombre" id="segundoNombre" type="text" class="input-field mt-1">
+                </div>
+                <div class="flex flex-col">
+                    <label for="primerApellido" class="font-semibold">Primer Apellido</label>
+                    <input formControlName="primerApellido" id="primerApellido" type="text" class="input-field mt-1">
+                    <div *ngIf="obtenerFgDatos['primerApellido'].errors && (obtenerFgDatos['primerApellido'].dirty || obtenerFgDatos['primerApellido'].touched)" class="text-red-500 mt-1">
+                        <strong>Este campo es obligatorio</strong>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="segundoApellido" class="font-semibold">Segundo Apellido</label>
+                    <input formControlName="segundoApellido" id="segundoApellido" type="text" class="input-field mt-1">
+                </div>
+                <div class="flex flex-col">
+                    <label for="correo" class="font-semibold">Correo</label>
+                    <input formControlName="correo" id="correo" type="email" class="input-field mt-1">
+                    <div *ngIf="obtenerFgDatos['correo'].errors && (obtenerFgDatos['correo'].dirty || obtenerFgDatos['correo'].touched)" class="text-red-500 mt-1">
+                        <strong>Este campo es obligatorio</strong>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="celular" class="font-semibold">Celular</label>
+                    <input formControlName="celular" id="celular" type="tel" class="input-field mt-1">
+                    <div *ngIf="obtenerFgDatos['celular'].errors && (obtenerFgDatos['celular'].dirty || obtenerFgDatos['celular'].touched)" class="text-red-500 mt-1">
+                        <strong>Este campo es obligatorio</strong>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="ciudadResidencia" class="font-semibold">Ciudad de Residencia</label>
+                    <input formControlName="ciudadResidencia" id="ciudadResidencia" type="text" class="input-field mt-1">
+                </div>
+                <div class="flex flex-col">
+                    <label for="direccion" class="font-semibold">Dirección</label>
+                    <input formControlName="direccion" id="direccion" type="text" class="input-field mt-1">
+                </div>
+                <div class="flex flex-col">
+                    <label for="fechaRegistro" class="font-semibold">Fecha de Registro</label>
+                    <input formControlName="fechaRegistro" id="fechaRegistro" type="datetime" class="input-field mt-1">
+                </div>
+                <div class="flex flex-col">
+                    <label for="activo" class="font-semibold">Activo</label>
+                    <select formControlName="activo" id="activo" class="input-field mt-1">
+                        <option value="true">Sí</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-8">
+                <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="EditarRegistro()">Actualizar</button>
+                <a routerLink="/parametros/clientes/{{ clienteId }}/beneficiario-listar" class="btn bg-red-500 text-white">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</fieldset>

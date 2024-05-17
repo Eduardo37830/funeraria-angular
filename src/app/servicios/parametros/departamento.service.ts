@@ -21,7 +21,7 @@ export class DepartamentoService {
    * @returns lista de registros
    */
   listarRegistros(): Observable<DepartamentoModel[]> {
-    return this.http.get<DepartamentoModel[]>(`${this.urlBase}departamento?filter={"limit":${ConfiguracionPaginacion.registroPorPagina}}`);
+    return this.http.get<DepartamentoModel[]>(`${this.urlBase}departamento}`);
   }
 
   /**

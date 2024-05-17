@@ -25,6 +25,7 @@ import { HttpClient } from '@angular/common/http';
 export class ListarSedeComponent implements OnInit {
   ciudadId: number | null = null;
   listaRegistros: SedeModel[] = [];
+  sedes: SedeModel[] = [];
   pag = 1;
   total = 0;
   registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;      
@@ -59,7 +60,7 @@ export class ListarSedeComponent implements OnInit {
       this.http.get<SedeModel[]>(`${this.BASE_URL}ciudads/${this.ciudadId}/sedes`)
         .subscribe(
           (sedes) => {
-            this.listaRegistros= sedes;
+            this.sedes = sedes;
           },
           (error) => {
             console.error('Error al obtener las Sedes:', error);

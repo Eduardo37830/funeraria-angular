@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ClienteService } from '../../../../servicios/parametros/cliente.service';
 import { ClienteModel } from '../../../../modelos/cliente.model';
 import { ConfiguracionRutasBackend } from '../../../../config/configuracion.rutas.backend';
+import { ArchivoModel } from '../../../../modelos/archivo.model';
 
 @Component({
   selector: 'app-crear-cliente',
@@ -20,6 +21,9 @@ import { ConfiguracionRutasBackend } from '../../../../config/configuracion.ruta
 })
 export class CrearClienteComponent {
   fGroup: FormGroup = new FormGroup({});
+  nombreAchivoCargado: string = '';
+  CargarArchivoFG: FormGroup = new FormGroup({});
+  archivoCargado: boolean = false;
   BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
 
   constructor(
@@ -30,6 +34,7 @@ export class CrearClienteComponent {
 
   ngOnInit(): void {
     this.ContruirFormularioDatos();
+    this.ConstruirFormularioArchivo();
   }
 
   ContruirFormularioDatos(): void {
@@ -83,6 +88,42 @@ export class CrearClienteComponent {
 
   get obtenerFgDatos() {
     return this.fGroup.controls;
+  }
+
+   /** Carga de Archivo */
+
+   ConstruirFormularioArchivo(): void {
+    this.CargarArchivoFG = this.fb.group({
+      archivo: ['', []]
+    });
+  }
+
+  get obtenerFgArchivo() {
+    return this.CargarArchivoFG.controls;
+  }
+
+  CargarArchivo() {
+    const formData = new FormData();
+    formData.append('file', this.CargarArchivoFG.controls['archivo'].value);
+    console.log(formData);
+    this.servicio.CargarArchivo(formData).subscribe({
+      next: (data: ArchivoModel) => {
+        this.nombreAchivoCargado = data.file;
+        this.obtenerFgDatos['foto'].setValue(this.nombreAchivoCargado);
+        this.archivoCargado = true; 
+        alert('Archivo cargado correctamente');
+      },
+      error: (error: any) => {
+        alert('Error al cargar el archivo');
+      }
+    });
+  }
+
+  CuandoSeleccionaArchivo(event: any) {
+    if (event.target.files.length > 0) {
+      const f = event.target.files[0];
+      this.obtenerFgArchivo['archivo'].setValue(f);
+    }
   }
 }
 

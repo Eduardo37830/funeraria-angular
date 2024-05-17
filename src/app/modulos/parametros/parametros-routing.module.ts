@@ -70,19 +70,19 @@ const routes: Routes = [
     component: EditarClienteComponent
   },
   {
-    path: "cliente/:id/beneficiario-listar",
+    path: "clientes/:id/beneficiario-listar",
     component: ListarBeneficiarioComponent
   },
   {
-    path: "cliente/:id/beneficiario-agregar",
+    path: "clientes/:id/beneficiario-agregar",
     component: CrearBeneficiarioComponent
   },
   {
-    path: "cliente/:ids/beneficiario-eliminar/:id",
+    path: "clientes/:ids/beneficiario-eliminar/:id",
     component: EliminarBeneficiarioComponent
   },
   {
-    path: "cliente/:ids/beneficiario-editar/:id",
+    path: "clientes/:ids/beneficiario-editar/:id",
     component: EditarBeneficiarioComponent
   },
   {

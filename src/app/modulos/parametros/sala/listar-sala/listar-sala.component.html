@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let sala of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-100">
+        <tr *ngFor="let sala of salas | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-100">
           <td class="px-4 py-2 border border-gray-300">{{ sala.nombre }}</td>
           <td class="px-4 py-2 border border-gray-300">{{ sala.tipo }}</td>
           <td class="px-4 py-2 border border-gray-300">{{ sala.capacidad }}</td>
@@ -32,10 +32,12 @@
           <td>
             <!-- Botón para agregar un nueva sala -->
             <div class="flex space-x-2">
-              <a routerLink="/parametros/sedes/{{ sala.sedeId }}/sala-editar/{{ sala.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded-lg shadow-lg transition duration-300 ease-in-out">
+              <a routerLink="/parametros/sedes/{{ sala.sedeId }}/sala-editar/{{ sala.id }}" 
+              class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded-lg shadow-lg transition duration-300 ease-in-out">
                 Editar
               </a>
-              <a routerLink="/parametros/sedes/{{ sala.sedeId }}/sala-eliminar/{{ sala.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-lg shadow-lg transition duration-300 ease-in-out">
+              <a routerLink="/parametros/sedes/{{ sala.sedeId }}/sala-eliminar/{{ sala.id }}" 
+              class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-lg shadow-lg transition duration-300 ease-in-out">
                 Eliminar
               </a>
             </div>
