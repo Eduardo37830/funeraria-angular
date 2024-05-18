@@ -1,7 +1,11 @@
 <body class="flex justify-center items-center min-h-screen bg-gray-100">
   <div class="overflow-x-auto">
     <div class="my-4">
-      <a routerLink="/parametros/plan-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">Agregar Plan</a>
+      <ul>
+        <li *ngIf="SesionActiva">
+          <a routerLink="/parametros/plan-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">Agregar Plan</a>
+        </li>
+      </ul>
     </div>
     <table class="w-full sm:max-w-screen-md border-collapse border border-gray-300 text-xs sm:text-sm">
       <thead>
@@ -20,15 +24,17 @@
           <td class="px-4 py-2 border border-gray-300 text-center">{{ r.mensualidad }}</td>
           <td class="px-4 py-2 border border-gray-300 text-center">{{ r.cantidadBeneficiarios }}</td>
           <td class="px-4 py-2 border border-gray-300">
-            <div class="flex">
-              <a routerLink="/parametros/plan-editar/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full mr-2">
-                Editar
-              </a>
-              <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-full">
-                Eliminar
-              </a>
-            </div>
-          </td>          
+            <ul>
+              <li *ngIf="SesionActiva">
+                <a routerLink="/parametros/plan-editar/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full mr-2">
+                  Editar
+                </a>
+                <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-full">
+                  Eliminar
+                </a>
+              </li>
+            </ul>
+          </td>
         </tr>
         <tr>
           <td colspan="5" class="px-4 py-2 bg-gray-200 border border-gray-300">
@@ -46,4 +52,3 @@
     </table>    
   </div>
 </body>
- 

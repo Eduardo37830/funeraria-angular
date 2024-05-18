@@ -1,49 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CommonModule } from '@angular/common';
 import { PlanModel } from '../../../modelos/plan.model';
 import { PlanService } from '../../../servicios/parametros/plan.service';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfiguracionPaginacion } from '../../../config/configuracion.paginacion';
+import { ConfiguracionRutasBackend } from '../../../config/configuracion.rutas.backend';
 
 @Component({
   selector: 'app-adquirir-plan',
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
+    RouterModule,
     ReactiveFormsModule,
-    RouterModule
+    CommonModule,
+    NgxPaginationModule,
+    FormsModule,
+    
   ],
   templateUrl: './adquirir-plan.component.html',
-  styleUrl: './adquirir-plan.component.css'
+  styleUrls: ['./adquirir-plan.component.css']
 })
-export class AdquirirPlanComponent {
-  planes: PlanModel[] = [];
-  clienteId: number | null = null;
-  // Otras propiedades necesarias para el formulario
+export class AdquirirPlanComponent implements OnInit {
+  listaRegistros: PlanModel[] = [];
+  pag = 1;
+  total = 0;
+  registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;
+  BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
+  planSeleccionado: PlanModel | null = null;
 
-  constructor(
-    private planService: PlanService,
-    private route: ActivatedRoute,
-    private http: HttpClient
-  ) {}
+  constructor(private servicioPlanes: PlanService) { }
 
-  ngOnInit(): void {
-    this.obtenerPlanes();
-    this.clienteId = Number(this.route.snapshot.paramMap.get('id'));
-    // Otras inicializaciones necesarias
+  ngOnInit() {
+    this.ListarRegistros();
   }
 
-  obtenerPlanes(): void {
-    this.planService.listarRegistros().
-    subscribe(
-      (planes) => {
-        this.planes = planes;
+  ListarRegistros() {
+    this.servicioPlanes.listarRegistrosPaginados(this.pag).subscribe({
+      next: (datos) => {
+        this.listaRegistros = datos.registros;
+        this.total = datos.totalRegistros;
       },
-      (error) => {
-        console.error('Error al obtener los planes:', error);
+      error: (error) => {
+        alert('Error leyendo la información de la base de datos');
       }
-    );
+    });
+  }
+
+  seleccionarPlan(event: Event) {
+    const selectedPlanId = +(event.target as HTMLSelectElement).value;
+    this.planSeleccionado = this.listaRegistros.find(plan => plan.id === selectedPlanId) || null;
+  }
+
+  onSubmit(event: Event) {
+    event.preventDefault();
+    if (this.planSeleccionado) {
+      console.log('Plan seleccionado:', this.planSeleccionado);
+      // Aquí puedes manejar la lógica de la confirmación del plan
+    } else {
+      alert('Por favor, seleccione un plan antes de confirmar.');
+    }
   }
 }

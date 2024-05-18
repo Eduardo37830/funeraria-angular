@@ -33,6 +33,10 @@ export const routes: Routes = [
         loadChildren: () => import('./modulos/servicios/servicios.module').then(m => m.ServiciosModule)
     },
     {
+        path:'ayuda',
+        loadChildren: () => import('./modulos/ayuda/ayuda.module').then(m => m.AyudaModule)
+    },
+    {
         path: '**',
         component: RutaNoEncontradaComponent
     }
