@@ -1,8 +1,8 @@
 <body class="flex justify-center items-center min-h-screen bg-gray-100">
   <div class="overflow-x-auto">
     <div class="my-4">
-      <ul>
-        <li *ngIf="SesionActiva">
+      <ul class="flex space-x-2"> <!-- Añadido flex y espacio entre elementos -->
+        <li *ngIf="Permiso">
           <a routerLink="/parametros/plan-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">Agregar Plan</a>
         </li>
       </ul>
@@ -23,17 +23,25 @@
           <td class="px-4 py-2 border border-gray-300 text-center">{{ r.detalles }}</td>
           <td class="px-4 py-2 border border-gray-300 text-center">{{ r.mensualidad }}</td>
           <td class="px-4 py-2 border border-gray-300 text-center">{{ r.cantidadBeneficiarios }}</td>
-          <td class="px-4 py-2 border border-gray-300">
-            <ul>
-              <li *ngIf="SesionActiva">
-                <a routerLink="/parametros/plan-editar/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full mr-2">
-                  Editar
-                </a>
-                <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-full">
-                  Eliminar
-                </a>
-              </li>
-            </ul>
+          <td class="px-4 py-2 border border-gray-300 text-center">
+            <div class="px-6 py-3 border border-gray-300 text-center">
+              <ul>
+                <li *ngIf="Permiso" class="px-6 py-3 border border-gray-300 text-center">
+                  <a routerLink="/parametros/plan-editar/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full">
+                    Editar
+                  </a>
+                </li>
+                <li *ngIf="Permiso" class="px-6 py-3 border border-gray-300 text-center">
+                  <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-full">
+                    Eliminar
+                  </a>
+                <li *ngIf="!Permiso">
+                  <a routerLink="/planes/cliente/{{ clienteId }}/adquirir-plan/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full">
+                    Elegir
+                  </a>
+                </li>
+              </ul>
+            </div>
           </td>
         </tr>
         <tr>

@@ -4,7 +4,7 @@ import { AdquirirPlanComponent } from './adquirir-plan/adquirir-plan.component';
 
 const routes: Routes = [
   {
-    path: 'adquirir-plan',
+    path: 'cliente/:ids/adquirir-plan/:id',
     component: AdquirirPlanComponent
   }
 ];

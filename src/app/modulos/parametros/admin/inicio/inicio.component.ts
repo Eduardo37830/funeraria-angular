@@ -3,9 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Chart } from 'chart.js';
 import 'chartjs-adapter-luxon';
 import { ConfiguracionRutasBackend } from '../../../../config/configuracion.rutas.backend';
+import { UsuarioValidadoModel } from '../../../../modelos/usuario.validado.model';
+import { SeguridadService } from '../../../../servicios/seguridad.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
+  standalone: true,
+  imports: [
+    RouterLink
+  ],
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css']
 })
@@ -14,11 +21,16 @@ export class InicioComponent implements OnInit {
   BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
   chart: any;
   clientes: any[] = [];
+  Permiso: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private servicioSeguridad: SeguridadService,
+  ) { }
 
   ngOnInit(): void {
     this.obtenerRegistros();
+    this.ValidarPermisos();
   }
 
   obtenerRegistros() {
@@ -88,5 +100,23 @@ export class InicioComponent implements OnInit {
   obtenerMes(month: number): string {
     const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     return meses[month - 1];
+  }
+
+  ValidarPermisos() {
+    this.servicioSeguridad.ObtenerDatosSesion().subscribe({
+      next: (data: UsuarioValidadoModel | null) => {
+        if (data && data.token) {
+          // Verificar si el usuario es un administrador
+          if (data.user && data.user.rolId === '6619aa9177e8f21a1c6f600c') {
+            // Redirigir al administrador a la página deseada
+            this.Permiso= true;
+          } 
+        }
+        console.log(this.Permiso);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
   }
 }

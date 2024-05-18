@@ -35,13 +35,18 @@ export class EncabezadoComponent implements OnInit {
   ValidarSesion() {
     this.servicioSeguridad.ObtenerDatosSesion().subscribe({
       next: (data: UsuarioValidadoModel | null) => {
-        if (data && data.token) {
+        if (data && data.token && data.user) {
           this.SesionActiva = true;
           // Verificar si el usuario es un administrador
-          if (data.user && data.user.rolId === '6619aa9177e8f21a1c6f600c') {
+          if (data.user.rolId === '6619aa9177e8f21a1c6f600c') {
             // Redirigir al administrador a la página deseada
             this.router.navigate(['/parametros/admin-inicio']);
-          }
+          } 
+            if (data.user.rolId === '661dcc702a5f4843508e6740') {
+              // Redirigir al administrador a la página deseada
+              this.router.navigate(['/parametros/plan-listar']);
+            }
+          
         } else {
           this.SesionActiva = false;
         }

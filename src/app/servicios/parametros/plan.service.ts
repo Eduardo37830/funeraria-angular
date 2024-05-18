@@ -5,6 +5,7 @@ import { PlanModel } from '../../modelos/plan.model';
 import { Observable } from 'rxjs';
 import { ConfiguracionPaginacion } from '../../config/configuracion.paginacion';
 import { PaginadorPlanModel } from '../../modelos/paginador.plan.model';
+import { ClientePlanModel } from '../../modelos/clientePlan.model';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,9 @@ export class PlanService {
 
   EliminarRegistro(id: number): Observable<any> {
     return this.http.delete<any>(`${this.urlBase}plan/${id}`);
+  }
+
+  AgregarPlan(registro: ClientePlanModel): Observable<ClientePlanModel> {
+    return this.http.post<ClientePlanModel>(`${this.urlBase}adquirir-plan`, registro);
   }
 }
