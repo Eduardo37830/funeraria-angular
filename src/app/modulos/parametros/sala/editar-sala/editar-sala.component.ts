@@ -63,7 +63,7 @@ export class EditarSalaComponent {
       tipo: ['', [Validators.required]],
       capacidad: ['', [Validators.required]],
       horaEntradaCuerpo: ['', [Validators.required]],
-      horaSalidaCuerpo: ['', [Validators.required]],
+      horaSalidaCuerpo: [''],
       disponible: ['', [Validators.required]],
       sedeId: [this.sedeId, [Validators.required]],
     });
@@ -74,6 +74,8 @@ export class EditarSalaComponent {
       alert('Debe diligenciar todo el formulario');
     } else {
       let modelo = this.obtenerRegistro();
+      modelo.horaSalidaCuerpo = new Date(modelo.horaEntradaCuerpo!); // Asignar la fecha de salida como 3 horas después de la entrada
+      modelo.horaSalidaCuerpo.setHours(modelo.horaSalidaCuerpo.getHours() + 3);
       this.servicio.EditarRegistro(modelo).subscribe({
         next: (data: SalaModel) => {
           alert('Registro guardado correctamente');

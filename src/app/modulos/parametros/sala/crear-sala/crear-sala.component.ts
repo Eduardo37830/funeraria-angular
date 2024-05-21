@@ -40,8 +40,8 @@ export class CrearSalaComponent {
       nombre: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       capacidad: ['', [Validators.required]],
-      horaEntradaCuerpo: ['', [Validators.required]],
-      horaSalidaCuerpo: ['', [Validators.required]],
+      horaEntradaCuerpo: [''],
+      horaSalidaCuerpo: [''],
       disponible: [true, [Validators.required]],
       sedeId: [this.sedeId, [Validators.required]],
     }, { validators: validarHoras() });
@@ -52,7 +52,6 @@ export class CrearSalaComponent {
       alert('Debe diligenciar todo el formulario');
     } else {
       let modelo = this.obtenerRegistro();
-      console.log(modelo);
       this.servicio.AgregarRegistro(modelo).subscribe({
         next: (data: SalaModel) => {
           console.log(data);
@@ -72,7 +71,6 @@ export class CrearSalaComponent {
     model.tipo = this.obtenerFgDatos['tipo'].value;
     model.capacidad = parseInt(this.obtenerFgDatos['capacidad'].value);
     model.horaEntradaCuerpo = this.obtenerFgDatos['horaEntradaCuerpo'].value;
-    model.horaSalidaCuerpo = this.obtenerFgDatos['horaSalidaCuerpo'].value;
     model.disponible = this.obtenerFgDatos['disponible'].value;
     model.sedeId = parseInt(this.obtenerFgDatos['sedeId'].value);
     return model;
