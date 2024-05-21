@@ -40,16 +40,16 @@ export class CrearClienteComponent {
   ContruirFormularioDatos(): void {
     this.fGroup = this.fb.group({
       primerNombre: ['', [Validators.required]],
-      segundoNombre: ['', [Validators.required]],
+      segundoNombre: [''],
       primerApellido: ['', [Validators.required]],
-      segundoApellido: ['', [Validators.required]],
+      segundoApellido: [''],
       correo: ['', [Validators.required]],
       celular: ['', [Validators.required]],
-      foto: ['', [Validators.required]],
+      foto: [''],
       ciudadResidencia: ['', [Validators.required]],
       direccion: ['', [Validators.required]],
-      fechaRegistro: ['', [Validators.required]],
-      activo: ['', [Validators.required]]
+      fechaRegistro: [new Date(), [Validators.required]],
+      activo: [true, [Validators.required]]
     });
   }
 
@@ -78,11 +78,11 @@ export class CrearClienteComponent {
     model.segundoApellido = this.obtenerFgDatos['segundoApellido'].value;
     model.correo = this.obtenerFgDatos['correo'].value;
     model.celular = this.obtenerFgDatos['celular'].value;
-    model.foto = this.obtenerFgDatos['foto'].value;
+    model.foto = this.CargarArchivoFG.controls['archivo'].value;
     model.ciudadResidencia = this.obtenerFgDatos['ciudadResidencia'].value;
     model.direccion = this.obtenerFgDatos['direccion'].value;
-    model.fechaRegistro = this.obtenerFgDatos['fechaRegistro'].value;
-    model.activo = this.obtenerFgDatos['activo'].value;
+    model.fechaRegistro = new Date();
+    model.activo = true;
     return model;
   }
 

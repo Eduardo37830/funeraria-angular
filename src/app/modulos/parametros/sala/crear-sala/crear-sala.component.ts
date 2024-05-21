@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SalaModel } from '../../../../modelos/sala.model';
 import { SalaService } from '../../../../servicios/parametros/sala.service';
+import { validarHoras } from './validarHora';
 
 @Component({
   selector: 'app-crear-sala',
@@ -12,7 +13,7 @@ import { SalaService } from '../../../../servicios/parametros/sala.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './crear-sala.component.html',
   styleUrl: './crear-sala.component.css'
@@ -43,7 +44,7 @@ export class CrearSalaComponent {
       horaSalidaCuerpo: ['', [Validators.required]],
       disponible: [true, [Validators.required]],
       sedeId: [this.sedeId, [Validators.required]],
-    });
+    }, { validators: validarHoras() });
   }
 
   GuardarRegistro() {

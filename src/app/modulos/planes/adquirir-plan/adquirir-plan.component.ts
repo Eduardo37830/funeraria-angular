@@ -90,14 +90,22 @@ export class AdquirirPlanComponent implements OnInit {
       this.servicioPlanes.AgregarPlan(modelo).subscribe({
         next: (data: ClientePlanModel) => {
           alert('Registro guardado correctamente');
-          this.router.navigate(['parametros/clientes',this.clienteId ,'beneficiario-listar']);
-        },
-        error: (error: any) => {
-          alert('Error al guardar el registro');
-        }
-      });
-    }
+       // Simulación de pago
+       console.log('Procesando pago...');
+       setTimeout(() => {
+         // Simulación de pago exitoso
+         this.mostrarModalPagoExitoso();
+         setTimeout(() => {
+           this.cerrarModal();
+           
+           this.router.navigate(['parametros/clientes', this.clienteId, 'beneficiario-listar']);
+         }, 3000); // El modal se cierra automáticamente después de 3 segundos
+       }, 2000); // Simula un retraso en el pago de 2 segundos
+      }
+    });
+     }
   }
+  
 
   obtenerRegistro(): ClientePlanModel {
     let model = new ClientePlanModel();
@@ -111,5 +119,19 @@ export class AdquirirPlanComponent implements OnInit {
 
   get obtenerFgDatos() {
     return this.fGroup.controls;
+  }
+
+  mostrarModalPagoExitoso() {
+    const modal = document.getElementById('modalPagoExitoso');
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  }
+
+  cerrarModal() {
+    const modal = document.getElementById('modalPagoExitoso');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
   }
 }
