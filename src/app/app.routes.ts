@@ -1,11 +1,21 @@
 import { Routes } from '@angular/router';
 import { InicioComponent } from './publico/inicio/inicio.component';
 import { RutaNoEncontradaComponent } from './publico/errores/ruta-no-encontrada/ruta-no-encontrada.component';
+import { NosotrosComponent } from './publico/nosotros/nosotros.component';
+import { ContactoComponent } from './publico/contacto/contacto.component';
 
 export const routes: Routes = [
     {
         path: 'inicio',
         component: InicioComponent
+    },
+    {
+        path: 'nosotros',
+        component: NosotrosComponent
+    },
+    {
+        path: 'contacto',
+        component: ContactoComponent
     },
     {
         path: '',

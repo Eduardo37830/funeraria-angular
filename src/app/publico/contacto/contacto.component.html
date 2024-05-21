@@ -1,0 +1,26 @@
+<!-- pqrs.component.html -->
+<div class="container mx-auto py-8">
+    <h2 class="text-3xl font-bold mb-4">Envía tus PQRS</h2>
+  
+    <form class="max-w-lg">
+      <div class="mb-4">
+        <label for="tipo" class="block text-gray-700 font-bold mb-2">Tipo:</label>
+        <select id="tipo" name="tipo" class="w-full p-2 border border-gray-300 rounded">
+          <option value="peticion">Peticion</option>
+          <option value="queja">Queja</option>
+          <option value="reclamo">Reclamo</option>
+          <option value="sugerencia">Sugerencia</option>
+        </select>
+      </div>
+  
+      <div class="mb-4">
+        <label for="mensaje" class="block text-gray-700 font-bold mb-2">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="4" class="w-full p-2 border border-gray-300 rounded"></textarea>
+      </div>
+  
+      <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+        Enviar
+      </button>
+    </form>
+  </div>
+  
