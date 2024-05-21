@@ -37,6 +37,10 @@ export const routes: Routes = [
         loadChildren: () => import('./modulos/ayuda/ayuda.module').then(m => m.AyudaModule)
     },
     {
+        path:'chat',
+        loadChildren: () => import('./modulos/chat/chat.module').then(m => m.ChatModule)
+    },
+    {
         path: '**',
         component: RutaNoEncontradaComponent
     }
