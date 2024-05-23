@@ -138,4 +138,12 @@ export class SeguridadService {
   RegistrarUsuarioPublico(datos: any): Observable<UsuarioModel> {
     return this.http.post<UsuarioModel>(`${this.urlSeguridad}usuario-publico`, datos);
   }
+
+  ValidarHashUsuarioPublico(hash: string): Observable<boolean> {
+    return this.http.post<boolean>(`${this.urlSeguridad}validar-hash-usuario`, {
+      codigoHash: hash
+    });
+  }
+
+
 }

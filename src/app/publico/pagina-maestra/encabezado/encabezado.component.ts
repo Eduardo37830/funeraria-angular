@@ -22,6 +22,7 @@ import { UsuarioValidadoModel } from '../../../modelos/usuario.validado.model';
 export class EncabezadoComponent implements OnInit {
 
   SesionActiva: boolean = false;
+  esAdministrador: boolean = false;
 
   constructor(
     private servicioSeguridad: SeguridadService,
@@ -39,18 +40,18 @@ export class EncabezadoComponent implements OnInit {
           this.SesionActiva = true;
           // Verificar si el usuario es un administrador
           if (data.user.rolId === '6619aa9177e8f21a1c6f600c') {
-            // Redirigir al administrador a la página deseada
-            this.router.navigate(['/parametros/admin-inicio']);
-          } 
-            if (data.user.rolId === '661dcc702a5f4843508e6740') {
-              // Redirigir al administrador a la página deseada
-              this.router.navigate(['/parametros/plan-listar']);
-            }
-          
+            this.esAdministrador = true;
+          } else {
+            this.esAdministrador = false;
+          }
+          // Redirigir al administrador a la página deseada si es necesario
+          if (this.esAdministrador) {
+            this.router.navigate(['/inicio']);
+          }
         } else {
           this.SesionActiva = false;
+          this.esAdministrador = false;
         }
-        console.log(this.SesionActiva);
       },
       error: (error: any) => {
         console.log(error);

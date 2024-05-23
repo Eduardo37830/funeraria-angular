@@ -11,6 +11,7 @@ import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.
 import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
 import { EliminarUsuarioComponent } from './usuario/eliminar-usuario/eliminar-usuario.component';
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
+import { ValidarHashUsuarioPublicoComponent } from './validar-hash-usuario-publico/validar-hash-usuario-publico.component';
 
 const routes: Routes = [
   {
@@ -39,11 +40,11 @@ const routes: Routes = [
     path: "registro-usuario",
     component: RegistroUsuarioComponent,
   },
-  /*
   {
-    //path: "validar-hash-usuario-publico/:hash",
-    //component: ValidarHashUsuarioPublicoComponent
+    path: "validar-hash-usuario-publico/:hash",
+    component: ValidarHashUsuarioPublicoComponent
   },
+  /*
   {
     path: "usuario-crear",
     component: CrearUsuarioComponent,

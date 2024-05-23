@@ -42,8 +42,6 @@ export class RegistroUsuarioComponent {
       telefono: ['', [Validators.required, Validators.minLength(12)]],
       ciudadResidencia: ['', [Validators.required, Validators.minLength(2)]], // Añadido campo ciudadResidencia
       direccion: ['', [Validators.required, Validators.minLength(5)]], // Añadido campo direccion
-      clave: ['', [Validators.required, Validators.minLength(8)]], // Añadido campo clave
-      sede: ['', [Validators.required, Validators.minLength(2)]], // Añadido campo sede
     });
   }
 
@@ -53,7 +51,6 @@ export class RegistroUsuarioComponent {
   Registrarse() {
     let campos = this.ObtenerFormGroup;
     let datos = {
-      _id: "6619b0adacdbbe12b09ccb45", // Añadido _id
       primerNombre: campos["primerNombre"].value,
       segundoNombre: campos["segundoNombre"].value,
       primerApellido: campos["primerApellido"].value,
@@ -62,8 +59,6 @@ export class RegistroUsuarioComponent {
       celular: campos["telefono"].value,
       ciudadResidencia: campos["ciudadResidencia"].value, // Añadido campo ciudadResidencia
       direccion: campos["direccion"].value, // Añadido campo direccion
-      clave: campos["clave"].value, // Añadido campo clave
-      sede: campos["sede"].value, // Añadido campo sede
     };
 
     this.servicioSeguridad.RegistrarUsuarioPublico(datos).subscribe({
@@ -71,7 +66,7 @@ export class RegistroUsuarioComponent {
         alert("Registro correcto, se ha enviado un mensaje para validar su dirección de correo electrónico.");
       },
       error: (err) => {
-        alert("Se ha producido un error en el registro.");
+        alert("Se ha producido un error en el registro." + JSON.stringify(err.error));
       }
     });
   }
