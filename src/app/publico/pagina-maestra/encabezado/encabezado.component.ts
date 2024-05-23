@@ -22,7 +22,7 @@ import { UsuarioValidadoModel } from '../../../modelos/usuario.validado.model';
 export class EncabezadoComponent implements OnInit {
 
   SesionActiva: boolean = false;
-  esAdministrador: boolean = false;
+  esAdministrador: boolean = true;
 
   constructor(
     private servicioSeguridad: SeguridadService,

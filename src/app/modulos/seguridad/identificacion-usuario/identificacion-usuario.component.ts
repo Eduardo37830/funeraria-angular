@@ -47,10 +47,15 @@ export class IdentificacionUsuarioComponent {
       let usuario = this.obtenerFormGroup['usuario'].value;
       let clave = this.obtenerFormGroup['clave'].value;
       let claveCifrada = MD5(clave).toString();
+      console.log("La clave cifrada es: " + claveCifrada);
+      
       this.servicioSeguridad.IndentificarUsuario(usuario, claveCifrada).subscribe({
         next: (data: UsuarioModel) => {
+          console.log("La data que entra es:");
           console.log(data);
           if (this.servicioSeguridad.AlmacenarDatosUsuarioIdentificado(data)) {
+            console.log("El usuario se ha identificado correctamente");
+            
             this.router.navigate(['/seguridad/2fa']);
           }
         },

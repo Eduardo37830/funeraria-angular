@@ -35,15 +35,16 @@ export class SeguridadService {
    * @param datos datos del usuario
    */
   AlmacenarDatosUsuarioIdentificado(datos: UsuarioModel): boolean {
-    let cadena = JSON.stringify(datos);
-    let datosLS = localStorage.getItem('datos-usuario');
-    if (datosLS) {
-      return false;
-    } else {
+    try {
+      let cadena = JSON.stringify(datos);
       localStorage.setItem('datos-usuario', cadena);
       return true;
+    } catch (e) {
+      console.error("Error al almacenar los datos del usuario:", e);
+      return false;
     }
   }
+  
 
   /**
    * Busca datos del usuario en el local storage
