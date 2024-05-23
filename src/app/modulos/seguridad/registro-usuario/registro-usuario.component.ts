@@ -59,6 +59,7 @@ export class RegistroUsuarioComponent {
       celular: campos["telefono"].value,
       ciudadResidencia: campos["ciudadResidencia"].value, // Añadido campo ciudadResidencia
       direccion: campos["direccion"].value, // Añadido campo direccion
+      rolId: "661dcc702a5f4843508e6740" //Falta corregir esto
     };
 
     this.servicioSeguridad.RegistrarUsuarioPublico(datos).subscribe({
