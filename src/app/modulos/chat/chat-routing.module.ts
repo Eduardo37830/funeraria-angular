@@ -1,16 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ComponenteChatComponent } from './componente-chat/componente-chat.component';
+import { ComponenteEntradamensajeComponent } from './componente-entradamensaje/componente-entradamensaje.component';
+import { ComponenteListachatComponent } from './componente-listachat/componente-listachat.component';
+import { ComponenteListamensajeComponent } from './componente-listamensaje/componente-listamensaje.component';
+import { ComponentePrivadomensajeComponent } from './componente-privadomensaje/componente-privadomensaje.component';
+
 
 const routes: Routes = [
   {
-    path: 'chat',
-    loadChildren: () => import('./chat.module').then(m => m.ChatModule)
+    path: "chat",
+    component: ComponenteChatComponent
   },
   {
-    path: 'chat/:id',
-    loadChildren: () => import('./chat.module').then(m => m.ChatModule)
+    path: "entradamensaje",
+    component: ComponenteEntradamensajeComponent
   },
-  
+  {
+    path: "listachat",
+    component: ComponenteListachatComponent
+  },
+  {
+    path: "listamensaje",
+    component: ComponenteListamensajeComponent
+  },
+  {
+    path: "privadomensaje",
+    component: ComponentePrivadomensajeComponent
+  }
 ];
 
 @NgModule({
