@@ -22,7 +22,7 @@ import { UsuarioValidadoModel } from '../../../modelos/usuario.validado.model';
 export class EncabezadoComponent implements OnInit {
 
   SesionActiva: boolean = false;
-  esAdministrador: boolean = true;
+  esAdministrador: boolean = false;
 
   constructor(
     private servicioSeguridad: SeguridadService,
@@ -39,6 +39,8 @@ export class EncabezadoComponent implements OnInit {
         if (data && data.token && data.user) {
           this.SesionActiva = true;
           // Verificar si el usuario es un administrador
+          console.log(data.user.rolId);
+          
           if (data.user.rolId === '6619aa9177e8f21a1c6f600c') {
             this.esAdministrador = true;
           } else {

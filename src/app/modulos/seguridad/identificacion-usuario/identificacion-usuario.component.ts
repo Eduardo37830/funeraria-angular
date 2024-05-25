@@ -51,12 +51,13 @@ export class IdentificacionUsuarioComponent {
       
       this.servicioSeguridad.IndentificarUsuario(usuario, claveCifrada).subscribe({
         next: (data: UsuarioModel) => {
-          console.log("La data que entra es:");
-          console.log(data);
-          if (this.servicioSeguridad.AlmacenarDatosUsuarioIdentificado(data)) {
-            console.log("El usuario se ha identificado correctamente");
-            
-            this.router.navigate(['/seguridad/2fa']);
+          if (data._id == undefined || data._id == null) {
+            alert("Credenciales incorrectas o falta la validación del correo electrónico.");
+          } else {
+            console.log(data);
+            if (this.servicioSeguridad.AlmacenarDatosUsuarioIdentificado(data)) {
+              this.router.navigate(["/seguridad/2fa"]);
+            }
           }
         },
         error: (error) => {
