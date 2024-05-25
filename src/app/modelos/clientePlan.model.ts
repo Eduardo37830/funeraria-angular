@@ -1,7 +1,7 @@
 export class ClientePlanModel {
     id?: number;
     tarifa?: number;
-    fechaAquisicion?: Date;
+    fechaAdquisicion?: Date;
     fechaVencimiento?: Date;
     cantidadBeneficiarios?: number;
     clienteId?: number;

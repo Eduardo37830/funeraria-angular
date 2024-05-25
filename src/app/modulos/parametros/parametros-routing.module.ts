@@ -35,6 +35,7 @@ import { ListarConductorComponent } from './conductor/listar-conductor/listar-co
 import { CrearConductorComponent } from './conductor/crear-conductor/crear-conductor.component';
 import { EliminarConductorComponent } from './conductor/eliminar-conductor/eliminar-conductor.component';
 import { EditarConductorComponent } from './conductor/editar-conductor/editar-conductor.component';
+import { PagoEpaycoComponent } from '../pago-epayco/pago-epayco.component';
 
 const routes: Routes = [
   {
@@ -177,6 +178,10 @@ const routes: Routes = [
   {
     path: "registros-por-fechas",
     component: RegistrosPorFechasComponent
+  },
+  {
+    path: "pago-epayco",
+    component: PagoEpaycoComponent
   }
 ];
 

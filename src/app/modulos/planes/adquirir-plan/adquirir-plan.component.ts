@@ -37,7 +37,7 @@ export class AdquirirPlanComponent implements OnInit {
     private servicioPlanes: PlanService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { 
     this.route.params.subscribe(params => {
       this.clienteId = +params['ids']; 
@@ -46,22 +46,21 @@ export class AdquirirPlanComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ConstruirFormularioDatos();
     this.ListarRegistros();
     if (this.planId) {
       this.seleccionarPlanPorId(this.planId);
     }
-    this.ConstruirFormularioDatos();
   }
-
 
   ConstruirFormularioDatos(): void {
     this.fGroup = this.fb.group({
       tarifa: ['', [Validators.required]],
-      fechaAdquisicion: ['', [Validators.required]],
-      fechaVencimiento: ['', [Validators.required]],
+      fechaAdquisicion: [new Date(), [Validators.required]],
+      fechaVencimiento: [''],
+      cantidadBeneficiarios: ['', [Validators.required]],
       clienteId: [this.clienteId, [Validators.required]],
       planId: [this.planId, [Validators.required]],
-      cantidadBeneficiarios: ['', [Validators.required]],
       mesesAPagar: [1, [Validators.required]],
       metodoPago: ['']
     });
@@ -84,14 +83,22 @@ export class AdquirirPlanComponent implements OnInit {
 
   seleccionarPlanPorId(id: number) {
     this.planSeleccionado = this.listaRegistros.find(plan => plan.id === id) || null;
+    if (this.planSeleccionado) {
+      this.fGroup.patchValue({
+        tarifa: this.planSeleccionado.mensualidad,
+        cantidadBeneficiarios: this.planSeleccionado.cantidadBeneficiarios
+      });
+    }
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
-    if (this.planSeleccionado) {
-      console.log('Plan seleccionado:', this.planSeleccionado);
-    } else {
+    if (this.fGroup.invalid) {
+      alert('Debe diligenciar todo el formulario');
+    } else if (!this.planSeleccionado) {
       alert('Por favor, seleccione un plan antes de confirmar.');
+    } else {
+      this.GuardarRegistro();
     }
   }
 
@@ -100,20 +107,26 @@ export class AdquirirPlanComponent implements OnInit {
       alert('Debe diligenciar todo el formulario');
     } else {
       let modelo = this.obtenerRegistro();
-      console.log('Modelo a guardar:', modelo);
+      console.log(modelo);
+      let fechaVencimiento = new Date(modelo.fechaAdquisicion!);
+  
+      // Obtén el mes actual y suma los meses a pagar
+      let mesActual = new Date().getMonth();
+      let mesesAPagar = this.obtenerFgDatos['mesesAPagar'].value;
+      fechaVencimiento.setMonth(mesActual + mesesAPagar);
+
+      modelo.fechaVencimiento = fechaVencimiento;
       this.servicioPlanes.AgregarPlan(modelo).subscribe({
         next: (data: ClientePlanModel) => {
           alert('Registro guardado correctamente');
-          // Simulación de pago
           console.log('Procesando pago...');
           setTimeout(() => {
-            // Simulación de pago exitoso
             this.mostrarModalPagoExitoso();
             setTimeout(() => {
               this.cerrarModal();
               this.router.navigate(['parametros/clientes', this.clienteId, 'beneficiario-listar']);
-            }, 3000); // El modal se cierra automáticamente después de 3 segundos
-          }, 2000); // Simula un retraso en el pago de 2 segundos
+            }, 3000);
+          }, 2000);
         },
         error: (error) => {
           alert('Error al guardar el registro');
@@ -124,22 +137,15 @@ export class AdquirirPlanComponent implements OnInit {
 
   obtenerRegistro(): ClientePlanModel {
     let model = new ClientePlanModel();
-    let mesesAPagar = this.obtenerFgDatos['mesesAPagar'].value;
-    let fechaAdquisicion = new Date();
-    let fechaVencimiento = new Date(fechaAdquisicion);
-    fechaVencimiento.setMonth(fechaVencimiento.getMonth() + mesesAPagar);
-
+    let mesesAPagar = this.fGroup.value.mesesAPagar;
+  
     model.tarifa = this.planSeleccionado!.mensualidad! * mesesAPagar;
-    model.fechaAquisicion = fechaAdquisicion;
-    model.fechaVencimiento = fechaVencimiento;
+    model.fechaAdquisicion = new Date();
     model.cantidadBeneficiarios = this.planSeleccionado!.cantidadBeneficiarios;
-    model.clienteId = parseInt(this.obtenerFgDatos['clienteId'].value);
-    model.planId = parseInt(this.obtenerFgDatos['planId'].value);
+    model.clienteId = this.clienteId!;
+    model.planId = this.planId!;
+    
     return model;
-  }
-
-  get obtenerFgDatos() {
-    return this.fGroup.controls;
   }
 
   mostrarModalPagoExitoso() {
@@ -154,5 +160,9 @@ export class AdquirirPlanComponent implements OnInit {
     if (modal) {
       modal.classList.add('hidden');
     }
+  }
+
+  get obtenerFgDatos() {
+    return this.fGroup.controls;
   }
 }

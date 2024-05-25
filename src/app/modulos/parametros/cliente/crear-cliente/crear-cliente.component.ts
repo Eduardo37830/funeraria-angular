@@ -58,6 +58,7 @@ export class CrearClienteComponent {
       alert('Debe diligenciar todo el formulario');
     } else {
       let modelo = this.obtenerRegistro();
+      console.log(modelo);
       this.servicio.AgregarRegistro(modelo).subscribe({
         next: (data: ClienteModel) => {
           alert('Registro guardado correctamente');

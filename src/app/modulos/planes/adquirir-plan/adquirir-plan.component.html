@@ -1,7 +1,7 @@
 <div class="bg-gray-100">
   <div class="container mx-auto my-8 p-6 bg-white shadow-lg rounded-lg border border-gray-200">
     <h2 class="text-3xl font-bold text-center mb-6">Adquirir Plan</h2>
-    <form [formGroup]="fGroup" id="planForm" class="space-y-4" (submit)="onSubmit($event)">
+    <form [formGroup]="fGroup" id="planForm" class="space-y-4" (ngSubmit)="onSubmit($event)">
       <!-- Selección del plan -->
       <fieldset class="border border-gray-300 p-4 rounded-lg">
         <legend class="text-lg font-semibold">Detalles del plan</legend>
@@ -37,7 +37,8 @@
       <!-- Botones de acción -->
       <div class="flex justify-end mt-6">
         <button type="reset" class="btn bg-red-500 text-white py-2 px-4 rounded-lg mr-4">Cancelar</button>
-        <button type="button" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg mr-4" (click)="GuardarRegistro()">Guardar</button>
+        <button type="submit" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg">Guardar</button>
+        <a routerLink="/parametros/pago-epayco" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg ml-4">Pagar</a>
       </div>
     </form>
   </div>
