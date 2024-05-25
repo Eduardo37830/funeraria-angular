@@ -10,6 +10,7 @@ import { UsuarioValidadoModel } from '../modelos/usuario.validado.model';
 })
 export class SeguridadService {
   urlSeguridad = ConfiguracionRutasBackend.urlSeguridad;
+  urlLogicaNegocio = ConfiguracionRutasBackend.urlNegocio;
 
   private datosUsuarioValidado = new BehaviorSubject<UsuarioValidadoModel | null>(null);
 
@@ -138,6 +139,10 @@ export class SeguridadService {
 
   RegistrarUsuarioPublico(datos: any): Observable<UsuarioModel> {
     return this.http.post<UsuarioModel>(`${this.urlSeguridad}usuario-publico`, datos);
+  }
+
+  RegistrarUsuarioPublicoLogicaNegocio(datos: any): Observable<UsuarioModel> {
+    return this.http.post<UsuarioModel>(`${this.urlLogicaNegocio}cliente-publico`, datos);
   }
 
   ValidarHashUsuarioPublico(hash: string): Observable<boolean> {
