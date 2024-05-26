@@ -26,7 +26,6 @@ import { HttpClient } from '@angular/common/http';
 export class ListarCiudadComponent {
   departamentoId: number | null = null;
   ciudades: CiudadModel[] = [];
-  sedes: SedeModel[] = [];
   listaRegistros: CiudadModel[] = [];
   pag = 1;
   total = 0;

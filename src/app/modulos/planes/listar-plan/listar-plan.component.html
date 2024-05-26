@@ -1,0 +1,54 @@
+<body class="flex justify-center">
+    <div class="verflow-x-auto">
+      <table class="w-full sm:max-w-screen-md md:w-full border-collapse border border-gray-300 text-xs sm:text-sm">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 bg-gray-200 border border-gray-300">Nombre</th>
+            <th class="px-4 py-2 bg-gray-200 border border-gray-300">Detalles</th>
+            <th class="px-4 py-2 bg-gray-200 border border-gray-300">Tarifa</th>
+            <th class="px-4 py-2 bg-gray-200 border border-gray-300">FechaAdquisicion</th>
+            <th class="px-4 py-2 bg-gray-200 border border-gray-300">FechaVencimiento</th>
+            <th class="px-4 py-2 bg-gray-200 border border-gray-300">Numero Beneficiarios</th>
+            <th class="px-4 py-2 bg-gray-200 border border-gray-300">Beneficiarios</th>
+            <th class="px-4 py-2 bg-gray-200 border border-gray-300">Acciones</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of plan | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ r.nombre }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ r.detalles }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ r.tarifa}}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ r.fechaAdquisicion }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ r.fechaVencimiento }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ r.cantidadBeneficiarios }}</td>
+            <td class="px-6 py-4 border border-gray-300 text-center">
+                <a routerLink="/parametros/clientes/{{ clienteId }}/beneficiario-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+                  Beneficiarios
+                </a>
+            </td>
+            <td class="px-2 py-1 border border-gray-300 text-center">
+              <div class="flex space-x-2 justify-center">
+                <a routerLink="/planes/renovar-plan/{{ r.id }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded shadow-md transition duration-300 transform hover:scale-105">Renovar Plan</a>
+                <a routerLink="/planes/cliente/{{clienteId }}/eliminar-plan/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded shadow-md transition duration-300 transform hover:scale-105">Cancelar Plan</a>
+                <a class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded shadow-md transition duration-300 transform hover:scale-105">Detalles</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="8" class="px-4 py-2 bg-gray-200 border border-gray-300">
+              <pagination-controls
+                (pageChange)="pag = $event; ListarRegistros()"
+                previousLabel="Anterior"
+                nextLabel="Siguiente"
+                screenReaderPaginationLabel="Navegación"
+                screenReaderPageLabel="Página"
+                screenReaderCurrentLabel="Página actual"
+              ></pagination-controls>
+            </td>
+          </tr>
+        </tbody>
+      </table>    
+    </div>
+  </body>
+  

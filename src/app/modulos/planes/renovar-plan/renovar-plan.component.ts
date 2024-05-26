@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { PlanModel } from '../../../modelos/plan.model';
-import { PlanService } from '../../../servicios/parametros/plan.service';
+import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfiguracionPaginacion } from '../../../config/configuracion.paginacion';
 import { ConfiguracionRutasBackend } from '../../../config/configuracion.rutas.backend';
 import { ClientePlanModel } from '../../../modelos/clientePlan.model';
+import { PlanService } from '../../../servicios/parametros/plan.service';
+import { CommonModule } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
-  selector: 'app-adquirir-plan',
+  selector: 'app-renovar-plan',
   standalone: true,
   imports: [
     RouterModule,
@@ -19,10 +19,10 @@ import { ClientePlanModel } from '../../../modelos/clientePlan.model';
     NgxPaginationModule,
     FormsModule,
   ],
-  templateUrl: './adquirir-plan.component.html',
-  styleUrls: ['./adquirir-plan.component.css']
+  templateUrl: './renovar-plan.component.html',
+  styleUrl: './renovar-plan.component.css'
 })
-export class AdquirirPlanComponent implements OnInit {
+export class RenovarPlanComponent {
   listaRegistros: PlanModel[] = [];
   pag = 1;
   total = 0;
@@ -40,8 +40,8 @@ export class AdquirirPlanComponent implements OnInit {
     private route: ActivatedRoute,
   ) { 
     this.route.params.subscribe(params => {
-      this.clienteId = +params['ids']; 
-      this.planId = +params['id'];
+      this.clienteId = +params['clienteId'];
+      this.planId = +params['planId'];
     });
   }
 
@@ -56,7 +56,7 @@ export class AdquirirPlanComponent implements OnInit {
   ConstruirFormularioDatos(): void {
     this.fGroup = this.fb.group({
       tarifa: ['', [Validators.required]],
-      fechaAdquisicion: [new Date(), [Validators.required]],
+      fechaRenovacion: [new Date(), [Validators.required]],
       fechaVencimiento: [''],
       cantidadBeneficiarios: ['', [Validators.required]],
       clienteId: [this.clienteId, [Validators.required]],
@@ -108,15 +108,15 @@ export class AdquirirPlanComponent implements OnInit {
     } else {
       let modelo = this.obtenerRegistro();
       console.log(modelo);
-      let fechaVencimiento = new Date(modelo.fechaAdquisicion!);
-  
+      let fechaVencimiento = new Date(modelo.fechaVencimiento!);
+
       // Obtén el mes actual y suma los meses a pagar
       let mesActual = new Date().getMonth();
       let mesesAPagar = this.obtenerFgDatos['mesesAPagar'].value;
       fechaVencimiento.setMonth(mesActual + mesesAPagar);
 
       modelo.fechaVencimiento = fechaVencimiento;
-      this.servicioPlanes.AgregarPlan(modelo).subscribe({
+      this.servicioPlanes.EditarRegistro(modelo).subscribe({
         next: (data: ClientePlanModel) => {
           alert('Registro guardado correctamente');
           console.log('Procesando pago...');
@@ -138,15 +138,13 @@ export class AdquirirPlanComponent implements OnInit {
   obtenerRegistro(): ClientePlanModel {
     let model = new ClientePlanModel();
     let mesesAPagar = this.fGroup.value.mesesAPagar;
-    model.nombre = this.planSeleccionado!.nombre;
-    model.detalles = this.planSeleccionado!.detalles;
+
     model.tarifa = this.planSeleccionado!.mensualidad! * mesesAPagar;
     model.fechaAdquisicion = new Date();
     model.cantidadBeneficiarios = this.planSeleccionado!.cantidadBeneficiarios;
-    model.activo = true;
     model.clienteId = this.clienteId!;
     model.planId = this.planId!;
-    
+
     return model;
   }
 

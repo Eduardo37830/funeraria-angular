@@ -3,6 +3,7 @@ import { PagoEpaycoService } from '../../servicios/parametros/pago-epayco.servic
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { EpaycoModel } from '../../modelos/epayco.model';
 
 @Component({
   selector: 'app-pago-epayco',
@@ -19,6 +20,9 @@ import { RouterModule } from '@angular/router';
 export class PagoEpaycoComponent {
   monto: number = 0;
   moneda: string = 'COP';
+  pagos: EpaycoModel[] = [];
+  ePayco: any;
+
 
   constructor(
     private pagoService: PagoEpaycoService,
@@ -76,5 +80,29 @@ export class PagoEpaycoComponent {
       mobilephone_billing: "3050000000",
       number_doc_billing: "100000000"
     };
+  }
+
+  iniciarPago() {
+    const params_transaction = {
+      amount: 100,
+      currency: 'COP',
+      description: 'Test Payment',
+      // Agrega más parámetros según sea necesario
+    };
+
+    this.pagoService.createSession(params_transaction).subscribe(
+      response => {
+        const sessionId = response.sessionId;
+        const handler = this.ePayco.checkout.configure({
+          sessionId: sessionId,
+          external: false, // external: true -> para checkout externo ó External: false => para iframe onePage
+        });
+        //open checkout
+        handler.openNew();
+      },
+      error => {
+        console.error('Error al crear la sesión:', error);
+      }
+    );
   }
 }

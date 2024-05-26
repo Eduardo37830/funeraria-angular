@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, model } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfiguracionPaginacion } from '../../../../config/configuracion.paginacion';
 import { ConfiguracionRutasBackend } from '../../../../config/configuracion.rutas.backend';
 import { PlanModel } from '../../../../modelos/plan.model';
@@ -11,6 +11,8 @@ import { SeguridadService } from '../../../../servicios/seguridad.service';
 import { UsuarioValidadoModel } from '../../../../modelos/usuario.validado.model';
 import { ClienteModel } from '../../../../modelos/cliente.model';
 import { ClienteService } from '../../../../servicios/parametros/cliente.service';
+import { HttpClient } from '@angular/common/http';
+import { ClientePlanModel } from '../../../../modelos/clientePlan.model';
 
 @Component({
   selector: 'app-listar-plan',
@@ -28,22 +30,23 @@ export class ListarPlanComponent {
   listaRegistros: PlanModel[] = [];
   pag = 1;
   total = 0;
+  clientes: ClienteModel[] = [];
+  clienteId: number = 0;
   registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;
   BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
 
   Permiso: boolean = false;
-  clientes: ClienteModel[] = [];
-  clienteId: number = 0;
+  usuario: boolean = false;
 
   constructor(
     private servicioPlanes: PlanService,
     private servicioSeguridad: SeguridadService,
-    private clienteService: ClienteService
-  ) { }
+    private clienteService: ClienteService  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void{
     this.ListarRegistros();
     this.ObtenerClientesYValidarPermisos();
+    this.ListarRegistrosPlan();
   }
 
   ListarRegistros() {
@@ -52,7 +55,19 @@ export class ListarPlanComponent {
         this.listaRegistros = datos.registros;
         this.total = datos.totalRegistros;
       },
-      error: (error) => {
+      error: () => {
+        alert('Error leyendo la información de la base de datos');
+      }
+    });
+  }
+
+  ListarRegistrosPlan() {
+    this.servicioPlanes.listarRegistrosPagina(this.clienteId!).subscribe({
+      next: (datos) => {
+        this.listaRegistros = datos.registros;
+        this.total = datos.totalRegistros;
+      },
+      error: () => {
         alert('Error leyendo la información de la base de datos');
       }
     });
@@ -79,6 +94,9 @@ export class ListarPlanComponent {
           if (data.user && data.user.rolId === '6619aa9177e8f21a1c6f600c') {
             this.Permiso = true;
           }
+          if (data.user && data.user.rolId === '661dcc702a5f4843508e6740') {
+            this.usuario = true;
+          }
 
           // Buscar el cliente correspondiente por correo
           const clienteEncontrado = this.clientes.find(cliente => cliente.correo! === data.user!.correo);
@@ -91,6 +109,7 @@ export class ListarPlanComponent {
         }
         console.log('Permiso:', this.Permiso);
         console.log('Cliente ID:', this.clienteId);
+        console.log('Usuario:', this.usuario);
       },
       error: (error: any) => {
         console.log(error);

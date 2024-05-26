@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { ConfiguracionPaginacion } from '../../config/configuracion.paginacion';
 import { PaginadorPlanModel } from '../../modelos/paginador.plan.model';
 import { ClientePlanModel } from '../../modelos/clientePlan.model';
+import { PaginadorClientePlanModel } from '../../modelos/paginador.clientePlan.model';
+import { ClienteModel } from '../../modelos/cliente.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +38,12 @@ export class PlanService {
     return this.http.get<PaginadorPlanModel>(`${this.urlBase}plan-paginado?filter={"limit": ${limit}, "skip": ${skip}, "order": "id DESC"}`);
   }  
 
+  listarPlanCliente(pag: number): Observable<PaginadorClientePlanModel> {
+    let limit = ConfiguracionPaginacion.registroPorPagina;
+    let skip = (pag - 1) * limit;
+    return this.http.get<PaginadorPlanModel>(`${this.urlBase}cliente-plan-paginado?filter={"limit": ${limit}, "skip": ${skip}, "order": "id DESC"}`);
+  }
+
   AgregarRegistro(registro: PlanModel): Observable<PlanModel> {
     return this.http.post<PlanModel>(`${this.urlBase}plan`, registro);
   }
@@ -55,4 +63,9 @@ export class PlanService {
   AgregarPlan(registro: ClientePlanModel): Observable<ClientePlanModel> {
     return this.http.post<ClientePlanModel>(`${this.urlBase}adquirir-plan`, registro);
   }
+
+
+  listarRegistrosPagina(id: number): Observable<any> {
+    return this.http.get<PaginadorPlanModel>(`${this.urlBase}clientes/${id}/plans`);
+  }  
 }
