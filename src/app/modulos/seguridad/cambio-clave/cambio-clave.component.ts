@@ -38,18 +38,19 @@ export class CambioClaveComponent implements OnInit {
       const datos = {
         correo: this.fGroup.get('correo')!.value,
         clave: this.fGroup.get('clave')!.value,
-        claveNueva: this.fGroup.get('claveNueva')!.value,
+        nuevaClave: this.fGroup.get('claveNueva')!.value,
       };
-
-      console.log(datos);
-      
-
       this.servicioSeguridad.CambiarClave(datos).subscribe({
         next: (response: any) => {
-          alert(`Se ha enviado una notificación a ${datos.correo}`);
+          console.log(response);
+          if (response) {
+            alert(response.message);
+          } else {
+            alert('Clave actualizada correctamente.');
+          }
         },
         error: (err) => {
-          alert('Ha ocurrido un error enviando la nueva contraseña.');
+          alert('Ha ocurrido un error enviando la nueva contraseña.' + JSON.stringify(err));
           console.error('Error:', err);
         },
       });
