@@ -1,26 +1,45 @@
-<!-- pqrs.component.html -->
 <div class="container mx-auto py-8">
-    <h2 class="text-3xl font-bold mb-4">Envía tus PQRS</h2>
-  
-    <form class="max-w-lg">
-      <div class="mb-4">
-        <label for="tipo" class="block text-gray-700 font-bold mb-2">Tipo:</label>
-        <select id="tipo" name="tipo" class="w-full p-2 border border-gray-300 rounded">
-          <option value="peticion">Peticion</option>
-          <option value="queja">Queja</option>
-          <option value="reclamo">Reclamo</option>
-          <option value="sugerencia">Sugerencia</option>
-        </select>
+  <h2 class="text-3xl font-bold mb-4 text-center">Envía tus PQRS</h2>
+
+  <form class="max-w-lg mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" [formGroup]="fGroup" (ngSubmit)="enviarPQRS()">
+    <div class="mb-4">
+      <label for="tipo" class="block text-gray-700 font-bold mb-2">Tipo:</label>
+      <select id="tipo" formControlName="tipo" class="w-full p-2 border border-gray-300 rounded" required>
+        <option value="">Seleccione una opción</option>
+        <option value="peticion">Petición</option>
+        <option value="queja">Queja</option>
+        <option value="reclamo">Reclamo</option>
+        <option value="sugerencia">Sugerencia</option>
+      </select>
+        <div *ngIf="fGroup.get('tipo')?.invalid && fGroup.get('tipo')?.touched" class="text-red-500">
+          El tipo es obligatorio.
+        </div>
       </div>
-  
+      <div class="mb-4">
+        <label for="nombre" class="block text-gray-700 font-bold mb-2">Nombre:</label>
+        <input id="nombre" type="text" formControlName="nombre" class="w-full p-2 border border-gray-300 rounded" required>
+        <div *ngIf="fGroup.get('nombre')?.invalid && fGroup.get('nombre')?.touched" class="text-red-500">
+          El nombre es obligatorio y debe tener al menos 2 caracteres.
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="correo" class="block text-gray-700 font-bold mb-2">Correo del administrador:</label>
+        <input id="correo" type="email" formControlName="correo" class="w-full p-2 border border-gray-300 rounded" required>
+        <div *ngIf="fGroup.get('correo')?.invalid && fGroup.get('correo')?.touched" class="text-red-500">
+          El correo es obligatorio y debe ser válido.
+        </div>
+      </div>
       <div class="mb-4">
         <label for="mensaje" class="block text-gray-700 font-bold mb-2">Mensaje:</label>
-        <textarea id="mensaje" name="mensaje" rows="4" class="w-full p-2 border border-gray-300 rounded"></textarea>
+        <textarea id="mensaje" rows="4" formControlName="mensaje" class="w-full p-2 border border-gray-300 rounded" required></textarea>
+        <div *ngIf="fGroup.get('mensaje')?.invalid && fGroup.get('mensaje')?.touched" class="text-red-500">
+        El mensaje es obligatorio y debe tener al menos 10 caracteres.
       </div>
-  
+    </div>
+    <div class="flex items-center justify-between">
       <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
         Enviar
       </button>
-    </form>
-  </div>
-  
+    </div>
+  </form>
+</div>

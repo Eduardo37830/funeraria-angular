@@ -4,7 +4,6 @@ import { EncabezadoComponent } from "./publico/pagina-maestra/encabezado/encabez
 import { PiePaginaComponent } from "./publico/pagina-maestra/pie-pagina/pie-pagina.component";
 import { initFlowbite } from 'flowbite';
 import { HttpClientModule } from '@angular/common/http';
-
 import { ReactiveFormsModule } from '@angular/forms';
 import { NativeDateModule } from '@angular/material/core';
 @Component({
