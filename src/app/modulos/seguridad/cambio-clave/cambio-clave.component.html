@@ -1,1 +1,33 @@
-<p>cambio-clave works!</p>
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">Cambio de Contraseña</h2>
+        <form [formGroup]="fGroup" (ngSubmit)="ActualizarClave()">
+            <div class="mb-4">
+                <label for="correo" class="block text-gray-700 font-bold mb-2">Correo</label>
+                <input type="email" id="correo" formControlName="correo" class="w-full p-2 border border-gray-300 rounded" required>
+                <div *ngIf="obtenerFormGroup['correo'].invalid && obtenerFormGroup['correo'].touched" class="text-red-500">
+                    El correo es obligatorio y debe ser válido.
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="clave" class="block text-gray-700 font-bold mb-2">Contraseña Actual:</label>
+                <input type="password" id="clave" formControlName="clave" class="w-full p-2 border border-gray-300 rounded" required>
+                <div *ngIf="obtenerFormGroup['clave'].invalid && obtenerFormGroup['clave'].touched" class="text-red-500">
+                    La contraseña actual es obligatoria y debe tener al menos 6 caracteres.
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="claveNueva" class="block text-gray-700 font-bold mb-2">Nueva Contraseña:</label>
+                <input type="password" id="claveNueva" formControlName="claveNueva" class="w-full p-2 border border-gray-300 rounded" required>
+                <div *ngIf="obtenerFormGroup['claveNueva'].invalid && obtenerFormGroup['claveNueva'].touched" class="text-red-500">
+                    La nueva contraseña es obligatoria y debe tener al menos 6 caracteres.
+                </div>
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    Cambiar Contraseña
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
