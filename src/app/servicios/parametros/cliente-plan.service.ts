@@ -46,7 +46,7 @@ export class ClientePlanService {
   }
 
   EditarRegistro(registro: ClientePlanModel): Observable<ClientePlanModel> {
-    return this.http.put<ClientePlanModel>(`${this.urlBase}clientes/${registro.id}/plans`, registro);
+    return this.http.put<ClientePlanModel>(`${this.urlBase}modificar-plan/${registro.id}`, registro);
   }
 
   BuscarRegistro(id: number): Observable<ClientePlanModel> {

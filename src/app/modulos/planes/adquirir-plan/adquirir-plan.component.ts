@@ -61,7 +61,7 @@ export class AdquirirPlanComponent implements OnInit {
       cantidadBeneficiarios: ['', [Validators.required]],
       clienteId: [this.clienteId, [Validators.required]],
       planId: [this.planId, [Validators.required]],
-      mesesAPagar: [1, [Validators.required]],
+      mesesAPagar: ['', [Validators.required]],
       metodoPago: ['']
     });
   }
@@ -124,7 +124,7 @@ export class AdquirirPlanComponent implements OnInit {
             this.mostrarModalPagoExitoso();
             setTimeout(() => {
               this.cerrarModal();
-              this.router.navigate(['parametros/clientes', this.clienteId, 'beneficiario-listar']);
+              this.router.navigate(['planes', this.clienteId, 'mis-planes']);
             }, 3000);
           }, 2000);
         },
