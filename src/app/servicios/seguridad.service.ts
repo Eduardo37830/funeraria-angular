@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfiguracionRutasBackend } from '../config/configuracion.rutas.backend';
 import { UsuarioModel } from '../modelos/usuario.model';
 import { UsuarioValidadoModel } from '../modelos/usuario.validado.model';
+import { PqrsModel } from '../modelos/pqrs.model';
 
 @Injectable({
   providedIn: 'root'
@@ -149,6 +150,10 @@ export class SeguridadService {
     return this.http.post<boolean>(`${this.urlSeguridad}validar-hash-usuario`, {
       codigoHash: hash
     });
+  }
+
+  EnviarPQRS(datos: any): Observable<PqrsModel> {
+    return this.http.post<PqrsModel>(`${this.urlLogicaNegocio}generar-pqrs`, datos);
   }
 
 
