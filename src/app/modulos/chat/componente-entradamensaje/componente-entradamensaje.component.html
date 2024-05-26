@@ -1,1 +1,23 @@
-<p>componente-entradamensaje works!</p>
+<!-- src/app/chat/chat.component.html -->
+<div class="chat-section">
+    <h2>Chat Room of <label id="usernameChat">{{ username }}</label></h2>
+    <ul id="messages"></ul>
+    <input id="messageInput" type="text" [(ngModel)]="message" placeholder="Type your message here..." />
+    <button (click)="sendMessage()">Send General Message</button>
+  </div>
+  
+  <div class="chat-section">
+    <h2>Private Chat</h2>
+    <input id="recipientInput" [(ngModel)]="recipient" placeholder="Recipient's username" />
+    <input id="privateMessageInput" type="text" [(ngModel)]="privateMessage" placeholder="Type your private message here..." />
+    <button (click)="sendPrivateMessage()">Send Private Message</button>
+    <ul id="privateMessages"></ul>
+  </div>
+  
+  <div class="chat-section">
+    <h2>Block User</h2>
+    <input id="userToBlockInput" [(ngModel)]="userToBlock" placeholder="Username to block" />
+    <input id="masterKeyInput" type="password" [(ngModel)]="masterKey" placeholder="Master Key" />
+    <button (click)="blockUser()">Block User</button>
+  </div>
+

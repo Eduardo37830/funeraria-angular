@@ -16,7 +16,7 @@ import { UsuarioValidadoModel } from '../../../modelos/usuario.validado.model';
         ReactiveFormsModule,
         CommonModule,
         RouterLink,
-        MenuLateralComponent
+        MenuLateralComponent,
     ]
 })
 export class EncabezadoComponent implements OnInit {
