@@ -11,6 +11,15 @@
           <strong>Este campo es obligatorio y debe tener el formato de correo electrónico</strong>
         </div>
       </div>
+      <ngx-recaptcha2 #captchaElem
+      [siteKey]="captchaSiteKey"
+      (reset)="handleReset()"
+      (expire)="handleExpire()"
+      (load)="handleLoad()"
+      (success)="handleSuccess($event)"
+      [useGlobalDomain]="true"
+      formControlName="recaptcha">
+    </ngx-recaptcha2>
       <div>
         <button (click)="RecuperarClave()" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Recuperar clave</button>
       </div>

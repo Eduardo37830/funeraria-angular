@@ -6,6 +6,7 @@ import { initFlowbite } from 'flowbite';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NativeDateModule } from '@angular/material/core';
+import { NgxCaptchaModule } from 'ngx-captcha';
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -18,6 +19,7 @@ import { NativeDateModule } from '@angular/material/core';
       ReactiveFormsModule,
       EncabezadoComponent,
       NativeDateModule,
+      NgxCaptchaModule
     ],
 })
 export class AppComponent implements OnInit {

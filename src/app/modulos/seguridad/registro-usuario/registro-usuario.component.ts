@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SeguridadService } from '../../../servicios/seguridad.service';
 import { UsuarioModel } from '../../../modelos/usuario.model';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-registro-usuario',
@@ -12,7 +13,8 @@ import { UsuarioModel } from '../../../modelos/usuario.model';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgxCaptchaModule
   ],
   templateUrl: './registro-usuario.component.html',
   styleUrls: ['./registro-usuario.component.css'] // Cambié styleUrl a styleUrls
@@ -24,6 +26,8 @@ export class RegistroUsuarioComponent implements OnInit {
     private fb: FormBuilder,
     private servicioSeguridad: SeguridadService
   ) { }
+
+  captchaSiteKey= this.servicioSeguridad.captchaSiteKey;
 
   ngOnInit() {
     this.ConstruirFormulario();
@@ -41,7 +45,8 @@ export class RegistroUsuarioComponent implements OnInit {
       correo: ['', [Validators.required, Validators.email]], // Añadido Validators.email
       telefono: ['', [Validators.required, Validators.minLength(10)]], // Ajustado minlength a 10
       ciudadResidencia: ['', [Validators.required, Validators.minLength(2)]], // Añadido campo ciudadResidencia
-      direccion: ['', [Validators.required, Validators.minLength(5)]], // Añadido campo direccion
+      direccion: ['', [Validators.required, Validators.minLength(5)]], // Añadido campo direccion,
+      recaptcha: ['', Validators.required]
     });
   }
 
@@ -104,5 +109,21 @@ export class RegistroUsuarioComponent implements OnInit {
 
   get ObtenerFormGroup() {
     return this.fGroup.controls;
+  }
+
+  handleReset() {
+    console.log('reCAPTCHA reset');
+  }
+
+  handleExpire() {
+    console.log('reCAPTCHA expired');
+  }
+
+  handleLoad() {
+    console.log('reCAPTCHA loaded');
+  }
+
+  handleSuccess(token: string) {
+    this.fGroup.get('recaptcha')!.setValue(token);
   }
 }

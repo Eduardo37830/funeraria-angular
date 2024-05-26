@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { SeguridadService } from '../../../servicios/seguridad.service';
 import { UsuarioModel } from '../../../modelos/usuario.model';
 import {MD5} from 'crypto-js';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-identificacion-usuario',
@@ -13,20 +14,24 @@ import {MD5} from 'crypto-js';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgxCaptchaModule
   ],
   templateUrl: './identificacion-usuario.component.html',
   styleUrl: './identificacion-usuario.component.css'
 })
 export class IdentificacionUsuarioComponent {
   fGroup: FormGroup = new FormGroup({});
+  
   constructor(
     private fb: FormBuilder,
     private servicioSeguridad: SeguridadService,
-    private router: Router
+    private router: Router,
   ) { 
     
   }
+
+  captchaSiteKey = this.servicioSeguridad.captchaSiteKey;
 
   ngOnInit() {
     this.ContruirFormulario();
@@ -35,7 +40,8 @@ export class IdentificacionUsuarioComponent {
   ContruirFormulario() {
     this.fGroup = this.fb.group({
       usuario: ['', [Validators.required, Validators.email]],
-      clave: ['', [Validators.required]]
+      clave: ['', [Validators.required]],
+      recaptcha: ['', Validators.required]
     });
   }
 
@@ -70,5 +76,21 @@ export class IdentificacionUsuarioComponent {
 
   get obtenerFormGroup() {
     return this.fGroup.controls;
+  }
+
+  handleReset() {
+    console.log('reCAPTCHA reset');
+  }
+
+  handleExpire() {
+    console.log('reCAPTCHA expired');
+  }
+
+  handleLoad() {
+    console.log('reCAPTCHA loaded');
+  }
+
+  handleSuccess(token: string) {
+    this.fGroup.get('recaptcha')!.setValue(token);
   }
 }

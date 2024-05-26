@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { SeguridadService } from '../../../servicios/seguridad.service';
 import { UsuarioModel } from '../../../modelos/usuario.model';
 import { CommonModule } from '@angular/common';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-recuperar-clave',
@@ -10,7 +11,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxCaptchaModule
   ],
   templateUrl: './recuperar-clave.component.html',
   styleUrl: './recuperar-clave.component.css',
@@ -23,9 +25,12 @@ export class RecuperarClaveComponent {
     private servicioSeguridad: SeguridadService
   ) {}
 
+  captchaSiteKey= this.servicioSeguridad.captchaSiteKey;
+
   ngOnInit() {
     this.fGroup = this.fb.group({
       usuario: ['', [Validators.required, Validators.email]],
+      recaptcha: ['', Validators.required]
     });
   }
 
@@ -50,5 +55,21 @@ export class RecuperarClaveComponent {
 
   get obtenerFormGroup() {
     return this.fGroup.controls;
+  }
+
+  handleReset() {
+    console.log('reCAPTCHA reset');
+  }
+
+  handleExpire() {
+    console.log('reCAPTCHA expired');
+  }
+
+  handleLoad() {
+    console.log('reCAPTCHA loaded');
+  }
+
+  handleSuccess(token: string) {
+    this.fGroup.get('recaptcha')!.setValue(token);
   }
 }

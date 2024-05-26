@@ -29,5 +29,15 @@
         <a href="/seguridad/registrar-usuario" class="block mt-3 text-sm text-blue-700 dark:text-blue-500">
             ¿No tienes cuenta? <span class="text-red-500 font-bold">Registrate</span>
         </a>
+
+        <ngx-recaptcha2 #captchaElem
+        [siteKey]="captchaSiteKey"
+        (reset)="handleReset()"
+        (expire)="handleExpire()"
+        (load)="handleLoad()"
+        (success)="handleSuccess($event)"
+        [useGlobalDomain]="false"
+        formControlName="recaptcha">
+      </ngx-recaptcha2>
       </form>
     </div>

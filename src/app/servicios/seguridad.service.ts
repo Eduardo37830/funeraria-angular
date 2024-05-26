@@ -12,7 +12,7 @@ import { PqrsModel } from '../modelos/pqrs.model';
 export class SeguridadService {
   urlSeguridad = ConfiguracionRutasBackend.urlSeguridad;
   urlLogicaNegocio = ConfiguracionRutasBackend.urlNegocio;
-
+  captchaSiteKey = ConfiguracionRutasBackend.cllaveCaptcha;
   private datosUsuarioValidado = new BehaviorSubject<UsuarioValidadoModel | null>(null);
 
   constructor(private http: HttpClient) {
