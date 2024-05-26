@@ -156,5 +156,9 @@ export class SeguridadService {
     return this.http.post<PqrsModel>(`${this.urlLogicaNegocio}generar-pqrs`, datos);
   }
 
+  CambiarClave(datos: any): Observable<UsuarioModel> {
+    return this.http.post<UsuarioModel>(`${this.urlSeguridad}cambio-clave`, datos);
+  }
+
 
 }
