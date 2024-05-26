@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SeguridadService } from '../../../servicios/seguridad.service';
 import { UsuarioModel } from '../../../modelos/usuario.model';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-cambio-clave',
@@ -10,7 +11,8 @@ import { UsuarioModel } from '../../../modelos/usuario.model';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxCaptchaModule
   ],
   templateUrl: './cambio-clave.component.html',
   styleUrls: ['./cambio-clave.component.css']
@@ -23,11 +25,14 @@ export class CambioClaveComponent implements OnInit {
     private servicioSeguridad: SeguridadService
   ) {}
 
+  captchaSiteKey= this.servicioSeguridad.captchaSiteKey;
+
   ngOnInit() {
     this.fGroup = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
       clave: ['', [Validators.required, Validators.minLength(5)]],
       claveNueva: ['', [Validators.required, Validators.minLength(5)]],
+      recaptcha: ['', Validators.required]
     });
   }
 
@@ -59,5 +64,21 @@ export class CambioClaveComponent implements OnInit {
 
   get obtenerFormGroup() {
     return this.fGroup.controls;
+  }
+
+  handleReset() {
+    console.log('reCAPTCHA reset');
+  }
+
+  handleExpire() {
+    console.log('reCAPTCHA expired');
+  }
+
+  handleLoad() {
+    console.log('reCAPTCHA loaded');
+  }
+
+  handleSuccess(token: string) {
+    this.fGroup.get('recaptcha')!.setValue(token);
   }
 }
