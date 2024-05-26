@@ -17,7 +17,7 @@ import { NativeDateModule } from '@angular/material/core';
       HttpClientModule,
       ReactiveFormsModule,
       EncabezadoComponent,
-      NativeDateModule
+      NativeDateModule,
     ],
 })
 export class AppComponent implements OnInit {
