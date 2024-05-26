@@ -43,6 +43,10 @@ const routes: Routes = [
     component: ListarPlanComponent
   },
   {
+    path: "plan-listar/:id",
+    component: ListarPlanComponent
+  },
+  {
     path: "plan-agregar",
     component: CrearPlanComponent
   },

@@ -27,4 +27,12 @@ export class PagoEpaycoService {
   sendPaymentRequest(paymentData: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + 'v1/payment/create', paymentData);
   }
+
+  getOrderById(id: string): Observable<any> {
+    return this.http.get(`${this.BASE_URL}plan/${id}`);
+  }
+
+  createSession(params: any): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}pago-epaycos`, params);
+  }
 }
