@@ -1,16 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleUser} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-menu-lateral',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FontAwesomeModule],
   templateUrl: './menu-lateral.component.html',
   styleUrl: './menu-lateral.component.css'
 })
 export class MenuLateralComponent {
   isOpen = false;
+
+  faCircleUser = faCircleUser;
 
   toggleMenu() {
     this.isOpen = !this.isOpen;

@@ -1,0 +1,25 @@
+/* Tema claro (por defecto) */
+body {
+  background-color: white;
+  color: black;
+}
+
+/* Tema oscuro */
+.dark-mode body {
+  background-color: #1a202c; /* Color de fondo oscuro */
+  color: white;
+}
+
+/* Estilos específicos para los elementos del navbar */
+.dark-mode .navbar {
+  background-color: #2d3748; /* Color de fondo del navbar en modo oscuro */
+  color: white;
+}
+
+.dark-mode .navbar a {
+  color: inherit;
+}
+
+.dark-mode .navbar a:hover {
+  background-color: #4a5568;
+}

@@ -1,18 +1,17 @@
-<!-- dropdown-menu.component.html -->
 <div class="relative" (click)="toggleMenu()">
-   <button class="flex items-center text-white bg-customGreen hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full p-2">
-     <span class="sr-only">Open menu</span>
-     <img class="w-8 h-8 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
-   </button>
-   
-   <div *ngIf="isOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1">
-     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi plan</a>
-     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mis beneficiarios</a>
-     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Solicitudes</a>
-     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Configuración</a>
-     <a routerLink="/seguridad/cambiar-clave" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Cambiar clave</a>
-     <div class="border-t border-gray-100"></div>
-     <a routerLink="/seguridad/cerrar-sesion" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Cerrar sesión</a>
-   </div>
- </div>
- 
+  <button class="flex items-center text-white bg-customGreen hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full p-2 w-10 h-10">
+    <span class="sr-only">Open menu</span>
+    <fa-icon [icon]="faCircleUser" class="text-2xl"></fa-icon>
+    <!-- <img class="w-8 h-8 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar"> -->
+  </button>
+  
+  <div *ngIf="isOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1">
+    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi plan</a>
+    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mis beneficiarios</a>
+    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Solicitudes</a>
+    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Configuración</a>
+    <a routerLink="/seguridad/cambiar-clave" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Cambiar clave</a>
+    <div class="border-t border-gray-100"></div>
+    <a routerLink="/seguridad/cerrar-sesion" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Cerrar sesión</a>
+  </div>
+</div>
