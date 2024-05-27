@@ -26,8 +26,8 @@ export class ComponenteEntradamensajeComponent {
   constructor() { }
 
   ngOnInit() {
-    this.username = prompt('Enter your username:') || '';
-    this.codigo = prompt('Enter the chat room code:') || '';
+    this.username = prompt('Ingrese su nombre de usuario:') || '';
+    this.codigo = prompt('Ingrese el codigo de la sala:') || '';
     if (this.username) {
       this.socket = io('http://localhost:3010');
       this.socket.emit('join', this.username, this.codigo);
@@ -44,8 +44,8 @@ export class ComponenteEntradamensajeComponent {
   }
 
   sendMessage() {
-    if (this.message.trim()) {
-      this.socket.emit('message', this.message);
+    if (this.recipient.trim() && this.message.trim()) {
+      this.socket.emit('message', {message: this.message});
       this.message = '';
     }
   }

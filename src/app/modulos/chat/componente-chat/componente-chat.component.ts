@@ -54,6 +54,8 @@ export class ComponenteChatComponent implements OnInit {
       nombreUsuario: campos["nombreUsuario"].value,
       codigo: campos["codigo"].value,
     };
+    
+  
     if (datos.codigo == "12345")
     {
       alert("Bienvenido a la sala de chat");
