@@ -184,7 +184,7 @@ const routes: Routes = [
     component: RegistrosPorFechasComponent
   },
   {
-    path: "pago-epayco",
+    path: "cliente/:ids/pago-epayco/:id",
     component: PagoEpaycoComponent
   }
 ];

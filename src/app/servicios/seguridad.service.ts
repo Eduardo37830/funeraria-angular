@@ -160,5 +160,15 @@ export class SeguridadService {
     return this.http.post<UsuarioModel>(`${this.urlSeguridad}cambio-clave`, datos);
   }
 
+  ObtenerTokenLocalStorage():string {
+    let ls = localStorage.getItem("datos-sesion");
+    if (ls) {
+      let usuario: UsuarioValidadoModel = JSON.parse(ls);
+      return usuario.token!;
+    } else {
+      return "";
+    }
+  }
+
 
 }

@@ -1,14 +1,11 @@
+<!-- src/app/components/pago/pago.component.html -->
 <div>
-    <h2>Realizar un Pago</h2>
-    <input type="number" [(ngModel)]="monto" placeholder="Monto">
-    <input type="text" [(ngModel)]="moneda" placeholder="Moneda">
-    <button (click)="crearPago()">Pagar</button>
-  </div>
-
-<div>
-  <script type="text/javascript" src="https://checkout.epayco.co/checkout.js"></script>
-    <!-- pago-epayco.component.html -->
-<button (click)="openCheckout()">Pagar con ePayco</button>
-<button (click)="iniciarPago()">Iniciar Pago</button>
-
+  <h1>Realizar Pago</h1>
+    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+      <a href=" https://secure.epayco.co/payment/methods?transaction=W4hbAHQTPZCRy9vqu">Ir a pagar</a>
+     
+      <button type="button" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg" (click)="GuardarRegistro()">Aceptar</button>
+    </div>
+    <script type="text/javascript" src="https://checkout.epayco.co/checkout.js"></script>
 </div>
+

@@ -13,10 +13,6 @@ const routes: Routes = [
   {
     path: 'cliente/:ids/renovar-plan/:id',
     component: RenovarPlanComponent
-  },
-  {
-    path: 'cliente/:ids/renovar-plan/:id',
-    component: RenovarPlanComponent
   
   },
   {

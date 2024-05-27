@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, effect, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { EncabezadoComponent } from "./publico/pagina-maestra/encabezado/encabezado.component";
 import { PiePaginaComponent } from "./publico/pagina-maestra/pie-pagina/pie-pagina.component";
@@ -28,5 +28,33 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     initFlowbite();
+    this.applyTheme();
+  }
+
+  darkMode = signal<boolean>(
+    JSON.parse(window.localStorage.getItem('darkMode') ?? 'false')
+  );
+  
+  constructor() {
+    effect(() => {
+      const darkModeValue = this.darkMode();
+      if (darkModeValue) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+    });
+  }
+
+  private applyTheme() {
+    if (this.darkMode()) {
+      document.documentElement.classList.add('dark-mode');
+    } else {
+      document.documentElement.classList.remove('dark-mode');
+    }
+  }
+
+  @HostBinding('class.dark') get mode() {
+    return this.darkMode();
   }
 }

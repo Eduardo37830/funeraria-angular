@@ -32,6 +32,7 @@ export class AdquirirPlanComponent implements OnInit {
   fGroup: FormGroup = new FormGroup({});
   planId: number | null = null;
   clienteId: number | null = null;
+  plan: ClientePlanModel[] = [];
 
   constructor(
     private servicioPlanes: PlanService,
