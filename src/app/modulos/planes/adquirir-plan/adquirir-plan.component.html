@@ -23,7 +23,7 @@
             <option value="paypal">PayPal</option>
           </select>
         </div>
-        <!-- Seleccion de meses a pagar -->
+        <!-- Selección de meses a pagar -->
         <div class="mt-4">
           <label for="mesesAPagar" class="font-semibold">Meses a Pagar</label>
           <select formControlName="mesesAPagar" id="mesesAPagar" name="mesesAPagar" class="border border-gray-300 p-2 rounded-lg w-full">
@@ -38,7 +38,7 @@
       <div class="flex justify-end mt-6">
         <button type="reset" class="btn bg-red-500 text-white py-2 px-4 rounded-lg mr-4">Cancelar</button>
         <button type="submit" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg">Guardar</button>
-        <a routerLink="/parametros/pago-epayco" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg ml-4">Pagar</a>
+        <button routerLink="/parametros/cliente/{{ clienteId }}/pago-epayco/{{planId}}" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg ml-4">Pagar</button>
       </div>
     </form>
   </div>
