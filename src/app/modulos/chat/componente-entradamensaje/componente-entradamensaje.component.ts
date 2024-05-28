@@ -2,13 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { io } from 'socket.io-client';
+import { SeguridadService } from '../../../servicios/seguridad.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-componente-entradamensaje',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule 
+    FormsModule
   ],
   templateUrl: './componente-entradamensaje.component.html',
   styleUrl: './componente-entradamensaje.component.css'
@@ -23,11 +25,25 @@ export class ComponenteEntradamensajeComponent {
   userToBlock: string = '';
   masterKey: string = '';
 
-  constructor() { }
+  constructor(
+    private servicioSeguridad: SeguridadService,
+    private router: Router
+  ) { 
+    
+
+  }
 
   ngOnInit() {
-    this.username = prompt('Enter your username:') || '';
-    this.codigo = prompt('Enter the chat room code:') || '';
+    let datosChat = this.servicioSeguridad.ObtenerDatosChat();
+    if (datosChat) {
+      this.username = datosChat.usuario;
+      this.codigo = datosChat.codigo;
+    } else {
+      alert('Los datos no son válidos');
+      this.username = '';
+      this.codigo = '';
+      this.router.navigate(['/chat/chat']); // navigate to home page
+    }
     if (this.username) {
       this.socket = io('http://localhost:3010');
       this.socket.emit('join', this.username, this.codigo);
@@ -44,8 +60,8 @@ export class ComponenteEntradamensajeComponent {
   }
 
   sendMessage() {
-    if (this.message.trim()) {
-      this.socket.emit('message', this.message);
+    if (this.recipient.trim() && this.message.trim()) {
+      this.socket.emit('message', { message: this.message });
       this.message = '';
     }
   }

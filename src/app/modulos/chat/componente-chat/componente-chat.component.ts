@@ -12,7 +12,7 @@ import { UsuarioModel } from '../../../modelos/usuario.model';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './componente-chat.component.html',
   styleUrl: './componente-chat.component.css'
@@ -54,13 +54,12 @@ export class ComponenteChatComponent implements OnInit {
       nombreUsuario: campos["nombreUsuario"].value,
       codigo: campos["codigo"].value,
     };
-    if (datos.codigo == "12345")
-    {
-      alert("Bienvenido a la sala de chat");
-      this.router.navigate(["/chat/entradamensaje"]);
-    } else {
-      alert("Código incorrecto");
-    }
+  
+    // Store the data in the local storage
+    this.servicioSeguridad.AlmacenarDatosChat(datos.codigo, datos.nombreUsuario);
+  
+    alert("Bienvenido a la sala de chat");
+    this.router.navigate(["/chat/entradamensaje"]);
   }
 
   get ObtenerFormGroup() {

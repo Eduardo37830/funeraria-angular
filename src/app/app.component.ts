@@ -6,7 +6,8 @@ import { initFlowbite } from 'flowbite';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NativeDateModule } from '@angular/material/core';
-import { NgxCaptchaModule } from 'ngx-captcha';
+import { NgxCaptchaModule } from 'ngx-captcha'; // Import the NgxCaptchaModule from its correct location
+
 @Component({
     selector: 'app-root',
     standalone: true,
