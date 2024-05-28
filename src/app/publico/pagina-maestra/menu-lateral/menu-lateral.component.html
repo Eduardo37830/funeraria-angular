@@ -1,10 +1,11 @@
-<div class="relative" (click)="toggleMenu()">
-  <button class="flex items-center text-white bg-customGreen hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full p-2 w-10 h-10">
-    <span class="sr-only">Open menu</span>
-    <fa-icon [icon]="faCircleUser" class="text-2xl"></fa-icon>
-    <!-- <img class="w-8 h-8 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar"> -->
+<div class="relative flex items-center" (click)="toggleMenu()">
+  <button class="flex items-center rounded-lg focus:outline-none hover:bg-slate-300">
+    <p *ngIf="nombre" class="mr-3 text-customGreen font-bold">{{nombre}}</p>
+    <div class="w-11 h-11">
+      <img class="rounded-full w-full h-full object-cover" src="{{image}}" alt="User Avatar">
+    </div>
   </button>
-  
+
   <div *ngIf="isOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1">
     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi plan</a>
     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mis beneficiarios</a>
