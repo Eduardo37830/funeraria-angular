@@ -169,6 +169,30 @@ export class SeguridadService {
       return "";
     }
   }
+/* crea una funcion que almacene los datos que se le manden en el local storage */
+
+AlmacenarDatosChat(codigo: string, usuario: string): boolean {
+  try {
+    let datosChat = { codigo, usuario };
+    let cadena = JSON.stringify(datosChat);
+    localStorage.setItem('datos-chat', cadena);
+    return true;
+  } catch (e) {
+    console.error("Error al almacenar los datos del chat:", e);
+    return false;
+  }
+}
+
+ObtenerDatosChat(): { codigo: string, usuario: string } | null {
+  let datos = localStorage.getItem('datos-chat');
+  if (datos) {
+    return JSON.parse(datos);
+  } else {
+    return null;
+  }
+}
+
+
 
 
 }
