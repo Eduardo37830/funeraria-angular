@@ -125,7 +125,7 @@ export class AdquirirPlanComponent implements OnInit {
             this.mostrarModalPagoExitoso();
             setTimeout(() => {
               this.cerrarModal();
-              this.router.navigate(['planes', this.clienteId, 'mis-planes']);
+              this.router.navigate(['/planes/cliente', this.clienteId, 'mis-planes']);
             }, 3000);
           }, 2000);
         },

@@ -1,0 +1,148 @@
+{
+  "hash": "8dfea655",
+  "configHash": "57c3665b",
+  "lockfileHash": "31c04e65",
+  "browserHash": "ef8989a0",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "e6b22ad6",
+      "needsInterop": false
+    },
+    "@angular/common/http": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
+      "file": "@angular_common_http.js",
+      "fileHash": "499d61c6",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "23226ea0",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "80e30828",
+      "needsInterop": false
+    },
+    "@angular/material/core": {
+      "src": "../../../../../node_modules/@angular/material/fesm2022/core.mjs",
+      "file": "@angular_material_core.js",
+      "fileHash": "c42700c5",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "02ddd341",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "ae59635b",
+      "needsInterop": false
+    },
+    "@fortawesome/angular-fontawesome": {
+      "src": "../../../../../node_modules/@fortawesome/angular-fontawesome/fesm2022/angular-fontawesome.mjs",
+      "file": "@fortawesome_angular-fontawesome.js",
+      "fileHash": "dfc6b78d",
+      "needsInterop": false
+    },
+    "@fortawesome/free-solid-svg-icons": {
+      "src": "../../../../../node_modules/@fortawesome/free-solid-svg-icons/index.mjs",
+      "file": "@fortawesome_free-solid-svg-icons.js",
+      "fileHash": "951bc791",
+      "needsInterop": false
+    },
+    "chart.js": {
+      "src": "../../../../../node_modules/chart.js/dist/chart.js",
+      "file": "chart__js.js",
+      "fileHash": "2ee55733",
+      "needsInterop": false
+    },
+    "chart.js/auto": {
+      "src": "../../../../../node_modules/chart.js/auto/auto.js",
+      "file": "chart__js_auto.js",
+      "fileHash": "56526237",
+      "needsInterop": false
+    },
+    "chartjs-adapter-luxon": {
+      "src": "../../../../../node_modules/chartjs-adapter-luxon/dist/chartjs-adapter-luxon.esm.js",
+      "file": "chartjs-adapter-luxon.js",
+      "fileHash": "c2ef020f",
+      "needsInterop": false
+    },
+    "crypto-js": {
+      "src": "../../../../../node_modules/crypto-js/index.js",
+      "file": "crypto-js.js",
+      "fileHash": "b417dddf",
+      "needsInterop": true
+    },
+    "flowbite": {
+      "src": "../../../../../node_modules/flowbite/lib/esm/index.js",
+      "file": "flowbite.js",
+      "fileHash": "0978de30",
+      "needsInterop": false
+    },
+    "ng2-charts": {
+      "src": "../../../../../node_modules/ng2-charts/fesm2022/ng2-charts.mjs",
+      "file": "ng2-charts.js",
+      "fileHash": "d85cf76c",
+      "needsInterop": false
+    },
+    "ngx-captcha": {
+      "src": "../../../../../node_modules/ngx-captcha/fesm2020/ngx-captcha.mjs",
+      "file": "ngx-captcha.js",
+      "fileHash": "80591690",
+      "needsInterop": false
+    },
+    "ngx-pagination": {
+      "src": "../../../../../node_modules/ngx-pagination/fesm2020/ngx-pagination.mjs",
+      "file": "ngx-pagination.js",
+      "fileHash": "49121ce5",
+      "needsInterop": false
+    },
+    "rxjs": {
+      "src": "../../../../../node_modules/rxjs/dist/esm5/index.js",
+      "file": "rxjs.js",
+      "fileHash": "c90f64a3",
+      "needsInterop": false
+    },
+    "socket.io-client": {
+      "src": "../../../../../node_modules/socket.io-client/build/esm/index.js",
+      "file": "socket__io-client.js",
+      "fileHash": "b10f4213",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-EWXAO6ML": {
+      "file": "chunk-EWXAO6ML.js"
+    },
+    "chunk-IW3F4CRW": {
+      "file": "chunk-IW3F4CRW.js"
+    },
+    "chunk-2SRRTS74": {
+      "file": "chunk-2SRRTS74.js"
+    },
+    "chunk-JMJ4WMD2": {
+      "file": "chunk-JMJ4WMD2.js"
+    },
+    "chunk-KFLEVQKK": {
+      "file": "chunk-KFLEVQKK.js"
+    },
+    "chunk-WSA2QMXP": {
+      "file": "chunk-WSA2QMXP.js"
+    },
+    "chunk-AATOKGFP": {
+      "file": "chunk-AATOKGFP.js"
+    },
+    "chunk-B2KS57BG": {
+      "file": "chunk-B2KS57BG.js"
+    }
+  }
+}

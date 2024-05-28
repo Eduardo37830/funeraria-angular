@@ -5,6 +5,9 @@ import { ClientePlanModel } from '../../../modelos/clientePlan.model';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ClientePlanService } from '../../../servicios/parametros/cliente-plan.service';
+import { ConfiguracionPaginacion } from '../../../config/configuracion.paginacion';
+import { ConfiguracionRutasBackend } from '../../../config/configuracion.rutas.backend';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-renovar-plan',
@@ -21,15 +24,20 @@ import { ClientePlanService } from '../../../servicios/parametros/cliente-plan.s
 })
 export class RenovarPlanComponent {
   fGroup: FormGroup = new FormGroup({});
-  planId: number | null = null;
-  clienteId: number | null = null;
+  pag = 1;
+  total = 0;
   recordId: number = 0;
+  clienteId: number | null = null;
+  clientePlan: ClientePlanModel[] = [];
+  registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;
+  BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
 
   constructor(
     private servicio: ClientePlanService,
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private http: HttpClient,
   ) { 
     this.route.params.subscribe(params => {
       this.clienteId = +params['ids'];
@@ -41,6 +49,7 @@ export class RenovarPlanComponent {
     this.ContruirFormularioDatos();
     console.log(this.ContruirFormularioDatos())
     this.BuscarRegistro();
+    this.obtenerPlanCliente();
   }
 
   BuscarRegistro() {
@@ -109,14 +118,6 @@ export class RenovarPlanComponent {
       this.servicio.EditarRegistro(modelo).subscribe({
         next: (data: ClientePlanModel) => {
           alert('Registro guardado correctamente');
-          console.log('Procesando pago...');
-          setTimeout(() => {
-            this.mostrarModalPagoExitoso();
-            setTimeout(() => {
-              this.cerrarModal();
-              this.router.navigate(['planes/clientes', this.clienteId, 'mis-planes']);
-            }, 3000);
-          }, 2000);
         },
         error: (error) => {
           alert('Error al guardar el registro');
@@ -139,21 +140,20 @@ export class RenovarPlanComponent {
     return model;
   }
 
-  mostrarModalPagoExitoso() {
-    const modal = document.getElementById('modalPagoExitoso');
-    if (modal) {
-      modal.classList.remove('hidden');
-    }
-  }
-
-  cerrarModal() {
-    const modal = document.getElementById('modalPagoExitoso');
-    if (modal) {
-      modal.classList.add('hidden');
-    }
-  }
-
   get obtenerFgDatos() {
     return this.fGroup.controls;
+  }
+  obtenerPlanCliente(): void {
+    if (this.clienteId !== null) {
+      this.http.get<ClientePlanModel[]>(`${this.BASE_URL}clientes/${this.clienteId}/plans`)
+        .subscribe(
+          (plan) => {
+            this.clientePlan = plan;
+          },
+          (error) => {
+            console.error('Error al obtener el plan:', error);
+          }
+        );
+    }
   }
 }

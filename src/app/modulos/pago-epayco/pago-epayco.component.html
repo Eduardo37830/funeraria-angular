@@ -1,11 +1,21 @@
-<!-- src/app/components/pago/pago.component.html -->
-<div>
+<div class="container">
   <h1>Realizar Pago</h1>
-    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-      <a href=" https://secure.epayco.co/payment/methods?transaction=W4hbAHQTPZCRy9vqu">Ir a pagar</a>
-     
-      <button type="button" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg" (click)="GuardarRegistro()">Aceptar</button>
-    </div>
-    <script type="text/javascript" src="https://checkout.epayco.co/checkout.js"></script>
+  <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+    <a href="https://secure.epayco.co/payment/methods?transaction=W4hbAHQTPZCRy9vqu" class="btn btn-primary ml-2">Ir a pagar</a>
+    <button type="button" class="btn btn-primary py-2 px-4 rounded-lg" (click)="GuardarRegistro()">Aceptar</button>
+    <button type="button" class="btn btn-primary py-2 px-4 rounded-lg" (click)="pagar()">Aceptar</button>
+  </div>
 </div>
 
+<div class="container mt-4">
+  <h1>Detalles de pago</h1>
+  <div>
+    <p>Nombre: {{ clienteId }}</p>
+    <p>Detalles del plan: {{ planId }}</p>
+    <!-- Otros detalles del cliente y plan... -->
+  </div>
+</div>
+
+<div class="container mt-4">
+  <h1>Realizar Pago con ePayco</h1>
+</div>
