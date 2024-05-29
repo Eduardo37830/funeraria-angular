@@ -8,4 +8,5 @@ export class UsuarioModel{
     celular?: string;
     clave?: string;
     rolId?: string;
+    foto?: string;
 }

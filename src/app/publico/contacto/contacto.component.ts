@@ -4,14 +4,18 @@ import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PqrsModel } from '../../modelos/pqrs.model';
 import { CommonModule } from '@angular/common';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-contacto',
   standalone: true,
-  imports: [    CommonModule,
+  imports: [    
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule],
+    RouterModule,
+    NgxCaptchaModule
+  ],
   templateUrl: './contacto.component.html',
   styleUrl: './contacto.component.css'
 })
@@ -25,6 +29,8 @@ export class ContactoComponent implements OnInit{
   ngOnInit() {
     this.ConstruirFormulario();
   }
+
+  captchaSiteKey = this.servicioSeguridad.captchaSiteKey;
 
   /**
    * Construcción del formulario con los controles
@@ -75,5 +81,21 @@ export class ContactoComponent implements OnInit{
 
   limpiarFormulario() {
     this.fGroup.reset();
+  }
+
+  handleReset() {
+    console.log('reCAPTCHA reset');
+  }
+
+  handleExpire() {
+    console.log('reCAPTCHA expired');
+  }
+
+  handleLoad() {
+    console.log('reCAPTCHA loaded');
+  }
+
+  handleSuccess(token: string) {
+    this.fGroup.get('recaptcha')!.setValue(token);
   }
 }

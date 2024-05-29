@@ -128,6 +128,35 @@ export class SeguridadService {
     this.ActualizarComportamientoUsuario(new UsuarioValidadoModel());
   }
 
+  /**
+   * Obtener nombre del usuario
+   * @returns 
+   */
+  ObtenerNombreUsuario(): string {
+    let datos = localStorage.getItem('datos-usuario-validado');
+    if (datos) {
+      let usuario: UsuarioValidadoModel = JSON.parse(datos);
+      let nombre = usuario.user?.primerNombre + " " + usuario.user?.primerApellido;
+      return nombre;
+    } else {
+      return "";
+    }
+  }
+
+  /**
+   * Obtener imagen del usuario
+   * @returns 
+   */
+  ObtenerImagenUsuario(): string {
+    let datos = localStorage.getItem('datos-usuario-validado');
+    if (datos) {
+      let usuario: UsuarioValidadoModel = JSON.parse(datos);
+      return usuario.user?.foto || "";
+    } else {
+      return "";
+    }
+  }
+
 
   /**
    * Recuperar clave por usuario
