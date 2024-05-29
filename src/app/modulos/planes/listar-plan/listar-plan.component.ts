@@ -43,6 +43,8 @@ export class ListarPlanComponent {
     this.ListarRegistros();
     this.clienteId = Number(this.route.snapshot.paramMap.get('id'));
     this.ListarRegistrosPlan();
+    console.log('ClienteId:', this.clienteId);
+    
     this.obtenerPlanCliente();
   }
 

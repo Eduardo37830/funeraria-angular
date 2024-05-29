@@ -40,7 +40,8 @@ export class ContactoComponent implements OnInit{
       tipo: ['', [Validators.required]],
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       correo: ['', [Validators.required, Validators.email]],
-      mensaje: ['', [Validators.required, Validators.minLength(10)]]
+      mensaje: ['', [Validators.required, Validators.minLength(10)]],
+      recaptcha: ['', Validators.required]
     });
   }
 

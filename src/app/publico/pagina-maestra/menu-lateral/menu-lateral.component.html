@@ -1,15 +1,17 @@
-<div class="relative flex items-center" (click)="toggleMenu()">
-  <button class="flex items-center rounded-lg focus:outline-none hover:bg-slate-300">
-    <p *ngIf="nombre" class="mr-3 text-customGreen font-bold">{{nombre}}</p>
-    <div class="w-11 h-11">
-      <img class="rounded-full w-full h-full object-cover" src="{{image}}" alt="User Avatar">
-    </div>
-  </button>
-
-  <div *ngIf="isOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1">
-    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi plan</a>
-    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mis beneficiarios</a>
-    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Solicitudes</a>
+<div class="relative">
+  <div class="flex items-center" (click)="toggleMenu()">
+    <button class="flex items-center rounded-lg focus:outline-none hover:bg-slate-300 p-2">
+      <p *ngIf="nombre" class="mr-3 text-customGreen font-bold">{{nombre}}</p>
+      <div class="w-11 h-11">
+        <img class="rounded-full w-full h-full object-cover" src="{{image}}" alt="User Avatar">
+      </div>
+    </button>
+  </div>
+  
+  <div *ngIf="isOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50">
+    <a routerLink="planes/cliente/1/mis-planes" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi plan</a>
+    <a routerLink="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mis beneficiarios</a>
+    <a routerLink="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Solicitudes</a>
     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Configuración</a>
     <a routerLink="/seguridad/cambiar-clave" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Cambiar clave</a>
     <div class="border-t border-gray-100"></div>
