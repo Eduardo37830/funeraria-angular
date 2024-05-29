@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
     CommonModule,
     FormsModule
   ],
+  
   templateUrl: './componente-entradamensaje.component.html',
   styleUrl: './componente-entradamensaje.component.css'
 })
