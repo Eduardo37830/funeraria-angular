@@ -61,9 +61,6 @@ export class EncabezadoComponent implements OnInit {
           } else {
             this.esAdministrador = false;
           }
-          if (this.esAdministrador) {
-            this.router.navigate(['/inicio']);
-          }
         } else {
           this.SesionActiva = false;
           this.esAdministrador = false;

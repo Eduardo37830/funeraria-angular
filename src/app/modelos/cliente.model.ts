@@ -11,4 +11,5 @@ export class ClienteModel {
     direccion?: string;
     fechaRegistro?: Date;
     activo?: boolean;
+    _idSeguridad?: string;
 }

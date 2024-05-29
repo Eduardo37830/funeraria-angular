@@ -1,6 +1,6 @@
 export class solicitudModel {
     id?: number;
-    fecha?: Date;
+    fechaSolicitud?: Date;
     ubicacionDelCuerpo?: string;
     tipoServicio?: string;
     estadoAceptado?: boolean;

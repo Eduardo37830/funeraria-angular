@@ -38,7 +38,7 @@ export class SolicitudService {
   }  
 
   AgregarRegistro(registro: solicitudModel): Observable<solicitudModel> {
-    return this.http.post<solicitudModel>(`${this.urlBase}sede`, registro);
+    return this.http.post<solicitudModel>(`${this.urlBase}solicitud-servicios`, registro);
   }
 
   EditarRegistro(registro: solicitudModel): Observable<solicitudModel> {
