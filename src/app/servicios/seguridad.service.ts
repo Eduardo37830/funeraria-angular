@@ -8,8 +8,10 @@ import { PqrsModel } from '../modelos/pqrs.model';
 
 @Injectable({
   providedIn: 'root'
+  
 })
 export class SeguridadService {
+  private baseUrl = 'http://localhost:3010';
   urlSeguridad = ConfiguracionRutasBackend.urlSeguridad;
   urlLogicaNegocio = ConfiguracionRutasBackend.urlNegocio;
   captchaSiteKey = ConfiguracionRutasBackend.cllaveCaptcha;
@@ -192,6 +194,10 @@ ObtenerDatosChat(): { codigo: string, usuario: string } | null {
   }
 }
 
+VerificarSalaChat(codigo: string): Observable<{ exists: boolean }> {
+  console.log(this.baseUrl);
+  return this.http.get<{ exists: boolean }>(`${this.baseUrl}/check-chat-room/${codigo}`);
+}
 
 
 

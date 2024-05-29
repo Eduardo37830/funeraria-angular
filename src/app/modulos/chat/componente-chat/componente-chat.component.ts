@@ -54,12 +54,23 @@ export class ComponenteChatComponent implements OnInit {
       nombreUsuario: campos["nombreUsuario"].value,
       codigo: campos["codigo"].value,
     };
-  
-    // Store the data in the local storage
-    this.servicioSeguridad.AlmacenarDatosChat(datos.codigo, datos.nombreUsuario);
-  
-    alert("Bienvenido a la sala de chat");
-    this.router.navigate(["/chat/entradamensaje"]);
+
+    this.servicioSeguridad.VerificarSalaChat(datos.codigo).subscribe(
+      response => {
+        if (response.exists == true) {
+          // Store the data in the local storage
+          this.servicioSeguridad.AlmacenarDatosChat(datos.codigo, datos.nombreUsuario);
+          alert("Bienvenido a la sala de chat");
+          this.router.navigate(["/chat/entradamensaje"]);
+        } else {
+          alert('El código de la sala de chat no existe.');
+        }
+      },
+      error => {
+        console.error('Error al verificar la sala de chat:', error);
+        alert('Error al verificar la sala de chat. Inténtelo de nuevo más tarde.');
+      }
+    );
   }
 
   get ObtenerFormGroup() {
