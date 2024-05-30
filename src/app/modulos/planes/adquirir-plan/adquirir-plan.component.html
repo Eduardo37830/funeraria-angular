@@ -11,24 +11,12 @@
           <p><strong>Mensualidad:</strong> {{ planSeleccionado.mensualidad }}</p>
           <p><strong>Número de afiliados:</strong> {{ planSeleccionado.cantidadBeneficiarios }}</p>
         </div>
-        <!-- Selección de meses a pagar -->
-        <div class="mt-4">
-          <label for="mesesAPagar" class="font-semibold">Meses a Pagar</label>
-          <select formControlName="mesesAPagar" id="mesesAPagar" name="mesesAPagar" class="border border-gray-300 p-2 rounded-lg w-full">
-            <option value="1">1 mes</option>
-            <option value="3">3 meses</option>
-            <option value="6">6 meses</option>
-            <option value="12">12 meses</option>
-          </select>
-        </div>
       </fieldset>
       <!-- Botones de acción -->
       <div class="flex justify-end mt-6">
         <button type="reset" class="btn bg-red-500 text-white py-2 px-4 rounded-lg mr-4">Cancelar</button>
         <button type="submit" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg">Guardar</button>
-        
       </div>
-
     </form>
   </div>
 </div>

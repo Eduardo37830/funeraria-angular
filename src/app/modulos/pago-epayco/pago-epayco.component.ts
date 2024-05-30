@@ -24,6 +24,7 @@ export class PagoEpaycoComponent {
   clienteId: number | null = null;
   recordId: number = 0;
   clientePlan: ClientePlanModel[] = [];
+  Plan: ClientePlanModel | null = null;
   
 
 
@@ -64,11 +65,9 @@ export class PagoEpaycoComponent {
 
   ngOnInit() {
     this.ContruirFormularioDatos();
-    this.initEpaycoButton();
     console.log(this.ContruirFormularioDatos())
     this.BuscarRegistro();
-    //this.loadEpaycoScript();
-    
+    this.loadEpaycoScript();
   }
 
   loadEpaycoScript() {
@@ -82,8 +81,8 @@ export class PagoEpaycoComponent {
     this.renderer.setAttribute(script, 'data-epayco-amount', '5950');
     this.renderer.setAttribute(script, 'data-epayco-tax', '950');
     this.renderer.setAttribute(script, 'data-epayco-tax-base', '5000');
-    this.renderer.setAttribute(script, 'data-epayco-name', 'PlanesFunerarios');
-    this.renderer.setAttribute(script, 'data-epayco-description', 'PlanesFunerarios');
+    this.renderer.setAttribute(script, 'data-epayco-name', 'Plan');
+    this.renderer.setAttribute(script, 'data-epayco-description', 'Plan');
     this.renderer.setAttribute(script, 'data-epayco-currency', 'cop');
     this.renderer.setAttribute(script, 'data-epayco-country', 'co');
     this.renderer.setAttribute(script, 'data-epayco-test', 'true');
@@ -96,16 +95,8 @@ export class PagoEpaycoComponent {
   BuscarRegistro() {
     this.servicio.BuscarRegistro(this.recordId).subscribe({
       next: (data: ClientePlanModel) => {
-        this.obtenerFgDatos['id'].setValue(data.id);
-        this.obtenerFgDatos['nombre'].setValue(data.nombre);
-        this.obtenerFgDatos['detalles'].setValue(data.detalles);
-        this.obtenerFgDatos['tarifa'].setValue(data.tarifa);
-        this.obtenerFgDatos['cantidadBeneficiarios'].setValue(data.cantidadBeneficiarios);
-        this.obtenerFgDatos['fechaAdquisicion'].setValue(data.fechaAdquisicion);
-        this.obtenerFgDatos['fechaVencimiento'].setValue(data.fechaVencimiento);
-        this.obtenerFgDatos['activo'].setValue(data.activo);
-        this.obtenerFgDatos['planId'].setValue(data.planId);
-        this.obtenerFgDatos['clienteId'].setValue(data.clienteId);
+        this.Plan = data;
+        this.fGroup.patchValue(data);
       },
       error: (error: any) => {
         alert('Registro no encontrado');
@@ -224,6 +215,7 @@ export class PagoEpaycoComponent {
   pagar() {
     // Implementa la lógica de pagar aquí
     console.log("pagar llamado");
+    this.initEpaycoButton();
   }
   
   initEpaycoButton() {
@@ -238,10 +230,10 @@ export class PagoEpaycoComponent {
     script.type = 'text/javascript';
     script.async = true;
     script.defer = true;
-    this.renderer.setAttribute(script,'data-epayco-key', 'process.env.PUBLIC_KEY'),
-    this.renderer.setAttribute(script,'data-epayco-private-key','process.env.PRIVATE_KEY'),
+    this.renderer.setAttribute(script,'data-epayco-key', '60612f9f9f831de27b7a9b7b3f7927d1'),
+    this.renderer.setAttribute(script,'data-epayco-private-key','fb0bbbb4b491254d8cce3c87ef1803e6'),
     this.renderer.setAttribute(script,'class','epayco-button'),
-    this.renderer.setAttribute(script,'data-epayco-invoice','2000'),
+    this.renderer.setAttribute(script,'data-epayco-invoice','2100'),
     this.renderer.setAttribute(script,'data-epayco-amount', '5000'),
     this.renderer.setAttribute(script,'data-epayco-tax','0.00'),  
     this.renderer.setAttribute(script,'data-epayco-tax-ico','0.00'),               

@@ -66,6 +66,6 @@ export class PlanService {
 
 
   listarRegistrosPagina(id: number): Observable<any> {
-    return this.http.get<PaginadorPlanModel>(`${this.urlBase}clientes/${id}/plans`);
+    return this.http.get<any>(`${this.urlBase}plans/${id}/clientes`);
   }  
 }

@@ -62,7 +62,7 @@ export class AdquirirPlanComponent implements OnInit {
       cantidadBeneficiarios: ['', [Validators.required]],
       clienteId: [this.clienteId, [Validators.required]],
       planId: [this.planId, [Validators.required]],
-      mesesAPagar: ['', [Validators.required]],
+      mesesAPagar: [''],
       metodoPago: ['']
     });
   }
@@ -98,7 +98,7 @@ export class AdquirirPlanComponent implements OnInit {
       alert('Debe diligenciar todo el formulario');
     } else if (!this.planSeleccionado) {
       alert('Por favor, seleccione un plan antes de confirmar.');
-    } else {
+    } else { 
       this.GuardarRegistro();
     }
   }
@@ -112,22 +112,15 @@ export class AdquirirPlanComponent implements OnInit {
       let fechaVencimiento = new Date(modelo.fechaAdquisicion!);
   
       // Obtén el mes actual y suma los meses a pagar
-      let mesActual = new Date().getMonth();
+      /*let mesActual = new Date().getMonth();
       let mesesAPagar = this.obtenerFgDatos['mesesAPagar'].value;
-      fechaVencimiento.setMonth(mesActual + mesesAPagar);
+      fechaVencimiento.setMonth(mesActual + mesesAPagar);*/
 
       modelo.fechaVencimiento = fechaVencimiento;
       this.servicioPlanes.AgregarPlan(modelo).subscribe({
         next: (data: ClientePlanModel) => {
           alert('Registro guardado correctamente');
-          console.log('Procesando pago...');
-          setTimeout(() => {
-            this.mostrarModalPagoExitoso();
-            setTimeout(() => {
-              this.cerrarModal();
-              this.router.navigate(['/planes/cliente', this.clienteId, 'mis-planes']);
-            }, 3000);
-          }, 2000);
+            this.router.navigate(['/planes/cliente', this.clienteId, 'mis-planes']);
         },
         error: (error) => {
           alert('Error al guardar el registro');
@@ -141,7 +134,7 @@ export class AdquirirPlanComponent implements OnInit {
     let mesesAPagar = this.fGroup.value.mesesAPagar;
     model.nombre = this.planSeleccionado!.nombre;
     model.detalles = this.planSeleccionado!.detalles;
-    model.tarifa = this.planSeleccionado!.mensualidad! * mesesAPagar;
+    model.tarifa = this.planSeleccionado!.mensualidad;
     model.fechaAdquisicion = new Date();
     model.cantidadBeneficiarios = this.planSeleccionado!.cantidadBeneficiarios;
     model.activo = true;
@@ -149,20 +142,6 @@ export class AdquirirPlanComponent implements OnInit {
     model.planId = this.planId!;
     
     return model;
-  }
-
-  mostrarModalPagoExitoso() {
-    const modal = document.getElementById('modalPagoExitoso');
-    if (modal) {
-      modal.classList.remove('hidden');
-    }
-  }
-
-  cerrarModal() {
-    const modal = document.getElementById('modalPagoExitoso');
-    if (modal) {
-      modal.classList.add('hidden');
-    }
   }
 
   get obtenerFgDatos() {

@@ -66,7 +66,7 @@ export class EliminarClientePlanComponent {
     this.servicio.EliminarRegistro(this.recordId).subscribe({
       next: (data: ClientePlanModel) => {
         alert('Registro eliminado correctamente');
-        this.router.navigate(['/parametros/plan-listar']);
+        this.router.navigate(['/planes/cliente', this.clienteId, 'mis-planes']);
       },
       error: (error: any) => {
         alert('Error al eliminar el registro');

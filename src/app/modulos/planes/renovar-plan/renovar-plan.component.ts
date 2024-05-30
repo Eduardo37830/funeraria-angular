@@ -28,16 +28,15 @@ export class RenovarPlanComponent {
   total = 0;
   recordId: number = 0;
   clienteId: number | null = null;
-  clientePlan: ClientePlanModel[] = [];
+  planId: number | null = null;
+  clientePlan: ClientePlanModel | null = null;
   registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;
   BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
 
   constructor(
     private servicio: ClientePlanService,
     private fb: FormBuilder,
-    private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient,
   ) { 
     this.route.params.subscribe(params => {
       this.clienteId = +params['ids'];
@@ -47,24 +46,14 @@ export class RenovarPlanComponent {
 
   ngOnInit() {
     this.ContruirFormularioDatos();
-    console.log(this.ContruirFormularioDatos())
     this.BuscarRegistro();
-    this.obtenerPlanCliente();
   }
 
   BuscarRegistro() {
     this.servicio.BuscarRegistro(this.recordId).subscribe({
       next: (data: ClientePlanModel) => {
-        this.obtenerFgDatos['id'].setValue(data.id);
-        this.obtenerFgDatos['nombre'].setValue(data.nombre);
-        this.obtenerFgDatos['detalles'].setValue(data.detalles);
-        this.obtenerFgDatos['tarifa'].setValue(data.tarifa);
-        this.obtenerFgDatos['cantidadBeneficiarios'].setValue(data.cantidadBeneficiarios);
-        this.obtenerFgDatos['fechaAdquisicion'].setValue(data.fechaAdquisicion);
-        this.obtenerFgDatos['fechaVencimiento'].setValue(data.fechaVencimiento);
-        this.obtenerFgDatos['activo'].setValue(data.activo);
-        this.obtenerFgDatos['planId'].setValue(data.planId);
-        this.obtenerFgDatos['clienteId'].setValue(data.clienteId);
+        this.clientePlan = data;
+        this.fGroup.patchValue(data);
       },
       error: (error: any) => {
         alert('Registro no encontrado');
@@ -84,7 +73,7 @@ export class RenovarPlanComponent {
       activo: [],
       planId: [],
       clienteId: [this.clienteId, [Validators.required]],
-      mesesAPagar: [1, [Validators.required]],
+      mesesAPagar: ['', [Validators.required]],
       metodoPago: [''],
     });
   }
@@ -106,13 +95,14 @@ export class RenovarPlanComponent {
       alert('Debe diligenciar todo el formulario');
     } else {
       let modelo = this.obtenerRegistro();
-
-      let fechaVencimiento = new Date();
+  
+      let fechaVencimiento = new Date(this.obtenerFgDatos['fechaAdquisicion'].value);
       let mesActual = fechaVencimiento.getMonth();
       let mesesAPagar = this.obtenerFgDatos['mesesAPagar'].value;
-      fechaVencimiento.setMonth(mesActual + mesesAPagar);
-
-      modelo.tarifa = parseFloat(this.obtenerFgDatos['tarifa'].value) * mesesAPagar;
+  
+      fechaVencimiento.setMonth(mesActual + parseInt(mesesAPagar));
+  
+      modelo.tarifa = parseFloat(this.obtenerFgDatos['tarifa'].value) * parseInt(mesesAPagar);
       modelo.fechaVencimiento = fechaVencimiento;
       console.log(modelo);
       this.servicio.EditarRegistro(modelo).subscribe({
@@ -124,7 +114,7 @@ export class RenovarPlanComponent {
         }
       });
     }
-  }
+  }  
 
   obtenerRegistro(): ClientePlanModel {
     let model = new ClientePlanModel();
@@ -142,18 +132,5 @@ export class RenovarPlanComponent {
 
   get obtenerFgDatos() {
     return this.fGroup.controls;
-  }
-  obtenerPlanCliente(): void {
-    if (this.clienteId !== null) {
-      this.http.get<ClientePlanModel[]>(`${this.BASE_URL}clientes/${this.clienteId}/plans`)
-        .subscribe(
-          (plan) => {
-            this.clientePlan = plan;
-          },
-          (error) => {
-            console.error('Error al obtener el plan:', error);
-          }
-        );
-    }
   }
 }

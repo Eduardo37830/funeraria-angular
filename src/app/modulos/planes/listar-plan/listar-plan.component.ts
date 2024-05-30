@@ -30,6 +30,7 @@ export class ListarPlanComponent {
   clientes: ClienteModel[] = [];
   plan: ClientePlanModel[] = [];
   clienteId: number | null = null;
+  planId: number | null = null;
   registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;
   BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
 
@@ -37,11 +38,12 @@ export class ListarPlanComponent {
     private servicioPlanes: PlanService,
     private http: HttpClient,
     private route: ActivatedRoute
-    ) { }
+  ) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.ListarRegistros();
     this.clienteId = Number(this.route.snapshot.paramMap.get('id'));
+    this.planId = Number(this.route.snapshot.paramMap.get('planId'));
     this.ListarRegistrosPlan();
     console.log('ClienteId:', this.clienteId);
     
@@ -73,12 +75,12 @@ export class ListarPlanComponent {
   }
 
   obtenerPlanCliente(): void {
-    if (this.clienteId !== null) {
+    if (this.clienteId !== null && this.planId !== null) {
       this.http.get<ClientePlanModel[]>(`${this.BASE_URL}clientes/${this.clienteId}/plans`)
         .subscribe(
           (planes) => {
-            this.plan = planes;
-            console.log('Plan obtenidos:', planes + "clie" + this.clienteId); // Verifica si se obtienen planes
+            this.plan = planes.filter(p => p.clienteId === this.clienteId);
+            console.log('Plan obtenidos:', this.plan);
           },
           (error) => {
             console.error('Error al obtener el plan:', error);

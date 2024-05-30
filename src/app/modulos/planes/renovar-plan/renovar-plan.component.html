@@ -2,24 +2,30 @@
   <div class="max-w-lg w-full bg-white shadow-lg rounded-lg p-6 border border-gray-200">
     <h2 class="text-2xl font-bold text-center mb-4">Informacion del Plan</h2>
     <form [formGroup]="fGroup" id="planForm" class="space-y-4" (ngSubmit)="onSubmit($event)">
-      <!-- Métodos de pago -->
       <fieldset class="border border-gray-300 p-4 rounded-lg">
         <legend class="text-lg font-semibold">Método de Pago</legend>
-        <div class="space-y-4">
-          <!-- Lista de Planes -->
-          <div *ngFor="let r of clientePlan | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="border border-gray-300 p-4 rounded-lg">
-            <p><span class="font-semibold">Nombre:</span> {{ r.nombre }}</p>
-            <p><span class="font-semibold">Detalles:</span> {{ r.detalles }}</p>
-            <p><span class="font-semibold">Tarifa:</span> {{ r.tarifa }}</p>
-            <p><span class="font-semibold">Fecha Adquisición:</span> {{ r.fechaAdquisicion }}</p>
-            <p><span class="font-semibold">Fecha Vencimiento:</span> {{ r.fechaVencimiento }}</p>
-            <p><span class="font-semibold">Número Beneficiarios:</span> {{ r.cantidadBeneficiarios }}</p>
+        <div class="space-y-4" *ngIf="clientePlan">
+          <div class="border border-gray-300 p-4 rounded-lg">
+            <p><span class="font-semibold">Nombre:</span> {{ clientePlan.nombre }}</p>
+            <p><span class="font-semibold">Detalles:</span> {{ clientePlan.detalles }}</p>
+            <p><span class="font-semibold">Tarifa:</span> {{ clientePlan.tarifa }}</p>
+            <p><span class="font-semibold">Fecha Adquisición:</span> {{ clientePlan.fechaAdquisicion }}</p>
+            <p><span class="font-semibold">Fecha Vencimiento:</span> {{ clientePlan.fechaVencimiento }}</p>
+            <p><span class="font-semibold">Número Beneficiarios:</span> {{ clientePlan.cantidadBeneficiarios }}</p>
           </div>
         </div>
+        <div class="mt-4">
+          <label for="mesesAPagar" class="font-semibold">Meses a Pagar</label>
+          <select formControlName="mesesAPagar" id="mesesAPagar" name="mesesAPagar" class="border border-gray-300 p-2 rounded-lg w-full">
+            <option value="1">1 mes</option>
+            <option value="3">3 meses</option>
+            <option value="6">6 meses</option>
+            <option value="12">12 meses</option>
+          </select>
+        </div>
       </fieldset>
-      <!-- Botones de acción -->
       <div class="flex justify-between mt-4">
-        <button type="reset" class="btn bg-red-500 text-white py-2 px-4 rounded-lg">Cancelar</button>
+        <a routerLink="/planes/cliente/{{ clienteId }}/mis-planes" class="btn bg-red-500 text-white py-2 px-4 rounded-lg">Cancelar</a>
         <button type="submit" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg">Guardar</button>
         <a routerLink="/parametros/cliente/{{clienteId}}/pago-epayco/{{recordId}}" class="btn bg-green-500 text-white py-2 px-4 rounded-lg">Pagar</a>
       </div>

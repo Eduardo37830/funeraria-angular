@@ -56,6 +56,7 @@ export class SolicitarServicioComponent implements OnInit {
     this.solicitudService.AgregarRegistro(nuevaSolicitud).subscribe({
       next: (respuesta: solicitudModel) => {
         alert('Solicitud enviada con éxito');
+        console.log('Solicitud enviada con éxito', nuevaSolicitud, respuesta);
         this.solicitudForm.reset();
         this.setFechaActual(); // Reset form with current date
       },
