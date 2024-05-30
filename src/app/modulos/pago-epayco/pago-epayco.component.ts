@@ -5,6 +5,7 @@ import { PagoEpaycoService } from '../../servicios/parametros/pago-epayco.servic
 import { HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { ConfiguracionRutasBackend } from '../../config/configuracion.rutas.backend';
 
 @Component({
   selector: 'app-pago-epayco',
@@ -76,7 +77,7 @@ export class PagoEpaycoComponent {
     script.type = 'text/javascript';
     script.async = true;
     script.defer = true;
-    this.renderer.setAttribute(script, 'data-epayco-key', '60612f9f9f831de27b7a9b7b3f7927d1');
+    this.renderer.setAttribute(script, 'data-epayco-key', ConfiguracionRutasBackend.next_public_epayco!.toString());
     this.renderer.setAttribute(script, 'class', 'epayco-button');
     this.renderer.setAttribute(script, 'data-epayco-amount', '5950');
     this.renderer.setAttribute(script, 'data-epayco-tax', '950');
@@ -230,8 +231,8 @@ export class PagoEpaycoComponent {
     script.type = 'text/javascript';
     script.async = true;
     script.defer = true;
-    this.renderer.setAttribute(script,'data-epayco-key', '60612f9f9f831de27b7a9b7b3f7927d1'),
-    this.renderer.setAttribute(script,'data-epayco-private-key','fb0bbbb4b491254d8cce3c87ef1803e6'),
+    this.renderer.setAttribute(script,'data-epayco-key', ConfiguracionRutasBackend.next_public_epayco!.toString()),
+    this.renderer.setAttribute(script,'data-epayco-private-key', ConfiguracionRutasBackend.next_private_epayco!.toString()),
     this.renderer.setAttribute(script,'class','epayco-button'),
     this.renderer.setAttribute(script,'data-epayco-invoice','2100'),
     this.renderer.setAttribute(script,'data-epayco-amount', '5000'),
