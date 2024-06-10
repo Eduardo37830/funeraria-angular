@@ -1,46 +1,58 @@
 <body class="flex justify-center items-center min-h-screen bg-gray-100">
-  <div class="overflow-x-auto">
+  <div class="overflow-x-auto w-full sm:max-w-screen-lg">
     <div class="my-4">
-      <ul class="flex space-x-2"> <!-- Añadido flex y espacio entre elementos -->
+      <div class="mb-4">
+        <button (click)="cambiarIdioma()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          {{ idioma === 'es' ? 'English' : 'Español' }}
+        </button>
+      </div>
+      <ul class="flex space-x-2">
         <li *ngIf="Permiso">
-          <a routerLink="/parametros/plan-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">Agregar Plan</a>
+          <a routerLink="/parametros/plan-agregar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">
+            {{ idioma === 'es' ? 'Agregar Plan' : 'Add Plan' }}
+          </a>
         </li>
         <li *ngIf="usuario">
-          <a routerLink="/planes/cliente/{{ clienteId }}/mis-planes" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">Mis Planes</a>
+          <a routerLink="/planes/cliente/{{ clienteId }}/mis-planes" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md">
+            {{ idioma === 'es' ? 'Mis Planes' : 'My Plans' }}
+          </a>
         </li>
       </ul>
     </div>
-    <table class="w-full sm:max-w-screen-md border-collapse border border-gray-300 text-xs sm:text-sm">
+    <table class="w-full border-collapse border border-gray-300 text-xs sm:text-sm">
       <thead>
         <tr>
-          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Nombre</th>
-          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Detalles</th>
-          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Mensualidad</th>
-          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Numero Beneficiarios</th>
-          <th class="px-4 py-2 bg-gray-200 border border-gray-300">Acciones</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">{{ idioma === 'es' ? 'Nombre' : 'Name' }}</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">{{ idioma === 'es' ? 'Detalles' : 'Details' }}</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">{{ idioma === 'es' ? 'Mensualidad' : 'Monthly Fee' }}</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">{{ idioma === 'es' ? 'Numero Beneficiarios' : 'Number of Beneficiaries' }}</th>
+          <th class="px-4 py-2 bg-gray-200 border border-gray-300">{{ idioma === 'es' ? 'Acciones' : 'Actions' }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let r of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
+        <tr *ngFor="let r of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-100">
           <td class="px-4 py-2 border border-gray-300 text-center">{{ r.nombre }}</td>
           <td class="px-4 py-2 border border-gray-300 text-center">{{ r.detalles }}</td>
-          <td class="px-4 py-2 border border-gray-300 text-center">{{ r.mensualidad }}</td>
+          <td class="px-4 py-2 border border-gray-300 text-center" [title]="idioma === 'es' ? 'Pesos Colombianos' : 'Colombian Pesos'">
+            {{ idioma === 'es' ? ('COP $' + (r.mensualidad | number:'1.0-0')) : ('$' + (r.mensualidad | number:'1.0-0') + ' COP') }}
+          </td>
           <td class="px-4 py-2 border border-gray-300 text-center">{{ r.cantidadBeneficiarios }}</td>
           <td class="px-4 py-2 border border-gray-300 text-center">
-            <div class="px-6 py-3 border border-gray-300 text-center">
-              <ul>
-                <li *ngIf="Permiso" class="px-6 py-3 border border-gray-300 text-center">
-                  <a routerLink="/parametros/plan-editar/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full">
-                    Editar
+            <div class="flex justify-center space-x-2">
+              <ul class="flex space-x-2">
+                <li *ngIf="Permiso">
+                  <a routerLink="/parametros/plan-editar/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full flex items-center">
+                    <span class="ml-2">{{ idioma === 'es' ? 'Editar' : 'Edit' }}</span>
                   </a>
                 </li>
-                <li *ngIf="Permiso" class="px-6 py-3 border border-gray-300 text-center">
-                  <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-full">
-                    Eliminar
+                <li *ngIf="Permiso">
+                  <a routerLink="/parametros/plan-eliminar/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-full flex items-center">
+                    <span class="ml-2">{{ idioma === 'es' ? 'Eliminar' : 'Delete' }}</span>
                   </a>
+                </li>
                 <li *ngIf="!Permiso">
-                  <a routerLink="/planes/cliente/{{ clienteId }}/adquirir-plan/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full">
-                    Elegir
+                  <a routerLink="/planes/cliente/{{ clienteId }}/adquirir-plan/{{ r.id }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-3 rounded-full flex items-center">
+                    <span class="ml-2">{{ idioma === 'es' ? 'Elegir' : 'Choose' }}</span>
                   </a>
                 </li>
               </ul>
@@ -51,15 +63,15 @@
           <td colspan="5" class="px-4 py-2 bg-gray-200 border border-gray-300">
             <pagination-controls
               (pageChange)="pag = $event; ListarRegistros()"
-              previousLabel="Anterior"
-              nextLabel="Siguiente"
-              screenReaderPaginationLabel="Navegación"
-              screenReaderPageLabel="Página"
-              screenReaderCurrentLabel="Página actual"
+              previousLabel="{{ idioma === 'es' ? 'Anterior' : 'Previous' }}"
+              nextLabel="{{ idioma === 'es' ? 'Siguiente' : 'Next' }}"
+              screenReaderPaginationLabel="{{ idioma === 'es' ? 'Navegación' : 'Navigation' }}"
+              screenReaderPageLabel="{{ idioma === 'es' ? 'Página' : 'Page' }}"
+              screenReaderCurrentLabel="{{ idioma === 'es' ? 'Página actual' : 'Current page' }}"
             ></pagination-controls>
           </td>
         </tr>
       </tbody>
-    </table>    
+    </table>
   </div>
 </body>

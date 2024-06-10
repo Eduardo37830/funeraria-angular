@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ConfiguracionPaginacion } from '../../../../config/configuracion.paginacion';
 import { ConfiguracionRutasBackend } from '../../../../config/configuracion.rutas.backend';
@@ -27,6 +27,7 @@ import { ClientePlanModel } from '../../../../modelos/clientePlan.model';
   styleUrl: './listar-plan.component.css'
 })
 export class ListarPlanComponent {
+[x: string]: any;
   listaRegistros: PlanModel[] = [];
   pag = 1;
   total = 0;
@@ -37,11 +38,22 @@ export class ListarPlanComponent {
 
   Permiso: boolean = false;
   usuario: boolean = false;
+  idioma = 'es';
+  filtroForm: FormGroup = new FormGroup({});
 
   constructor(
+    private formBuilder: FormBuilder,
     private servicioPlanes: PlanService,
     private servicioSeguridad: SeguridadService,
-    private clienteService: ClienteService  ) { }
+    private clienteService: ClienteService,
+    private planService: PlanService,
+   ) { 
+      this.filtroForm = this.formBuilder.group({
+        nombre: [''],
+        mensualidad: [''],
+        detalles: ['']
+      });
+    }
 
   ngOnInit(): void{
     this.ListarRegistros();
@@ -115,5 +127,9 @@ export class ListarPlanComponent {
         console.log(error);
       }
     });
+  }
+
+  cambiarIdioma() {
+    this.idioma = this.idioma === 'es' ? 'en' : 'es';
   }
 }

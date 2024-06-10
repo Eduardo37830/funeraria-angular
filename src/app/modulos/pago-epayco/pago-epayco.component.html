@@ -1,21 +1,40 @@
-<div class="container mx-auto p-6">
-  <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-    <h1 class="text-2xl font-semibold mb-4">Detalles de pago</h1>
-    <div class="space-y-4" *ngIf="Plan">
-      <div class="border border-gray-300 p-4 rounded-lg">
-        <p><span class="font-semibold">Nombre:</span> {{ Plan.nombre }}</p>
-        <p><span class="font-semibold">Detalles:</span> {{ Plan.detalles }}</p>
-        <p><span class="font-semibold">Tarifa:</span> {{ Plan.tarifa }}</p>
-        <p><span class="font-semibold">Fecha Adquisición:</span> {{ Plan.fechaAdquisicion }}</p>
-        <p><span class="font-semibold">Fecha Vencimiento:</span> {{ Plan.fechaVencimiento }}</p>
-        <p><span class="font-semibold">Número Beneficiarios:</span> {{ Plan.cantidadBeneficiarios }}</p>
+<div class="bg-gray-100 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-lg w-full bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+    <h2 class="text-2xl font-bold text-center mb-4">Informacion del Plan</h2>
+    <form [formGroup]="fGroup" id="planForm" class="space-y-4" (ngSubmit)="onSubmit($event)">
+      <fieldset class="border border-gray-300 p-4 rounded-lg">
+        <legend class="text-lg font-semibold">Método de Pago</legend>
+          <div class="space-y-4" *ngIf="Plan || clientePlan">
+            <div class="border border-gray-300 p-4 rounded-lg" *ngIf="Plan">
+              <p><span class="font-semibold">Nombre:</span> {{ Plan.nombre }}</p>
+              <p><span class="font-semibold">Detalles:</span> {{ Plan.detalles }}</p>
+              <p><span class="font-semibold">Tarifa:</span> {{ Plan.tarifa }}</p>
+              <p><span class="font-semibold">Fecha Adquisición:</span> {{ Plan.fechaAdquisicion }}</p>
+              <p><span class="font-semibold">Fecha Vencimiento:</span> {{ Plan.fechaVencimiento }}</p>
+              <p><span class="font-semibold">Número Beneficiarios:</span> {{ Plan.cantidadBeneficiarios }}</p>
+            </div>
+            <div class="border border-gray-300 p-4 rounded-lg" *ngIf="clientePlan">
+              <p><span class="font-semibold">Nombre:</span> {{ clientePlan.nombre }}</p>
+              <p><span class="font-semibold">Detalles:</span> {{ clientePlan.detalles }}</p>
+              <p><span class="font-semibold">Tarifa:</span> {{ clientePlan.tarifa }}</p>
+              <p><span class="font-semibold">Fecha Adquisición:</span> {{ clientePlan.fechaAdquisicion }}</p>
+              <p><span class="font-semibold">Fecha Vencimiento:</span> {{ clientePlan.fechaVencimiento }}</p>
+              <p><span class="font-semibold">Número Beneficiarios:</span> {{ clientePlan.cantidadBeneficiarios }}</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <label for="mesesAPagar" class="font-semibold">Meses a Pagar</label>
+            <select formControlName="mesesAPagar" id="mesesAPagar" name="mesesAPagar" class="border border-gray-300 p-2 rounded-lg w-full">
+              <option value="1">1 mes</option>
+              <option value="3">3 meses</option>
+              <option value="6">6 meses</option>
+              <option value="12">12 meses</option>
+            </select>
+          </div>
+        </fieldset>
+      <div class="flex justify-end space-x-4">
+        <a href="https://secure.epayco.co/payment/methods?transaction=W4hbAHQTPZCRy9vqu" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105">Ir a pagar</a>
+        <button type="button" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105" (click)="initEpaycoButton()"  (click)="GuardarRegistro()">Iniciar Pago</button>
       </div>
-    </div>
-    <h1 class="text-2xl font-semibold mb-4">Realizar Pago</h1>
-    <div class="flex justify-end space-x-4">
-      <a href="https://secure.epayco.co/payment/methods?transaction=W4hbAHQTPZCRy9vqu" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105">Ir a pagar</a>
-      <button type="button" class="btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105" (click)="GuardarRegistro()">Aceptar</button>
-      <button type="button" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105" (click)="initEpaycoButton()">Aceptar</button>
-    </div>
-  </div>
+</form>
 </div>

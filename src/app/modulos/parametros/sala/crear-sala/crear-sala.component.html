@@ -25,13 +25,6 @@
             <strong>Este campo es obligatorio</strong>
           </div>
         </div>
-        <div class="flex flex-col">
-          <label for="horaEntradaCuerpo" class="font-semibold">Hora Entrada</label>
-          <input formControlName="horaEntradaCuerpo" id="horaEntradaCuerpo" type="datetime" class="input-field mt-1">
-          <div *ngIf="obtenerFgDatos['horaEntradaCuerpo'].errors && (obtenerFgDatos['horaEntradaCuerpo'].dirty || obtenerFgDatos['horaEntradaCuerpo'].touched)" class="text-red-500 mt-1">
-            <strong>Este campo es obligatorio</strong>
-          </div>
-        </div>
         <!-- Mensaje de error para las horas -->
         <div *ngIf="fGroup.errors?.['horasInvalidas']" class="col-span-2 text-red-500">
           <strong>La hora de salida debe ser mayor que la hora de entrada y debe haber al menos 3 horas de diferencia</strong>

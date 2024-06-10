@@ -70,7 +70,8 @@ export class CrearSalaComponent {
     model.nombre = this.obtenerFgDatos['nombre'].value;
     model.tipo = this.obtenerFgDatos['tipo'].value;
     model.capacidad = parseInt(this.obtenerFgDatos['capacidad'].value);
-    model.horaEntradaCuerpo = this.obtenerFgDatos['horaEntradaCuerpo'].value;
+    model.horaEntradaCuerpo = new Date() 
+    model.horaSalidaCuerpo = new Date()
     model.disponible = this.obtenerFgDatos['disponible'].value;
     model.sedeId = parseInt(this.obtenerFgDatos['sedeId'].value);
     return model;
