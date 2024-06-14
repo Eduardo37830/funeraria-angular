@@ -55,4 +55,8 @@ export class ClienteService {
   CargarArchivo(formData: FormData): Observable<ArchivoModel> {
     return this.http.post<ArchivoModel>(`${this.urlBase}cargar-archivo-cliente`, formData);
   }
+
+  ObternerClientesMorosos(): Observable<ClienteModel[]> {
+    return this.http.get<ClienteModel[]>(`${this.urlBase}clientes-morosos`);
+  }
 }

@@ -1,0 +1,49 @@
+<div class="flex justify-center bg-gray-100 py-10">
+    <div class="overflow-x-auto max-w-4xl">
+      <div class="my-4">
+        <div class="max-w-full">
+          <table class="w-full sm:max-w-screen-md md:w-full border-collapse border border-gray-300 text-xs sm:text-sm bg-white shadow-lg rounded-lg">
+            <thead>
+              <tr>
+                <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Nombre</th>
+                <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Correo</th>
+                <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Celular</th>
+                <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Ciudad de Residencia</th>
+                <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Fecha de Registro</th>
+                <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Activo</th>
+                <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Beneficiarios</th>
+                <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cliente of clientesMorosos | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="hover:bg-gray-50">
+                <td class="px-4 py-2 border border-gray-300 text-center">{{ cliente.primerNombre }}</td>
+                <td class="px-4 py-2 border border-gray-300 text-center">{{ cliente.correo }}</td>
+                <td class="px-4 py-2 border border-gray-300 text-center">{{ cliente.celular }}</td>
+                <td class="px-4 py-2 border border-gray-300 text-center">{{ cliente.ciudadResidencia }}</td>
+                <td class="px-4 py-2 border border-gray-300 text-center">{{ cliente.fechaRegistro }}</td>
+                <td class="px-4 py-2 border border-gray-300 text-center">
+                  <span [ngClass]="{'badge bg-green-500 text-white py-1 px-2 rounded-lg': cliente.activo, 'badge bg-red-500 text-white py-1 px-2 rounded-lg': !cliente.activo}">
+                    {{ cliente.activo ? 'Sí' : 'No' }}
+                  </span>
+                </td>
+                <td class="px-4 py-2 border border-gray-300 text-center">
+                  <a routerLink="/parametros/clientes/{{ cliente.id }}/beneficiario-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+                    Acceder
+                  </a>
+                </td>
+                <td class="px-4 py-2 border border-gray-300 text-center">
+                  <div class="flex justify-center">
+                    <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-1 px-2 rounded-lg transition duration-200 ease-in-out transform hover:scale-105 ml-2" (click)="cambiarEstadoCliente(cliente)">
+                      {{ cliente.activo ? 'Desactivar' : 'Activar' }}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
