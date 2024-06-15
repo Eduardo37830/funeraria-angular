@@ -1,3 +1,5 @@
+import { BeneficiarioModel } from "./beneficiario.model";
+
 export class ClienteModel {
     id?: number;
     primerNombre?: string;
@@ -12,4 +14,5 @@ export class ClienteModel {
     fechaRegistro?: Date;
     activo?: boolean;
     _idSeguridad?: string;
+    beneficiarios?: BeneficiarioModel[];
 }

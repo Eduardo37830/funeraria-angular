@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NativeDateModule } from '@angular/material/core';
 import { NgxCaptchaModule } from 'ngx-captcha'; // Import the NgxCaptchaModule from its correct location
+import { PlanVencidoDialogComponent } from './modulos/reportes/plan-vencido-dialog/plan-vencido-dialog.component';
+import { MatDialogContent, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-root',
@@ -20,8 +22,9 @@ import { NgxCaptchaModule } from 'ngx-captcha'; // Import the NgxCaptchaModule f
       ReactiveFormsModule,
       EncabezadoComponent,
       NativeDateModule,
-      NgxCaptchaModule
-    ],
+      NgxCaptchaModule,
+      MatDialogModule,
+    ]
 })
 export class AppComponent implements OnInit {
   title = 'web-app';

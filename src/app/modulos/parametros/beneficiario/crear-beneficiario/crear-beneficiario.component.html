@@ -5,8 +5,8 @@
             <!-- Contenedor de la imagen -->
             <div class="mb-6 flex justify-center">
                 <div class="showImage">
-                    <img *ngIf="!archivoCargado" src="/src/assets/" alt="Cliente Image" class="imageCliente">
-                    <img *ngIf="archivoCargado" src="{{BASE_URL}}/ObtenerArchivo/2/{{nombreAchivoCargado}}" 
+                    <img *ngIf="!archivoCargado" src="/src/assets/default-avatar.png" alt="Cliente Image" class="imageCliente">
+                    <img *ngIf="archivoCargado" [src]="BASE_URL + '/ObtenerArchivo/2/' + nombreAchivoCargado" 
                     class="image" alt="Beneficiario Image">
                 </div>
             </div>
@@ -58,7 +58,7 @@
                     <label for="correo" class="font-semibold">Correo</label>
                     <input formControlName="correo" id="correo" type="email" class="input-field mt-1">
                     <div *ngIf="obtenerFgDatos['correo'].errors && (obtenerFgDatos['correo'].dirty || obtenerFgDatos['correo'].touched)" class="text-red-500 mt-1">
-                        <strong>Este campo es obligatorio</strong>
+                        <strong>Este campo es obligatorio y debe ser un correo válido</strong>
                     </div>
                 </div>
                 <div class="flex flex-col">
@@ -77,7 +77,7 @@
                     <input formControlName="direccion" id="direccion" type="text" class="input-field mt-1">
                 </div>
             </div>
-            <div class="mt-8">
+            <div class="mt-8 flex justify-center">
                 <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="GuardarRegistro()">Guardar</button>
                 <a routerLink="/parametros/clientes/{{ clienteId }}/beneficiario-listar" class="btn bg-red-500 text-white">Cancelar</a>
             </div>

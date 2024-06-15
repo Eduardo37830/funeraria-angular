@@ -13,6 +13,8 @@ import { PlanModel } from '../../../modelos/plan.model';
 import { ClienteService } from '../../../servicios/parametros/cliente.service';
 import { SeguridadService } from '../../../servicios/seguridad.service';
 import { UsuarioValidadoModel } from '../../../modelos/usuario.validado.model';
+import { MatDialog } from '@angular/material/dialog';
+import { PlanVencidoDialogComponent } from '../../reportes/plan-vencido-dialog/plan-vencido-dialog.component';
 
 @Component({
   selector: 'app-listar-plan',
@@ -46,6 +48,7 @@ export class ListarPlanComponent {
     private http: HttpClient,
     private route: ActivatedRoute,
     private servicioSeguridad: SeguridadService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -81,8 +84,6 @@ export class ListarPlanComponent {
           if (data.user && data.user.rolId === '661dcc702a5f4843508e6740') {
             this.usuario = true;
           }
-
-          
         }
         console.log('Permiso:', this.Permiso);
         console.log('Cliente ID:', this.clienteId);
@@ -125,11 +126,26 @@ export class ListarPlanComponent {
           (planes) => {
             this.plan = planes.filter(p => p.clienteId === this.clienteId);
             console.log('Plan obtenidos:', this.plan);
+            if(this.usuario) {
+              this.verificarPlanesVencidos();
+            }
           },
           (error) => {
             console.error('Error al obtener el plan:', error);
           }
         );
     }
+  }
+
+  verificarPlanesVencidos(): void {
+    const fechaActual = new Date();
+    this.plan.forEach((p) => {
+      const fechaVencimiento = new Date(p.fechaVencimiento!);
+      if (fechaVencimiento < fechaActual) {
+        this.dialog.open(PlanVencidoDialogComponent, {
+          data: { nombre: p.nombre }
+        });
+      }
+    });
   }
 }

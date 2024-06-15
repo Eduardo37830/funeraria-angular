@@ -18,5 +18,5 @@ export const appConfig: ApplicationConfig = {
     provideCharts({ registerables: [BarController, Legend, Colors] }),
     { provide: MAT_DATE_FORMATS, useValue: { display: { dateInput: 'YYYY/DD/MM' } } },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ]
+  ] 
 };

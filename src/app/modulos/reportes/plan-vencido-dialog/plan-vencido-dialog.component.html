@@ -1,0 +1,10 @@
+<div class="p-6 bg-white rounded-lg shadow-lg">
+    <h2 class="text-xl font-bold mb-4">Plan Vencido</h2>
+    <p>Estimado usuario, su plan: <strong>{{ data.nombre }}</strong> ha vencido.</p>
+    <p>Por favor, póngase en contacto con nuestra funeraria para renovar su plan y seguir disfrutando de nuestros servicios.</p>
+    <p>Gracias por confiar en nosotros.</p>
+    <div class="mt-6 flex justify-end">
+      <button mat-button (click)="closeDialog()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">OK</button>
+    </div>
+  </div>
+  

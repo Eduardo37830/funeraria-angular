@@ -20,6 +20,7 @@
             <th class="px-2 py-1 bg-gray-200 border border-gray-300">Fecha de Registro</th>
             <th class="px-2 py-1 bg-gray-200 border border-gray-300">Activo</th>
             <th class="px-2 py-1 bg-gray-200 border border-gray-300">Beneficiarios</th>
+            <th class="px-2 py-1 bg-gray-200 border border-gray-300">Plan</th>
             <th class="px-2 py-1 bg-gray-200 border border-gray-300">Acciones</th>
           </tr>
         </thead>
@@ -40,6 +41,11 @@
                 Acceder
               </a>
             </td>
+            <td>
+              <a routerLink="/planes/cliente/{{ cliente.id }}/mis-planes" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+                Acceder
+              </a>
+            </td>
             <td class="px-2 py-1 border border-gray-300 text-center">
               <div class="flex">
                 <a routerLink="/parametros/cliente-editar/{{ cliente.id }}" class="btn btn-secondary realistic-button sm:py-1 sm:px-2">Editar</a>
@@ -48,7 +54,7 @@
             </td>
           </tr>
           <tr class="text-center">
-            <td colspan="11" class="px-2 py-1 bg-gray-200 border border-gray-300">
+            <td colspan="13" class="px-2 py-1 bg-gray-200 border border-gray-300">
               <pagination-controls
                 (pageChange)="pag = $event; ListarRegistros()"
                 previousLabel="Anterior"
