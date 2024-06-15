@@ -28,7 +28,8 @@ export class MenuLateralComponent {
   }
 
   nombre = ""
-  image = ""
+  image: string | null = null
+  idCliente = 0
 
   idSeguridad: string = this.seguridadService.ObtenerDatosUsuarioLS()!._id!;
 
@@ -43,7 +44,9 @@ export class MenuLateralComponent {
         console.log("La información es:", data);
         this.nombre = data.primerNombre! + " " + data.primerApellido!
         this.image = data.foto!
-        console.log(this.image);
+        console.log("La imagen es:", this.image);
+        
+        this.idCliente = data.id!
         
         return data;
       },
@@ -56,5 +59,9 @@ export class MenuLateralComponent {
     if (!target.closest('.relative')) {
       this.isOpen = false;
     }
+  }
+
+  onImageError(event: Event) {
+    (event.target as HTMLImageElement).style.display = 'none';
   }
 }
