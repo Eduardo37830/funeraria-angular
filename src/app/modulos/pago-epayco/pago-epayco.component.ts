@@ -29,6 +29,7 @@ export class PagoEpaycoComponent {
   pagoRealizado: boolean = false;
   epaycoApiKey = environment.epaycoApiKey;
   epaycoPrivateKey = environment.epaycoPrivateKey;
+  paymentTimeout: any; // Variable para almacenar el temporizador de cancelación
 
   constructor(
     private servicio: PagoEpaycoService,
@@ -46,29 +47,6 @@ export class PagoEpaycoComponent {
   ngOnInit() {
     this.ContruirFormularioDatos();
     this.BuscarRegistro();
-
-  }
-
-  loadEpaycoScript() {
-    const script = this.renderer.createElement('script');
-    script.src = 'https://checkout.epayco.co/checkout.js';
-    script.type = 'text/javascript';
-    script.async = true;
-    script.defer = true;
-    this.renderer.setAttribute(script, 'data-epayco-key', this.epaycoApiKey);
-    this.renderer.setAttribute(script, 'class', 'epayco-button');
-    this.renderer.setAttribute(script, 'data-epayco-amount', '5950');
-    this.renderer.setAttribute(script, 'data-epayco-tax', '950');
-    this.renderer.setAttribute(script, 'data-epayco-tax-base', '5000');
-    this.renderer.setAttribute(script, 'data-epayco-name', 'Plan');
-    this.renderer.setAttribute(script, 'data-epayco-description', 'Plan');
-    this.renderer.setAttribute(script, 'data-epayco-currency', 'cop');
-    this.renderer.setAttribute(script, 'data-epayco-country', 'co');
-    this.renderer.setAttribute(script, 'data-epayco-test', 'true');
-    this.renderer.setAttribute(script, 'data-epayco-external', 'true');
-    this.renderer.setAttribute(script, 'data-epayco-button', 'https://multimedia.epayco.co/dashboard/btns/btn1.png');
-
-    this.renderer.appendChild(document.body, script);
   }
 
   BuscarRegistro() {
@@ -116,15 +94,25 @@ export class PagoEpaycoComponent {
       modelo.fechaVencimiento = fechaVencimiento;
 
       console.log(modelo);
-      this.servicio.EditarRegistro(modelo).subscribe({
-        next: (data: ClientePlanModel) => {
-          alert('Registro guardado correctamente');
-          this.router.navigate(['planes/cliente', this.clienteId, 'mis-planes']);
-        },
-        error: (error) => {
-          alert('Error al guardar el registro');
+      this.initEpaycoButton();
+      
+      // Damos 30 segundos para que el usuario realice el pago
+      setTimeout(() => {
+        if (!this.pagoRealizado) {
+          alert('El pago no se realizó en el tiempo establecido');
+        } else {
+          this.servicio.EditarRegistro(modelo).subscribe({
+            next: (data: ClientePlanModel) => {
+              alert('Registro guardado correctamente');
+              this.router.navigate(['planes/cliente', this.clienteId, 'mis-planes']);
+            },
+            error: (error) => {
+              alert('Error al guardar el registro');
+            }
+          });
         }
-      });
+      }, 30000); // 30 segundos
+      
     }
   }
 
@@ -169,44 +157,56 @@ export class PagoEpaycoComponent {
     let mesesAPagar = this.obtenerFgDatos['mesesAPagar'].value;
     modelo.tarifa = parseFloat(this.obtenerFgDatos['tarifa'].value);
     let pago = modelo.tarifa * mesesAPagar;
-
+  
     // Crea el contenedor del botón de ePayco
     const container = this.renderer.createElement('div');
     this.renderer.setAttribute(container, 'id', 'epaycoButtonContainer');
-
-    let cliente1 = this.recordId;
+  
     // Carga el script de ePayco
     const script = this.renderer.createElement('script');
     script.src = 'https://checkout.epayco.co/checkout.js';
     script.type = 'text/javascript';
     script.async = true;
     script.defer = true;
-    this.renderer.setAttribute(script,'data-epayco-key', this.epaycoApiKey),
-    this.renderer.setAttribute(script,'data-epayco-private-key', this.epaycoPrivateKey),
-    this.renderer.setAttribute(script,'class','epayco-button'),
-    this.renderer.setAttribute(script,'data-epayco-invoice','2101'),
-    this.renderer.setAttribute(script,'data-epayco-amount', pago.toString()),
-    this.renderer.setAttribute(script,'data-epayco-tax','0.00'),  
-    this.renderer.setAttribute(script,'data-epayco-tax-ico','0.00'),               
-    this.renderer.setAttribute(script,'data-epayco-tax-base','0'),
-    this.renderer.setAttribute(script,'data-epayco-name','Test'), 
-    this.renderer.setAttribute(script,'data-epayco-description',this.clientePlan?.nombre?.toString()!),
-    this.renderer.setAttribute(script,'data-epayco-currency','cop'),    
-    this.renderer.setAttribute(script,'data-epayco-country','CO'),
-    this.renderer.setAttribute(script,'data-epayco-test','true'),
-    this.renderer.setAttribute(script,'data-epayco-external','false'),
-    this.renderer.setAttribute(script,'data-epayco-response','http://localhost:4200/parametros/plan-listar'), 
-    this.renderer.setAttribute(script,'data-epayco-confirmation','http://localhost:4200/inicio'),
-    this.renderer.setAttribute(script,'data-epayco-button','https://multimedia.epayco.co/dashboard/btns/btn1.png'),
-    this.renderer.setAttribute(script,'data-epayco-methodconfirmation',"get"),
-    this.renderer.setAttribute(script,'data-epayco-type-doc-billing','CC'),
-    this.renderer.setAttribute(script,'data-epayco-number-doc-billing','123456789'),
-    this.renderer.setAttribute(script,'data-epayco-name-billing',this.clientePlan?.nombre?.toString()!),
-    this.renderer.setAttribute(script,'data-epayco-mobilephone-billing','3124567891'),
-      
-    document.body.appendChild(script);
-    // Agrega el contenedor al cuerpo del documento
-  this.renderer.appendChild(document.body, container);
+  
+    // Set attributes
+    this.renderer.setAttribute(script, 'data-epayco-key', this.epaycoApiKey);
+    this.renderer.setAttribute(script, 'class', 'epayco-button');
+    this.renderer.setAttribute(script, 'data-epayco-amount', pago.toString());
+    this.renderer.setAttribute(script, 'data-epayco-tax', '0.00');
+    this.renderer.setAttribute(script, 'data-epayco-tax-ico', '0.00');
+    this.renderer.setAttribute(script, 'data-epayco-tax-base', '0');
+    this.renderer.setAttribute(script, 'data-epayco-name', 'Test');
+    this.renderer.setAttribute(script, 'data-epayco-description', this.clientePlan?.nombre?.toString()!);
+    this.renderer.setAttribute(script, 'data-epayco-currency', 'cop');
+    this.renderer.setAttribute(script, 'data-epayco-country', 'CO');
+    this.renderer.setAttribute(script, 'data-epayco-test', 'true');
+    this.renderer.setAttribute(script, 'data-epayco-external', 'false');
+    this.renderer.setAttribute(script, 'data-epayco-response', 'http://localhost:4200/parametros/plan-listar/' + this.clientePlan?.planId?.toString()!);
+    this.renderer.setAttribute(script, 'data-epayco-confirmation', 'http://localhost:4200/inicio');
+    this.renderer.setAttribute(script, 'data-epayco-methodconfirmation', 'get');
+    this.renderer.setAttribute(script, 'data-epayco-type-doc-billing', 'CC');
+    this.renderer.setAttribute(script, 'data-epayco-number-doc-billing', '123456789');
+    this.renderer.setAttribute(script, 'data-epayco-name-billing', this.clientePlan?.nombre?.toString()!);
+    this.renderer.setAttribute(script, 'data-epayco-mobilephone-billing', '3124567891');
+  
+    // Agregar script al contenedor
+    this.renderer.appendChild(container, script);
+    this.renderer.appendChild(document.body, container);
+
+    // Verificar pago epayco
+    const epaycoButton = document.getElementById('epaycoButtonContainer');
+    if (epaycoButton) {
+      epaycoButton.addEventListener('click', () => {
+        this.pagoRealizado = true;
+        this.mostrarModalPagoExitoso();
+        clearTimeout(this.paymentTimeout); // Limpiar temporizador si se ejecuta manualmente
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.paymentTimeout); // Limpiar temporizador al destruir el componente
   }
 
   onSubmit(event: Event) {
