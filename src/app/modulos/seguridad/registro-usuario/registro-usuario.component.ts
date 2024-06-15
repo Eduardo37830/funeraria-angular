@@ -69,7 +69,7 @@ export class RegistroUsuarioComponent implements OnInit {
       celular: campos["telefono"].value,
       ciudadResidencia: campos["ciudadResidencia"].value,
       direccion: campos["direccion"].value,
-      rolId: "661dcc702a5f4843508e6740" // Puede que necesites ajustar esto dependiendo de la lógica de negocio
+      rolId: "661dcc702a5f4843508e6740" // Tener en cuenta esto
     };
 
     // Registrar en la base de datos de seguridad
@@ -84,7 +84,7 @@ export class RegistroUsuarioComponent implements OnInit {
           primerApellido: datosSeguridad.primerApellido,
           segundoApellido: datosSeguridad.segundoApellido,
           correo: datosSeguridad.correo,
-          celular: datosSeguridad.celular,
+          celular: '+57' + datosSeguridad.celular,
           ciudadResidencia: datosSeguridad.ciudadResidencia,
           direccion: datosSeguridad.direccion,
           activo: true,

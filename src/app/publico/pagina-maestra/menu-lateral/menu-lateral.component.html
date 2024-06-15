@@ -3,13 +3,16 @@
     <button class="flex items-center rounded-lg focus:outline-none hover:bg-slate-300 p-2">
       <p *ngIf="nombre" class="mr-3 text-customGreen font-bold">{{nombre}}</p>
       <div class="w-11 h-11">
-        <img class="rounded-full w-full h-full object-cover" src="{{image}}" alt="User Avatar">
+        <img *ngIf="image; else noImage" class="rounded-full w-full h-full object-cover" [src]="image" alt="User Avatar" (error)="onImageError($event)">
+        <ng-template #noImage>
+          <i class="material-icons"><fa-icon [icon]="faCircleUser" class="text-3xl dark:text-white"></fa-icon></i>
+        </ng-template>
       </div>
     </button>
   </div>
   
   <div *ngIf="isOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50">
-    <a routerLink="planes/cliente/1/mis-planes" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi plan</a>
+    <a *ngIf="idCliente" routerLink="planes/cliente/{{idCliente}}/mis-planes" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi plan</a>
     <a routerLink="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mis beneficiarios</a>
     <a routerLink="servicios/solicitud-servicio-funerario/solicitud-servicios" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Solicitudes</a>
     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Configuración</a>

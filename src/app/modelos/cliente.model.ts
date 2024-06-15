@@ -14,5 +14,4 @@ export class ClienteModel {
     fechaRegistro?: Date;
     activo?: boolean;
     _idSeguridad?: string;
-    beneficiarios?: BeneficiarioModel[];
 }

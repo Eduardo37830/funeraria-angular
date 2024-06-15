@@ -23,13 +23,34 @@ export class MenuLateralComponent {
 
   constructor(
     private seguridadService: SeguridadService,
-  ) {}
+  ) {
+    this.obtenerDatosUsuario()
+  }
 
-  nombre = this.seguridadService.ObtenerNombreUsuario();
-  image = this.seguridadService.ObtenerImagenUsuario();
+  nombre = ""
+  image: string | null = null
+  idCliente = 0
+
+  idSeguridad: string = this.seguridadService.ObtenerDatosUsuarioLS()!._id!;
 
   toggleMenu() {
     this.isOpen = !this.isOpen;
+  }
+
+  obtenerDatosUsuario() {
+    console.log("EL id es", this.idSeguridad);
+    const tmp = this.seguridadService.ObtenerDatosUsuarioCliente(this.idSeguridad).subscribe({
+      next: (data) => {
+        console.log("La información es:", data);
+        this.nombre = data.primerNombre! + " " + data.primerApellido!
+        this.image = data.foto!
+        console.log("La imagen es:", this.image);
+        
+        this.idCliente = data.id!
+        
+        return data;
+      },
+    });
   }
 
   @HostListener('document:click', ['$event'])
@@ -38,5 +59,9 @@ export class MenuLateralComponent {
     if (!target.closest('.relative')) {
       this.isOpen = false;
     }
+  }
+
+  onImageError(event: Event) {
+    (event.target as HTMLImageElement).style.display = 'none';
   }
 }
