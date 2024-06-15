@@ -1,26 +1,31 @@
-<body class="flex justify-center">
-  <div class="overflow-x-auto ">
-    <div class="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-1">
-      <div *ngFor="let r of plan | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-        <h3 class="text-lg font-bold text-center mb-4">{{ r.nombre }}</h3>
-        <p><span class="font-semibold">Detalles:</span> {{ r.detalles }}</p>
-        <p><span class="font-semibold">Tarifa:</span> {{ r.tarifa }}</p>
-        <p><span class="font-semibold">Fecha Adquisición:</span> {{ r.fechaAdquisicion }}</p>
-        <p><span class="font-semibold">Fecha Vencimiento:</span> {{ r.fechaVencimiento }}</p>
-        <p><span class="font-semibold">Número Beneficiarios:</span> {{ r.cantidadBeneficiarios }}</p>
-        <div class="mt-4">
-          <a routerLink="/parametros/clientes/{{ clienteId }}/beneficiario-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-105 block text-center">
+<body class="flex justify-center items-center min-h-screen bg-gray-100 py-10">
+  <div class="overflow-x-auto max-w-6xl">
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div *ngFor="let r of plan | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="bg-white shadow-lg rounded-lg p-6 border border-gray-200 transition duration-300 ease-in-out transform hover:scale-105">
+        <h3 class="text-xl font-bold text-center mb-4 text-indigo-600">{{ r.nombre }}</h3>
+        <p class="text-gray-700"><span class="font-semibold">Detalles:</span> {{ r.detalles }}</p>
+        <p class="text-gray-700"><span class="font-semibold">Tarifa:</span> {{ r.tarifa }}</p>
+        <p class="text-gray-700"><span class="font-semibold">Fecha Adquisición:</span> {{ r.fechaAdquisicion }}</p>
+        <p class="text-gray-700"><span class="font-semibold">Fecha Vencimiento:</span> {{ r.fechaVencimiento }}</p>
+        <p class="text-gray-700"><span class="font-semibold">Número Beneficiarios:</span> {{ r.cantidadBeneficiarios }}</p>
+        <div class="mt-4" *ngIf="usuario">
+          <a routerLink="/parametros/clientes/{{ clienteId }}/beneficiario-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out block text-center">
             Beneficiarios
           </a>
         </div>
-        <div class="flex space-x-2 justify-center mt-4">
-          <a routerLink="/parametros/cliente/{{ clienteId }}/pago-epayco/{{ r.id }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded shadow-md transition duration-300 transform hover:scale-105">
+        <div *ngIf="usuario" class="flex space-x-4 justify-center mt-4">
+          <a routerLink="/parametros/cliente/{{ clienteId }}/pago-epayco/{{ r.id }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
             Renovar Plan
           </a>
-          <a routerLink="/planes/cliente/{{ clienteId }}/eliminar-plan/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded shadow-md transition duration-300 transform hover:scale-105">
+          <a routerLink="/planes/cliente/{{ clienteId }}/eliminar-plan/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
             Cancelar Plan
           </a>
         </div>
+      </div>
+      <div class="flex justify-center mt-10" *ngIf="Permiso">
+        <a routerLink="/reportes/clientes-morosos" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
+          Volver a Clientes Morosos
+        </a>
       </div>
     </div>
   </div>

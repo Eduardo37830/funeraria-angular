@@ -12,6 +12,7 @@
                 <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Fecha de Registro</th>
                 <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Activo</th>
                 <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Beneficiarios</th>
+                <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Plan Funebre</th>
                 <th class="px-4 py-2 bg-indigo-600 text-white border border-gray-300">Acciones</th>
               </tr>
             </thead>
@@ -28,7 +29,12 @@
                   </span>
                 </td>
                 <td class="px-4 py-2 border border-gray-300 text-center">
-                  <a routerLink="/parametros/clientes/{{ cliente.id }}/beneficiario-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+                  <a routerLink="/parametros/clientes/{{ cliente.id }}/beneficiario-listar" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-1 px-2 rounded-lg transition duration-200 ease-in-out transform hover:scale-105 ml-2">
+                    Acceder
+                  </a>
+                </td>
+                <td class="px-4 py-2 border border-gray-300 text-center">
+                  <a routerLink="/planes/cliente/{{ cliente.id }}/mis-planes" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-1 px-2 rounded-lg transition duration-200 ease-in-out transform hover:scale-105 ml-2">
                     Acceder
                   </a>
                 </td>

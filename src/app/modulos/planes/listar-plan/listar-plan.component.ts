@@ -10,6 +10,9 @@ import { ConfiguracionRutasBackend } from '../../../config/configuracion.rutas.b
 import { ClienteModel } from '../../../modelos/cliente.model';
 import { PlanService } from '../../../servicios/parametros/plan.service';
 import { PlanModel } from '../../../modelos/plan.model';
+import { ClienteService } from '../../../servicios/parametros/cliente.service';
+import { SeguridadService } from '../../../servicios/seguridad.service';
+import { UsuarioValidadoModel } from '../../../modelos/usuario.validado.model';
 
 @Component({
   selector: 'app-listar-plan',
@@ -34,10 +37,15 @@ export class ListarPlanComponent {
   registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;
   BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
 
+  Permiso: boolean = false;
+  usuario: boolean = false;
+
   constructor(
     private servicioPlanes: PlanService,
+    private clienteService: ClienteService,
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private servicioSeguridad: SeguridadService,
   ) { }
 
   ngOnInit(): void {
@@ -45,9 +53,45 @@ export class ListarPlanComponent {
     this.clienteId = Number(this.route.snapshot.paramMap.get('id'));
     this.planId = Number(this.route.snapshot.paramMap.get('planId'));
     this.ListarRegistrosPlan();
-    console.log('ClienteId:', this.clienteId);
-    
+    this.ValidarPermisos();
     this.obtenerPlanCliente();
+  }
+
+  ObtenerClientesYValidarPermisos() {
+    this.clienteService.listarRegistros().subscribe({
+      next: (clientes) => {
+        this.clientes = clientes;
+        console.log('Clientes obtenidos:', this.clientes);
+        this.ValidarPermisos();
+      },
+      error: (error) => {
+        console.log('Error obteniendo los clientes:', error);
+      }
+    });
+  }
+
+  ValidarPermisos() {
+    this.servicioSeguridad.ObtenerDatosSesion().subscribe({
+      next: (data: UsuarioValidadoModel | null) => {
+        if (data && data.token) {
+          // Verificar si el usuario es un administrador
+          if (data.user && data.user.rolId === '6619aa9177e8f21a1c6f600c') {
+            this.Permiso = true;
+          }
+          if (data.user && data.user.rolId === '661dcc702a5f4843508e6740') {
+            this.usuario = true;
+          }
+
+          
+        }
+        console.log('Permiso:', this.Permiso);
+        console.log('Cliente ID:', this.clienteId);
+        console.log('Usuario:', this.usuario);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
   }
 
   ListarRegistros() {

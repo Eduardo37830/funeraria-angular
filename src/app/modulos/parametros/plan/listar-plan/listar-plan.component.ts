@@ -27,7 +27,6 @@ import { ClientePlanModel } from '../../../../modelos/clientePlan.model';
   styleUrl: './listar-plan.component.css'
 })
 export class ListarPlanComponent {
-[x: string]: any;
   listaRegistros: PlanModel[] = [];
   pag = 1;
   total = 0;
@@ -46,7 +45,6 @@ export class ListarPlanComponent {
     private servicioPlanes: PlanService,
     private servicioSeguridad: SeguridadService,
     private clienteService: ClienteService,
-    private planService: PlanService,
    ) { 
       this.filtroForm = this.formBuilder.group({
         nombre: [''],
