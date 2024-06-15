@@ -23,13 +23,31 @@ export class MenuLateralComponent {
 
   constructor(
     private seguridadService: SeguridadService,
-  ) {}
+  ) {
+    this.obtenerDatosUsuario()
+  }
 
-  nombre = this.seguridadService.ObtenerNombreUsuario();
-  image = this.seguridadService.ObtenerImagenUsuario();
+  nombre = ""
+  image = ""
+
+  idSeguridad: string = this.seguridadService.ObtenerDatosUsuarioLS()!._id!;
 
   toggleMenu() {
     this.isOpen = !this.isOpen;
+  }
+
+  obtenerDatosUsuario() {
+    console.log("EL id es", this.idSeguridad);
+    const tmp = this.seguridadService.ObtenerDatosUsuarioCliente(this.idSeguridad).subscribe({
+      next: (data) => {
+        console.log("La información es:", data);
+        this.nombre = data.primerNombre! + " " + data.primerApellido!
+        this.image = data.foto!
+        console.log(this.image);
+        
+        return data;
+      },
+    });
   }
 
   @HostListener('document:click', ['$event'])

@@ -5,6 +5,7 @@ import { ConfiguracionRutasBackend } from '../config/configuracion.rutas.backend
 import { UsuarioModel } from '../modelos/usuario.model';
 import { UsuarioValidadoModel } from '../modelos/usuario.validado.model';
 import { PqrsModel } from '../modelos/pqrs.model';
+import { ClienteModel } from '../modelos/cliente.model';
 
 @Injectable({
   providedIn: 'root'
@@ -200,6 +201,13 @@ export class SeguridadService {
       return "";
     }
   }
+
+  /* Obtener los datos de logica de negocio con el id de usuario model */
+  ObtenerDatosUsuarioCliente(idUsuario: string): Observable<ClienteModel> {
+    console.log(`${this.urlLogicaNegocio}cliente-por-idseguridad/${idUsuario}`);
+    return this.http.get<ClienteModel>(`${this.urlLogicaNegocio}cliente-por-idseguridad/${idUsuario}`);
+  }
+
 /* crea una funcion que almacene los datos que se le manden en el local storage */
 
 AlmacenarDatosChat(codigo: string, usuario: string): boolean {
