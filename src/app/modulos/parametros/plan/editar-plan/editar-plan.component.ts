@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    
   ],
   templateUrl: './editar-plan.component.html',
   styleUrl: './editar-plan.component.css'
