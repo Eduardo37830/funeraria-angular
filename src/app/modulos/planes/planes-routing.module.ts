@@ -4,6 +4,7 @@ import { AdquirirPlanComponent } from './adquirir-plan/adquirir-plan.component';
 import { RenovarPlanComponent } from './renovar-plan/renovar-plan.component';
 import { ListarPlanComponent } from './listar-plan/listar-plan.component';
 import { EliminarClientePlanComponent } from './eliminar-cliente-plan/eliminar-cliente-plan.component';
+import { EditarPlanComponent } from './editar-plan/editar-plan.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,14 @@ const routes: Routes = [
   },
   {
     path: 'cliente/:id/mis-planes',
+    component: ListarPlanComponent
+  },
+  {
+    path: 'descuento/:id',
+    component: EditarPlanComponent
+  },
+  {
+    path: 'planes-aquiridos',
     component: ListarPlanComponent
   },
   {

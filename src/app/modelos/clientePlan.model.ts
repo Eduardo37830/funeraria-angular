@@ -9,4 +9,5 @@ export class ClientePlanModel {
     activo?: boolean;
     clienteId?: number;
     planId?: number;
+    descuento?: number;
 }

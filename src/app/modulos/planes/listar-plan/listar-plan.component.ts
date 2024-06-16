@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ClientePlanModel } from '../../../modelos/clientePlan.model';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ConfiguracionPaginacion } from '../../../config/configuracion.paginacion';
@@ -23,13 +23,14 @@ import { PlanVencidoDialogComponent } from '../../reportes/plan-vencido-dialog/p
     RouterModule,
     ReactiveFormsModule,
     CommonModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule
   ],
   templateUrl: './listar-plan.component.html',
   styleUrl: './listar-plan.component.css'
 })
 export class ListarPlanComponent {
-  listaRegistros: PlanModel[] = [];
+  listaRegistros: ClientePlanModel[] = [];
   pag = 1;
   total = 0;
   clientes: ClienteModel[] = [];
@@ -42,22 +43,34 @@ export class ListarPlanComponent {
   Permiso: boolean = false;
   usuario: boolean = false;
 
+  descuentoForm: FormGroup;
+  descuentos: number[] = [0,10, 20, 30, 40, 50, 60, 70];
+
   constructor(
     private servicioPlanes: PlanService,
     private clienteService: ClienteService,
     private http: HttpClient,
     private route: ActivatedRoute,
     private servicioSeguridad: SeguridadService,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog  )
+    {
+    this.descuentoForm = new FormGroup({
+      descuento: new FormControl('')
+    });
+   }
 
   ngOnInit(): void {
-    this.ListarRegistros();
     this.clienteId = Number(this.route.snapshot.paramMap.get('id'));
     this.planId = Number(this.route.snapshot.paramMap.get('planId'));
     this.ListarRegistrosPlan();
     this.ValidarPermisos();
-    this.obtenerPlanCliente();
+    if(this.clienteId == 2) {
+      this.obtenerPlanCliente();
+    }
+    //this.obtenerPlanCliente();
+    if(this.Permiso && this.clienteId !== 2) {
+      this.ListarRegistros();
+    }
   }
 
   ObtenerClientesYValidarPermisos() {
@@ -96,10 +109,11 @@ export class ListarPlanComponent {
   }
 
   ListarRegistros() {
-    this.servicioPlanes.listarRegistrosPagina(this.pag).subscribe({
+    this.servicioPlanes.listarPlanCliente(this.pag).subscribe({
       next: (datos) => {
         this.listaRegistros = datos.registros;
         this.total = datos.totalRegistros;
+        console.log('Registros obtenidos:', this.listaRegistros);
       },
       error: () => {
         alert('Error leyendo la información de la base de datos');
@@ -147,5 +161,36 @@ export class ListarPlanComponent {
         });
       }
     });
+  }
+
+  aplicarDescuento(id: number): void {
+    // Obtener el descuento del formulario
+    const descuento = this.descuentoForm.value.descuento;
+
+    // Validar si el descuento es válido (puedes añadir más validaciones según necesites)
+    if (descuento < 0 || descuento > 100) {
+      alert('El descuento debe estar entre 0 y 100.');
+      return;
+    }
+
+    // Construir el objeto con el descuento a enviar al backend
+    const descuentoActualizado = {
+      descuento: descuento
+    };
+
+    // Realizar la solicitud PUT al backend para actualizar el descuento del plan del cliente
+    this.http.put<any>(`/{BASE_URL}/clientes/${this.clienteId}/planes/${id}`, descuentoActualizado)
+      .subscribe(
+        (response) => {
+          // Manejar la respuesta exitosa del servidor si es necesario
+          console.log('Descuento actualizado correctamente:', response);
+          // Actualizar la lista de registros si es necesario
+          // this.ListarRegistrosPlan();
+        },
+        (error) => {
+          console.error('Error al actualizar el descuento:', error);
+          alert('Error al actualizar el descuento.');
+        }
+      );
   }
 }

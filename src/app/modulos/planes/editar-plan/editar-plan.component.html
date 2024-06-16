@@ -1,0 +1,60 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100 py-10">
+    <div class="max-w-3xl w-full px-4">
+      <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-200 transition duration-300 ease-in-out transform hover:scale-105">
+        <h1 class="text-3xl font-bold text-center mb-4">Editar Plan</h1>
+        <form [formGroup]="fGroup" class="mt-4">
+          <div class="flex flex-col mb-4">
+            <label for="nombre" class="font-semibold">Nombre</label>
+            <input formControlName="nombre" id="nombre" type="text" class="input-field mt-1">
+            <div *ngIf="fGroup.get('nombre')!.errors && (fGroup.get('nombre')!.dirty || fGroup.get('nombre')!.touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col mb-4">
+            <label for="detalles" class="font-semibold">Detalles</label>
+            <textarea formControlName="detalles" id="detalles" class="input-field mt-1"></textarea>
+            <div *ngIf="fGroup.get('detalles')!.errors && (fGroup.get('detalles')!.dirty || fGroup.get('detalles')!.touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col mb-4">
+            <label for="tarifa" class="font-semibold">Tarifa</label>
+            <input formControlName="tarifa" id="tarifa" type="number" class="input-field mt-1">
+            <div *ngIf="fGroup.get('tarifa')!.errors && (fGroup.get('tarifa')!.dirty || fGroup.get('tarifa')!.touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col mb-4">
+            <label for="fechaAdquisicion" class="font-semibold">Fecha de Adquisición</label>
+            <input formControlName="fechaAdquisicion" id="fechaAdquisicion" type="date" class="input-field mt-1">
+            <div *ngIf="fGroup.get('fechaAdquisicion')!.errors && (fGroup.get('fechaAdquisicion')!.dirty || fGroup.get('fechaAdquisicion')!.touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col mb-4">
+            <label for="fechaVencimiento" class="font-semibold">Fecha de Vencimiento</label>
+            <input formControlName="fechaVencimiento" id="fechaVencimiento" type="date" class="input-field mt-1">
+            <div *ngIf="fGroup.get('fechaVencimiento')!.errors && (fGroup.get('fechaVencimiento')!.dirty || fGroup.get('fechaVencimiento')!.touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex flex-col mb-4">
+            <label for="cantidadBeneficiarios" class="font-semibold">Cantidad de Beneficiarios</label>
+            <input formControlName="cantidadBeneficiarios" id="cantidadBeneficiarios" type="number" class="input-field mt-1">
+            <div *ngIf="fGroup.get('cantidadBeneficiarios')!.errors && (fGroup.get('cantidadBeneficiarios')!.dirty || fGroup.get('cantidadBeneficiarios')!.touched)" class="text-red-500 mt-1">
+              <strong>Este campo es obligatorio</strong>
+            </div>
+          </div>
+          <div class="flex justify-center mt-6">
+            <button type="button" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105 mr-4" (click)="EditarRegistro()">
+              Guardar Cambios
+            </button>
+            <a routerLink="/planes/planes-adquiridos" class="btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
+              Cancelar
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

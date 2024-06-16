@@ -41,7 +41,7 @@ export class PlanService {
   listarPlanCliente(pag: number): Observable<PaginadorClientePlanModel> {
     let limit = ConfiguracionPaginacion.registroPorPagina;
     let skip = (pag - 1) * limit;
-    return this.http.get<PaginadorPlanModel>(`${this.urlBase}cliente-plan-paginado?filter={"limit": ${limit}, "skip": ${skip}, "order": "id DESC"}`);
+    return this.http.get<PaginadorPlanModel>(`${this.urlBase}cliente-plan-paginado`);
   }
 
   AgregarRegistro(registro: PlanModel): Observable<PlanModel> {

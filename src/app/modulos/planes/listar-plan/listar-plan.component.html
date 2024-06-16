@@ -1,32 +1,96 @@
-<body class="flex justify-center items-center min-h-screen bg-gray-100 py-10">
+<!-- listar-plan.component.html -->
+
+<div class="flex justify-center items-center min-h-screen bg-gray-100 py-10">
   <div class="overflow-x-auto max-w-6xl">
     <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      <div *ngFor="let r of plan | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="bg-white shadow-lg rounded-lg p-6 border border-gray-200 transition duration-300 ease-in-out transform hover:scale-105">
-        <h3 class="text-xl font-bold text-center mb-4 text-indigo-600">{{ r.nombre }}</h3>
-        <p class="text-gray-700"><span class="font-semibold">Detalles:</span> {{ r.detalles }}</p>
-        <p class="text-gray-700"><span class="font-semibold">Tarifa: $ </span>{{ r.tarifa }}</p>
-        <p class="text-gray-700"><span class="font-semibold">Fecha Adquisición:</span> {{ r.fechaAdquisicion }}</p>
-        <p class="text-gray-700"><span class="font-semibold">Fecha Vencimiento:</span> {{ r.fechaVencimiento }}</p>
-        <p class="text-gray-700"><span class="font-semibold">Número Beneficiarios:</span> {{ r.cantidadBeneficiarios }}</p>
-        <div class="mt-4" *ngIf="usuario">
-          <a routerLink="/parametros/clientes/{{ clienteId }}/beneficiario-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out block text-center">
-            Beneficiarios
-          </a>
-        </div>
-        <div *ngIf="usuario" class="flex space-x-4 justify-center mt-4">
-          <a routerLink="/parametros/cliente/{{ clienteId }}/pago-epayco/{{ r.id }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
-            Renovar Plan
-          </a>
-          <a routerLink="/planes/cliente/{{ clienteId }}/eliminar-plan/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
-            Cancelar Plan
-          </a>
-        </div>
+      <!-- Mostrar planes para usuarios -->
+      <div *ngIf="usuario">
+        <h1 class="text-3xl font-bold text-center mb-4">Bienvenido a Funeraria Digital</h1>
+        <p class="text-gray-700 text-center mb-6">Aquí puedes ver los detalles de tu plan adquirido:</p>
+        <ng-container *ngFor="let r of plan | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
+          <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-200 transition duration-300 ease-in-out transform hover:scale-105">
+            <h3 class="text-xl font-bold text-center mb-4 text-indigo-600">{{ r.nombre }}</h3>
+            <p class="text-gray-700"><span class="font-semibold">Detalles:</span> {{ r.detalles }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Tarifa: $ </span>{{ r.tarifa }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Fecha Adquisición:</span> {{ r.fechaAdquisicion }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Fecha Vencimiento:</span> {{ r.fechaVencimiento }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Número Beneficiarios:</span> {{ r.cantidadBeneficiarios }}</p>
+            <div class="mt-4">
+              <a routerLink="/parametros/clientes/{{ clienteId }}/beneficiario-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out block text-center">
+                Ver Beneficiarios
+              </a>
+            </div>
+            <div class="flex justify-center mt-4">
+              <a routerLink="/parametros/cliente/{{ clienteId }}/pago-epayco/{{ r.id }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105 mr-2">
+                Renovar Plan
+              </a>
+              <a routerLink="/planes/cliente/{{ clienteId }}/eliminar-plan/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
+                Cancelar Plan
+              </a>
+            </div>
+          </div>
+        </ng-container>
       </div>
+
+      <!-- Mostrar planes para administradores -->
+      <div *ngIf="Permiso">
+        <h1 class="text-3xl font-bold text-center mb-4">Planes adquiridos - Funeraria Digital</h1>
+        <p class="text-gray-700 text-center mb-6">Aquí puedes ver los planes adquiridos por los clientes:</p>
+        <ng-container *ngFor="let r of plan | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
+          <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-200 transition duration-300 ease-in-out transform hover:scale-105">
+            <h3 class="text-xl font-bold text-center mb-4 text-indigo-600">{{ r.nombre }}</h3>
+            <p class="text-gray-700"><span class="font-semibold">Detalles:</span> {{ r.detalles }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Tarifa: $ </span>{{ r.tarifa }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Fecha Adquisición:</span> {{ r.fechaAdquisicion }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Fecha Vencimiento:</span> {{ r.fechaVencimiento }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Número Beneficiarios:</span> {{ r.cantidadBeneficiarios }}</p>
+            <div class="mt-4">
+              <a routerLink="/parametros/clientes/{{ clienteId }}/beneficiario-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out block text-center">
+                Ver Beneficiarios
+              </a>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let r of listaRegistros | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }">
+          <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-200 transition duration-300 ease-in-out transform hover:scale-105">
+            <h3 class="text-xl font-bold text-center mb-4 text-indigo-600">{{ r.nombre }}</h3>
+            <p class="text-gray-700"><span class="font-semibold">Detalles:</span> {{ r.detalles }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Tarifa: $ </span>{{ r.tarifa }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Fecha Adquisición:</span> {{ r.fechaAdquisicion }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Fecha Vencimiento:</span> {{ r.fechaVencimiento }}</p>
+            <p class="text-gray-700"><span class="font-semibold">Número Beneficiarios:</span> {{ r.cantidadBeneficiarios }}</p>
+            <div class="mt-4 flex items-center">
+              <a routerLink="/parametros/clientes/{{ r.clienteId }}/beneficiario-listar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 ease-in-out block text-center">
+                Ver Cliente
+              </a>
+              <!-- Barra desplegable de descuentos -->
+              <div class="ml-4">
+                <label for="descuento" class="block text-gray-700 text-sm font-bold mb-2">Aplicar Descuento:</label>
+                <div class="flex">
+                  <select id="descuento" class="w-full rounded-lg border border-gray-300 py-2 px-3" [ngModel]="descuentoForm.get('descuento')?.value">
+                    <option *ngFor="let descuento of descuentos" [value]="descuento">{{ descuento }}%</option>
+                  </select>
+                  <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105 ml-2"
+                          (click)="aplicarDescuento(r.id!)">
+                    Aplicar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <a routerLink="/planes/cliente/{{ clienteId }}/eliminar-plan/{{ r.id }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
+                Cancelar Plan
+              </a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
       <div class="flex justify-center mt-10" *ngIf="Permiso">
         <a routerLink="/reportes/clientes-morosos" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
-          Volver a Clientes Morosos
+          Acceder a Clientes Morosos
         </a>
       </div>
     </div>
   </div>
-</body>
+</div>

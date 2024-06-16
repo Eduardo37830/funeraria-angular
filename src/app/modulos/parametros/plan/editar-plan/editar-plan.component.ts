@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './editar-plan.component.html',
   styleUrl: './editar-plan.component.css'

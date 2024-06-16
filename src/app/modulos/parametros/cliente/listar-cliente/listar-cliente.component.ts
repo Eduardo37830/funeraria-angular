@@ -3,7 +3,7 @@ import { ClienteModel } from '../../../../modelos/cliente.model';
 import { ConfiguracionPaginacion } from '../../../../config/configuracion.paginacion';
 import { ConfiguracionRutasBackend } from '../../../../config/configuracion.rutas.backend';
 import { ClienteService } from '../../../../servicios/parametros/cliente.service';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -25,11 +25,11 @@ export class ListarClienteComponent {
   pag = 1;
   total = 0;
   registrosPorPagina = ConfiguracionPaginacion.registroPorPagina;      
-  BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;                   
+  BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;   
 
   constructor(
-    private servicioClientes: ClienteService
-  ) { }
+    private servicioClientes: ClienteService,
+  ) {}
 
   ngOnInit() {
     this.ListarRegistros();

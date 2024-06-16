@@ -70,6 +70,7 @@ export class PagoEpaycoComponent {
       cantidadBeneficiarios: ['', [Validators.required]],
       fechaAdquisicion: [new Date(), [Validators.required]],
       fechaVencimiento: [''],
+      descuento: [0],
       activo: [],
       planId: [],
       clienteId: [this.clienteId, [Validators.required]],
