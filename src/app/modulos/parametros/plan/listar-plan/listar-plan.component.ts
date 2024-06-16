@@ -57,6 +57,7 @@ export class ListarPlanComponent {
     this.ListarRegistros();
     this.ObtenerClientesYValidarPermisos();
     this.ListarRegistrosPlan();
+    this.obtenerDatosUsuario();
   }
 
   ListarRegistros() {
@@ -80,6 +81,18 @@ export class ListarPlanComponent {
       error: () => {
         alert('Error leyendo la información de la base de datos');
       }
+    });
+  }
+
+  idSeguridad: string = this.servicioSeguridad.ObtenerDatosUsuarioLS()!._id!;
+
+  obtenerDatosUsuario() {
+    console.log("EL id es", this.idSeguridad);
+    const tmp = this.servicioSeguridad.ObtenerDatosUsuarioCliente(this.idSeguridad).subscribe({
+      next: (data) => {
+        this.clienteId = data.id!
+        return data;
+      },
     });
   }
 
