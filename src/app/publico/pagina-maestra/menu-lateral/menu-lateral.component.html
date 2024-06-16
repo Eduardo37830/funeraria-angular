@@ -13,7 +13,7 @@
   
   <div *ngIf="isOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50">
     <a *ngIf="idCliente" routerLink="planes/cliente/{{idCliente}}/mis-planes" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mi plan</a>
-    <a routerLink="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mis beneficiarios</a>
+    <a routerLink="/parametros/clientes/{{ idCliente }}/beneficiario-listar" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mis beneficiarios</a>
     <a routerLink="servicios/solicitud-servicio-funerario/solicitud-servicios" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Solicitudes</a>
     <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Configuración</a>
     <a routerLink="/seguridad/cambiar-clave" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Cambiar clave</a>

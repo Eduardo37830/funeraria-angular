@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SolicitudService } from '../../../servicios/parametros/solicitud.service';
 import { solicitudModel } from '../../../modelos/solicitudServicioFunerario.model';
+import { SeguridadService } from '../../../servicios/seguridad.service';
 
 @Component({
   selector: 'app-solicitar-servicio',
@@ -16,10 +17,12 @@ import { solicitudModel } from '../../../modelos/solicitudServicioFunerario.mode
 })
 export class SolicitarServicioComponent implements OnInit {
   solicitudForm: FormGroup;
+  beneficiarios: any[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private solicitudService: SolicitudService
+    private solicitudService: SolicitudService,
+    private seguridadService: SeguridadService,
   ) {
     this.solicitudForm = this.fb.group({
       fechaSolicitud: ['', Validators.required],
@@ -27,18 +30,47 @@ export class SolicitarServicioComponent implements OnInit {
       tipoServicio: ['', Validators.required],
       estadoAceptado: [false],  // Asegurarse de que es un booleano
       idBeneficiario: ['', Validators.required],
-      clienteId: ['', Validators.required]
     });
   }
 
+  idSeguridad: string = this.seguridadService.ObtenerDatosUsuarioLS()!._id!;
+  idCliente: number = 0; 
+
   ngOnInit(): void {
-    this.setFechaActual();
+    this.obtenerDatosUsuario();
+  }
+
+  obtenerDatosUsuario() {
+    console.log("El id es", this.idSeguridad);
+    this.seguridadService.ObtenerDatosUsuarioCliente(this.idSeguridad).subscribe({
+      next: (data) => {
+        this.idCliente = data.id!;
+        console.log("El id del cliente que solicita servicio es", this.idCliente);
+        this.cargarBeneficiarios(); 
+        this.setFechaActual(); 
+      },
+      error: (error) => {
+        console.error('Error al obtener datos del usuario', error);
+      }
+    });
+  }
+
+  cargarBeneficiarios() {
+    this.solicitudService.listarBeneficiariosCliente(this.idCliente).subscribe({
+      next: (data) => {
+        console.log("Los beneficiarios son:", data);
+        this.beneficiarios = data; 
+      },
+      error: (error) => {
+        console.error('Error al cargar los beneficiarios', error);
+      }
+    });
   }
 
   setFechaActual() {
-    const fechaActual = new Date().toISOString(); // ISO string includes date-time
+    const fechaActual = new Date().toISOString(); 
     this.solicitudForm.patchValue({
-      fechaSolicitud: fechaActual
+      fechaSolicitud: fechaActual,
     });
   }
 
@@ -48,17 +80,25 @@ export class SolicitarServicioComponent implements OnInit {
       return;
     }
 
+    // Convertir idBeneficiario a número
+    const formValues = this.solicitudForm.value;
+    formValues.idBeneficiario = Number(formValues.idBeneficiario);
+
     const nuevaSolicitud: solicitudModel = {
-      ...this.solicitudForm.value,
-      estadoAceptado: this.solicitudForm.value.estadoAceptado === 'true' || this.solicitudForm.value.estadoAceptado === true // Asegurar booleano
+      ...formValues,
+      estadoAceptado: formValues.estadoAceptado === 'true' || formValues.estadoAceptado === true ,
+      clienteId: this.idCliente
     };
+
+    console.log('Nueva solicitud:', nuevaSolicitud);
+    
 
     this.solicitudService.AgregarRegistro(nuevaSolicitud).subscribe({
       next: (respuesta: solicitudModel) => {
         alert('Solicitud enviada con éxito');
         console.log('Solicitud enviada con éxito', nuevaSolicitud, respuesta);
         this.solicitudForm.reset();
-        this.setFechaActual(); // Reset form with current date
+        this.setFechaActual(); 
       },
       error: (error: any) => {
         console.error('Error al enviar la solicitud', error, JSON.stringify(error));

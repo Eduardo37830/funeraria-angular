@@ -6,6 +6,7 @@ import { solicitudModel } from '../../modelos/solicitudServicioFunerario.model';
 import { HttpClient } from '@angular/common/http';
 import { ClienteModel } from '../../modelos/cliente.model';
 import { ConfiguracionRutasBackend } from '../../config/configuracion.rutas.backend';
+import { BeneficiarioModel } from '../../modelos/beneficiario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -76,5 +77,9 @@ export class SolicitudService {
           console.error('Error al obtener las salas:', error);
         }
       );
+  }
+
+  listarBeneficiariosCliente(idCliente: number): Observable<BeneficiarioModel[]> {
+    return this.http.get<BeneficiarioModel[]>(`${this.urlBase}clientes/${idCliente}/beneficiarios`);
   }
 }
