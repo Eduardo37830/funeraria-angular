@@ -4,7 +4,7 @@
       <div *ngFor="let r of plan | paginate: { itemsPerPage: registrosPorPagina, currentPage: pag, totalItems: total }" class="bg-white shadow-lg rounded-lg p-6 border border-gray-200 transition duration-300 ease-in-out transform hover:scale-105">
         <h3 class="text-xl font-bold text-center mb-4 text-indigo-600">{{ r.nombre }}</h3>
         <p class="text-gray-700"><span class="font-semibold">Detalles:</span> {{ r.detalles }}</p>
-        <p class="text-gray-700"><span class="font-semibold">Tarifa:</span> {{ r.tarifa }}</p>
+        <p class="text-gray-700"><span class="font-semibold">Tarifa: $ </span>{{ r.tarifa }}</p>
         <p class="text-gray-700"><span class="font-semibold">Fecha Adquisición:</span> {{ r.fechaAdquisicion }}</p>
         <p class="text-gray-700"><span class="font-semibold">Fecha Vencimiento:</span> {{ r.fechaVencimiento }}</p>
         <p class="text-gray-700"><span class="font-semibold">Número Beneficiarios:</span> {{ r.cantidadBeneficiarios }}</p>

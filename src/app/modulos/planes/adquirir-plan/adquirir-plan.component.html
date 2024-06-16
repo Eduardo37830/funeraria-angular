@@ -8,7 +8,7 @@
         <div *ngIf="planSeleccionado" class="mt-4">
           <p><strong>Nombre:</strong> {{ planSeleccionado.nombre }}</p>
           <p><strong>Descripción:</strong> {{ planSeleccionado.detalles }}</p>
-          <p><strong>Mensualidad:</strong> {{ planSeleccionado.mensualidad }}</p>
+          <p><strong>Mensualidad:</strong> {{'$' + planSeleccionado.mensualidad }}</p>
           <p><strong>Número de afiliados:</strong> {{ planSeleccionado.cantidadBeneficiarios }}</p>
         </div>
       </fieldset>
