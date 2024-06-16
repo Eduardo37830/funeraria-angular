@@ -108,14 +108,11 @@ export class InicioComponent {
             this.usuario = true;
           }
 
-          // Buscar el cliente correspondiente por correo
-          const clienteEncontrado = this.clientes.find(cliente => cliente.correo === data.user?.correo);
-          if (clienteEncontrado) {
-            this.clienteId = clienteEncontrado.id!;
-            console.log('Cliente ID encontrado:', this.clienteId); // Agregado console.log para depuración
+          // Buscar el cliente correspondiente por idSeguridad
+          let idSeguridad: string = this.servicioSeguridad.ObtenerDatosUsuarioLS()!._id!;
+          this.obtenerDatosUsuario(idSeguridad);
+          if (this.clienteId) {
             this.obtenerPlanCliente(); // Llamar a obtenerPlanCliente después de validar permisos
-          } else {
-            console.log('Cliente no encontrado para el correo:', data.user?.correo); // Agregado console.log para depuración
           }
         }
         console.log('Permiso:', this.Permiso); // Agregado console.log para depuración
@@ -124,6 +121,15 @@ export class InicioComponent {
       error: (error: any) => {
         console.error('Error al obtener datos de sesión:', error); // Agregado console.error para capturar errores
       }
+    });
+  }
+  obtenerDatosUsuario(idSeguridad: string) {
+    const tmp = this.servicioSeguridad.ObtenerDatosUsuarioCliente(idSeguridad).subscribe({
+      next: (data) => {
+        console.log("La información es:", data);
+        this.clienteId = data.id!;
+        return data.id;
+      },
     });
   }
 }
