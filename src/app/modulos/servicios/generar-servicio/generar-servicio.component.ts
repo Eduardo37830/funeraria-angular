@@ -9,6 +9,9 @@ import { ConfiguracionRutasBackend } from '../../../config/configuracion.rutas.b
 import { HttpClient } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { solicitudModel } from '../../../modelos/solicitudServicioFunerario.model';
+import { SolicitudService } from '../../../servicios/parametros/solicitud.service';
+import { SalaModel } from '../../../modelos/sala.model';
+import { SalaService } from '../../../servicios/parametros/sala.service';
 
 @Component({
   selector: 'app-generar-servicio',
@@ -24,11 +27,18 @@ import { solicitudModel } from '../../../modelos/solicitudServicioFunerario.mode
   styleUrl: './generar-servicio.component.css'
 })
 export class GenerarServicioComponent {
+  listarRegistros: solicitudModel[] = [];
   fGroup: FormGroup = new FormGroup({});
   solicitudId: number = 0;
   recordId: number = 0;
-  servicioFunerario: solicitudModel[] = [];
+  servicioFunerario: ServicioFunerarioModel[] = [];
+  salasDisponibles: SalaModel[] = [];
+  solicitud: solicitudModel[] = [];
+  salas: SalaModel[] = [];
+  clienteId: number = 0;
   BASE_URL: string = ConfiguracionRutasBackend.urlNegocio;
+  sedeId = 1;
+  servicios: any;
 
   constructor(
     private fb: FormBuilder,
@@ -36,12 +46,13 @@ export class GenerarServicioComponent {
     private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
-    ){
-    this.recordId = this.route.snapshot.params['id'];
+  ){
+    this.recordId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
     this.ConstruirFormularioDatos();
+    this.obtenerSalas();
   }
 
   ListarRegistros(): void {
@@ -60,12 +71,12 @@ export class GenerarServicioComponent {
 
   ConstruirFormularioDatos(): void {
     this.fGroup = this.fb.group({
+      traslado: [false],
+      fecha: [new Date()],
       tipo: ['velación', [Validators.required]],
-      fecha: [new Date(), [Validators.required]],
-      traslado: ['' ],
-      codigoServicio: [''],
-      salaId: [''],
-      solicitudId: [this.recordId, [Validators.required]]
+      codigoUnicoServicio: ['1', [Validators.required]],
+      salaId: ['', [Validators.required]],
+      solicitudServicioFunerarioId: [this.recordId, [Validators.required]]
     });
   }
 
@@ -74,10 +85,11 @@ export class GenerarServicioComponent {
       alert('Debe diligenciar todo el formulario');
     } else {
       let modelo = this.obtenerRegistro();
+      console.log('El modelo es:', modelo);
       this.servicio.AgregarRegistro(modelo).subscribe({
         next: (data: ServicioFunerarioModel) => {
           alert('Registro guardado correctamente');
-          this.router.navigate(['/parametros/departamentos',, 'ciudad-listar']);
+          this.router.navigate(['/servicios/','datos-servicio']);
         },
         error: (error: any) => {
           alert('Error al guardar el registro');
@@ -86,16 +98,31 @@ export class GenerarServicioComponent {
     }
   }
 
+  ListarRegistrosSolicitud(): void {
+    if (this.recordId !== null) {
+      this.http.get<solicitudModel[]>(`${this.BASE_URL}solicitud-servicio-funerario/${this.recordId}`)
+        .subscribe(
+          (solicitud) => {
+            this.solicitud = solicitud; // Asignar la solicitud obtenida al arreglo de solicitudes
+          },
+          (error) => {
+            console.error('Error al obtener la solicitud:', error);
+          }
+        );
+    }
+  }
+
   obtenerRegistro(): ServicioFunerarioModel {
     let model = new ServicioFunerarioModel();
-    model.tipo = this.obtenerFgDatos['tipo'].value;
-    model.fecha = this.obtenerFgDatos['fecha'].value;
+    model.fecha = new Date();
     model.traslado = this.obtenerFgDatos['traslado'].value;
-    model.codigoServicio = this.obtenerFgDatos['codigoServicio'].value;
-    model.solicitudId = this.solicitudId;
+    model.tipo = this.obtenerFgDatos['tipo'].value;
+    model.codigoUnicoServicio = this.obtenerFgDatos['codigoUnicoServicio'].value; 
+    model.solicitudServicioFunerarioId = this.recordId;
     model.salaId = this.obtenerFgDatos['salaId'].value;
     return model;
   }
+  
 
   get obtenerFgDatos() {
     return this.fGroup.controls;
@@ -112,5 +139,35 @@ export class GenerarServicioComponent {
       this.GuardarRegistro();
     }
   }
-}
 
+  obtenerSalas() {
+    this.http.get<SalaModel[]>(`${this.BASE_URL}salas-disponibles`).subscribe({
+      next: (data) => {
+        console.log("Las salas son:", data);
+        this.salas = data;
+        for (let i = 0; i < this.salas.length; i++) {
+          if (this.salas[i].disponible) {
+            this.fGroup.controls['salaId'].setValue(this.salas[i].id);
+          }
+        }
+      },
+      error: (error) => {
+        console.error('Error al cargar las salas disponibles', error);
+      }
+    });
+  }
+
+  obtenerSalasPorSede(): void {
+    if (this.sedeId !== null) {
+      this.http.get<SalaModel[]>(`${this.BASE_URL}sedes/${this.sedeId}/salas`)
+        .subscribe(
+          (salas) => {
+            this.salas = salas;
+          },
+          (error) => {
+            console.error('Error al obtener las salas:', error);
+          }
+        );
+    }
+  }
+}

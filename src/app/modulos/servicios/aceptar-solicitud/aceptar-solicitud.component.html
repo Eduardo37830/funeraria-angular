@@ -1,0 +1,24 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100 py-10">
+    <div class="overflow-x-auto max-w-6xl">
+      <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <ng-container *ngFor="let solicitud of listaRegistros">
+          <div class="flex justify-center items-center w-full"> <!-- Añadir clase w-full -->
+            <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-200 transition duration-300 ease-in-out transform hover:scale-105 w-full sm:w-auto">
+              <h3 class="text-xl font-bold text-center mb-4 text-indigo-600">Detalles de la Solicitud</h3>
+              <p class="text-gray-700"><span class="font-semibold">ID:</span> {{ solicitud.id }}</p>
+              <p class="text-gray-700"><span class="font-semibold">Fecha de Solicitud:</span> {{ solicitud.fechaSolicitud | date:'medium' }}</p>
+              <p class="text-gray-700"><span class="font-semibold">Ubicación del Cuerpo:</span> {{ solicitud.ubicacionDelCuerpo }}</p>
+              <p class="text-gray-700"><span class="font-semibold">Tipo de Servicio:</span> {{ solicitud.tipoServicio }}</p>
+              <p class="text-gray-700"><span class="font-semibold">Estado Aceptado:</span> {{ solicitud.estadoAceptado ? 'Aceptado' : 'Pendiente' }}</p>
+              <p class="text-gray-700"><span class="font-semibold">ID del Beneficiario:</span> {{ solicitud.idBeneficiario }}</p>
+              <p class="text-gray-700"><span class="font-semibold">Cliente ID:</span> {{ solicitud.clienteId }}</p>
+              <div class="flex justify-center mt-4">
+                <a routerLink="/servicios/solicitud/{{solicitud.id}}/generar-servicio" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg">Aceptar</a>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  

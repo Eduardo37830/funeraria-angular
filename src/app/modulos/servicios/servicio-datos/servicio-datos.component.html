@@ -1,0 +1,21 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100 py-10">
+    <div class="max-w-3xl w-full px-4">
+      <div class="bg-white rounded-lg shadow-xl overflow-hidden border border-gray-200 hover:shadow-2xl">
+        <div class="px-6 py-4">
+          <h1 class="text-3xl font-bold text-center mb-4">Información de Servicios Funerarios</h1>
+          <ul>
+            <li *ngFor="let servicio of serviciosFunerarios" class="mb-4">
+              <div class="bg-gray-100 rounded-lg p-4 border border-gray-300">
+                <p class="text-lg"><strong>Fecha:</strong> {{ servicio.fecha | date }}</p>
+                <p class="text-lg"><strong>Tipo:</strong> {{ servicio.tipo }}</p>
+                <p class="text-lg"><strong>Código Único:</strong> {{ servicio.codigoUnicoServicio }}</p>
+                <p class="text-lg"><strong>Solicitud ID:</strong> {{ servicio.solicitudServicioFunerarioId }}</p>
+                <p class="text-lg"><strong>Sala asignada:</strong> {{ servicio.salaId }}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -23,8 +23,8 @@ export class SolicitudService {
    * Listar registros
    * @returns lista de registros
    */
-  listarRegistros(): Observable<solicitudModel[]> {
-    return this.http.get<solicitudModel[]>(`${this.urlBase}sede?filter={"limit":${ConfiguracionPaginacion.registroPorPagina}}`);
+  listarRegistros(id: number): Observable<solicitudModel[]> {
+    return this.http.get<solicitudModel[]>(`${this.urlBase}clientes/${id}/solicitud-servicio-funerarios?filter={"limit":1,"order":"fechaSolicitud DESC"}`);
   }
 
   /**
@@ -43,41 +43,29 @@ export class SolicitudService {
   }
 
   EditarRegistro(registro: solicitudModel): Observable<solicitudModel> {
-    return this.http.put<solicitudModel>(`${this.urlBase}sede/${registro.id}`, registro);
+    return this.http.put<solicitudModel>(`${this.urlBase}solicitud-servicio-funerario/${registro.id}`, registro);
   }
 
   BuscarRegistro(id: number): Observable<solicitudModel> {
-    return this.http.get<solicitudModel>(`${this.urlBase}sede/${id}`);
+    return this.http.get<solicitudModel>(`${this.urlBase}solicitud-servicio-funerario/${id}`);
   }
 
   EliminarRegistro(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.urlBase}sede/${id}`);
+    return this.http.delete<any>(`${this.urlBase}solicitud-servicio-funerario/${id}`);
   }
 
   listarRegistrosPaginados2(pag: number): Observable<PaginadorSolicitudModel> {
     let id = this.BuscarRegistro(1)
     let limit = ConfiguracionPaginacion.registroPorPagina;
     let skip = (pag - 1) * limit;
-    return this.http.get<PaginadorSolicitudModel>(`${this.urlBase}sedes/${id}/salas?filter={"limit": ${limit}, "skip": ${skip}, "order": "id DESC"}`);
+    return this.http.get<PaginadorSolicitudModel>(`${this.urlBase}solicitud-servicio-funerarios/${id}/salas?filter={"limit": ${limit}, "skip": ${skip}, "order": "id DESC"}`);
   } 
 
-  listarSedesSalas(sedeId: number): Observable<solicitudModel[]> {
-    console.log(sedeId);
-    return this.http.get<solicitudModel[]>(`${this.urlBase}/sedes/${sedeId}/salas`)
+  listarSedesSalas(id: number): Observable<solicitudModel[]> {
+    console.log(id);
+    return this.http.get<solicitudModel[]>(`${this.urlBase}/solicitud-servicio-funerarios/${id}/clientes`)
   } 
 
-  getSalas(sedeId: number): void {
-    this.http.get<solicitudModel[]>(`${this.urlBase}/sedes/${sedeId}/salas`)
-      .subscribe(
-        clientes => {
-          this.clientes = clientes;
-          console.log(this.clientes); // Puedes verificar los datos en la consola
-        },
-        error => {
-          console.error('Error al obtener las salas:', error);
-        }
-      );
-  }
 
   listarBeneficiariosCliente(idCliente: number): Observable<BeneficiarioModel[]> {
     return this.http.get<BeneficiarioModel[]>(`${this.urlBase}clientes/${idCliente}/beneficiarios`);

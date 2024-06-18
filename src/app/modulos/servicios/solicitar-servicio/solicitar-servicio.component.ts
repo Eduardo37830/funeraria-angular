@@ -4,13 +4,16 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SolicitudService } from '../../../servicios/parametros/solicitud.service';
 import { solicitudModel } from '../../../modelos/solicitudServicioFunerario.model';
 import { SeguridadService } from '../../../servicios/seguridad.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-solicitar-servicio',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
+
   ],
   templateUrl: './solicitar-servicio.component.html',
   styleUrls: ['./solicitar-servicio.component.css']
@@ -19,10 +22,13 @@ export class SolicitarServicioComponent implements OnInit {
   solicitudForm: FormGroup;
   beneficiarios: any[] = [];
 
+  idCliente: number = 0;
+
   constructor(
     private fb: FormBuilder,
     private solicitudService: SolicitudService,
     private seguridadService: SeguridadService,
+    private router: Router,
   ) {
     this.solicitudForm = this.fb.group({
       fechaSolicitud: ['', Validators.required],
@@ -34,7 +40,7 @@ export class SolicitarServicioComponent implements OnInit {
   }
 
   idSeguridad: string = this.seguridadService.ObtenerDatosUsuarioLS()!._id!;
-  idCliente: number = 0; 
+   
 
   ngOnInit(): void {
     this.obtenerDatosUsuario();
@@ -99,6 +105,7 @@ export class SolicitarServicioComponent implements OnInit {
         console.log('Solicitud enviada con éxito', nuevaSolicitud, respuesta);
         this.solicitudForm.reset();
         this.setFechaActual(); 
+        this.router.navigate(['/servicios/cliente', this.idCliente, 'aceptar-solicitud']);
       },
       error: (error: any) => {
         console.error('Error al enviar la solicitud', error, JSON.stringify(error));

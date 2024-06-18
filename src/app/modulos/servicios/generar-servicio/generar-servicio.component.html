@@ -1,25 +1,24 @@
 <div class="bg-gray-100 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-lg w-full bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-      <h2 class="text-2xl font-bold text-center mb-4">Informacion del Plan</h2>
-      <form [formGroup]="fGroup" id="planForm" class="space-y-4" (ngSubmit)="onSubmit($event)">
-        <!-- Métodos de pago -->
-        <fieldset class="border border-gray-300 p-4 rounded-lg">
-          <legend class="text-lg font-semibold">Método de Pago</legend>
-          <div class="space-y-4">
-            <!-- Lista de Planes -->
-            <div *ngFor="let r of servicioFunerario" class="border border-gray-300 p-4 rounded-lg">
-              <p><span class="font-semibold">Nombre:</span> {{ r.tipoServicio }}</p>
-              <p><span class="font-semibold">Detalles:</span> {{ r.ubicacionDelCuerpo}}</p>
-              <p><span class="font-semibold">Tarifa:</span> {{ r.fechaSolicitud}}</p>
-            </div>
-          </div>
-        </fieldset>
-        <!-- Botones de acción -->
-        <div class="flex justify-between mt-4">
-          <button type="reset" class="btn bg-red-500 text-white py-2 px-4 rounded-lg">Cancelar</button>
-          <button type="submit" class="btn bg-blue-500 text-white py-2 px-4 rounded-lg">Guardar</button>
+  <div class="max-w-lg w-full bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+    <h2 class="text-2xl font-bold text-center mb-4">Información del Servicio Funerario</h2>
+    <div class="mt-8">
+      <h2 class="text-2xl font-bold text-center mb-4">Solicitudes de Servicio Funerario</h2>
+      <div *ngFor="let solicitud of listarRegistros" class="border border-gray-300 p-4 rounded-lg mb-4">
+        <p><span class="font-semibold">ID:</span> {{ solicitud.id }}</p>
+        <p><span class="font-semibold">Fecha de Solicitud:</span> {{ solicitud.fechaSolicitud | date }}</p>
+        <p><span class="font-semibold">Ubicación del Cuerpo:</span> {{ solicitud.ubicacionDelCuerpo }}</p>
+        <p><span class="font-semibold">Tipo de Servicio:</span> {{ solicitud.tipoServicio }}</p>
+        <p><span class="font-semibold">Estado:</span> {{ solicitud.estadoAceptado ? 'Aceptado' : 'Pendiente' }}</p>
+        <p><span class="font-semibold">ID Beneficiario:</span> {{ solicitud.idBeneficiario }}</p>
+        <p><span class="font-semibold">Cliente ID:</span> {{ solicitud.clienteId }}</p>
+        <div *ngIf="!solicitud.estadoAceptado" class="mt-4 text-center">
+          <button class="btn bg-blue-500 text-white py-2 px-4 rounded-lg">Aceptar</button>
         </div>
-      </form>
+      </div>
+      <div class="mt-8">
+        <button type="button" class="btn bg-blue-500 text-white mr-4" (click)="GuardarRegistro()">Guardar</button>
+        <a routerLink="/parametros/sedes/{{ sedeId }}/sala-listar" class="btn bg-red-500 text-white">Cancelar</a>
+      </div>
     </div>
   </div>
-  
+</div>

@@ -5,6 +5,7 @@ import { ServicioFunerarioModel } from '../../modelos/ServicoFunerario.model';
 import { Observable } from 'rxjs';
 import { ConfiguracionPaginacion } from '../../config/configuracion.paginacion';
 import { solicitudModel } from '../../modelos/solicitudServicioFunerario.model';
+import { SalaModel } from '../../modelos/sala.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,11 @@ export class ServicioFunerarioService {
   ) { } 
 
   AgregarRegistro(registro: ServicioFunerarioModel): Observable<ServicioFunerarioModel> {
-    return this.http.post<ServicioFunerarioModel>(`${this.urlBase}servicio-fenerario`, registro);
+    return this.http.post<ServicioFunerarioModel>(`${this.urlBase}servicio-funerario`, registro);
+  }
+
+  listarRegistro(): Observable<ServicioFunerarioModel[]> {
+    return this.http.get<ServicioFunerarioModel[]>(`${this.urlBase}servicio-funerario?filter={"limit":1,"order":"fecha DESC"}`);
   }
 
   /**
@@ -26,5 +31,9 @@ export class ServicioFunerarioService {
    */
   listarRegistros(id: number): Observable<solicitudModel> {
     return this.http.get<solicitudModel>(`${this.urlBase}solicitud-servicio-funerario/${id}`);
+  }
+
+  listarSalasDisponibles(): Observable<SalaModel[]> {
+    return this.http.get<SalaModel[]>(`${this.urlBase}salas-disponibles`);
   }
 }

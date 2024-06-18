@@ -3,7 +3,7 @@ export class ServicioFunerarioModel {
     traslado?: boolean;
     fecha?: Date;
     tipo?: string;
-    codigoServicio?: string;
-    solicitudId?: number;
+    codigoUnicoServicio?: string;
+    solicitudServicioFunerarioId?: number;
     salaId?: number;
 }
